@@ -519,3 +519,72 @@ Esta vista permite editar los datos de los usuarios. Por supuesto, es solo acces
 
 - En esta vista, el método para editar la información es diferente. Los datos aparecen sobre *inputs*, de manera que al hacer clic sobre ellos, aparecerá el cursor de edición.
 - Se pueden modificar todos los datos (especialmente el **'estado'** y el **'rol'** del usuario) excepto el email.
+
+### **Hist3b - Test de usuarios inicial**
+
+#### **Primer Test de Usabilidad**
+Tal y como hemos comentado en el apartado **'Diseño centrado en el usuario'**, una de las premisas de esta metodología consiste en realizar evaluaciones constantes para detectar los posibles problemas de usabilidad cuanto antes mejor. Por lo tanto, una buena idea es realizar un primer test de usabilidad.
+
+> **Información**  
+> Más adelante, hablaremos con más detalle de la usabilidad y las diferentes técnicas para evaluarla.  
+> Por el momento, os adelanto que la técnica más utilizada para evaluar la usabilidad son los **'tests de usuario'**.
+
+Estos consisten en crear una batería de acciones que el usuario debe realizar, para detectar si existe algún problema en la interacción con la aplicación. A continuación, vamos pidiendo a un usuario focal (una persona que esté dentro del target de usuarios a quien va dirigida la app) que realice cada tarea, mostrándole los bocetos que aparecerán en cada interacción. Por ejemplo, si hace clic sobre el ítem de menú **'login'**, le mostraremos el boceto de la página *'login'*.
+
+---
+
+### **Para este primer test hemos preparado las siguientes acciones:**
+
+#### **Suponiendo que eres un usuario no registrado:**
+1. Accede a la información general *'Acerca de'* de esta web.
+2. Regístrate.
+3. Inicia sesión.
+4. Modifica tu perfil añadiendo una imagen de avatar.
+5. Busca un proyecto llamado *'Tetris'*.
+6. Accede al detalle de este proyecto.
+7. Cierra sesión.
+
+#### **Suponiendo que eres un usuario con rol 'Desarrollador':**
+1. Crea un proyecto nuevo.
+2. Accede a la lista de tus proyectos.
+3. Muestra el detalle de tu nuevo proyecto.
+4. Edita tu proyecto cambiando la descripción.
+5. Borra tu proyecto.
+
+#### **Suponiendo que eres un usuario con rol 'Administrador':**
+1. Muestra la lista de proyectos.
+2. Borra un proyecto.
+3. Modifica el nombre de un proyecto.
+4. Muestra la lista de todos los usuarios registrados.
+5. Cambia el rol de uno de ellos.
+6. Modifica la imagen de su avatar.
+
+> **Nota**  
+> Las acciones del test de usuarios han sido realizadas por una persona de 20 años, con estudios universitarios y acostumbrada a navegar por la red y usar herramientas ofimáticas.
+
+---
+
+### **Conclusiones y modificaciones**
+De este primer test de usuario se desprenden las siguientes conclusiones:
+
+- La vista de proyectos en forma de tabla no es muy atractiva.
+- El usuario ha tenido dificultades a la hora de intentar modificar la imagen de avatar de un usuario.
+
+Para mejorar estos pequeños problemas de usabilidad, vamos a tomar las siguientes acciones:
+
+1. En la vista de proyectos, crearemos un par de botones para alternar entre ver los proyectos en forma de tabla o en forma de tarjetas.
+2. En la vista de administración de usuarios, añadiremos un pequeño icono (un lápiz) sobre la imagen del avatar del usuario para que se intuya que, al hacer clic sobre la imagen, se accede a la ventana de modificación de perfil.
+
+---
+
+### **Estos serían los bocetos actualizados:**
+
+#### **Vista de proyectos**
+*(Poner la imagen de los nuevos bocetos)*
+
+#### **Vista del Panel de administración de usuarios**
+*(Poner la imagen de los nuevos bocetos)*
+
+---
+
+Ahora que tenemos los bocetos creados y testeados, es el momento de pasar al siguiente nivel: El diseño de los *wireframes*.
