@@ -3766,3 +3766,1835 @@ _<!DOCTYPE html>_
 
    </body>  
 </html>
+
+# **Validaciones basadas en html**
+
+En HTML5, podemos realizar validaciones en formularios utilizando atributos y elementos específicos. Aquí tienes un resumen de cómo vamos a crear validaciones utilizando HTML5:
+
+- Atributo required: Puedes usar el atributo required en campos de entrada para asegurarte de que el usuario complete ese campo antes de enviar el formulario.
+
+<input type="text" name="nombre" required>
+
+- Atributo pattern: Puedes usar el atributo pattern junto con una expresión regular para validar el formato de entrada en un campo.
+
+<input type="text" name="telefono" pattern="[0-9]{10}" title="Ingresa un número de teléfono válido de 10 dígitos">
+
+- Atributo min y max: Para campos numéricos, puedes utilizar los atributos min y max para establecer rangos válidos.
+
+<input type="number" name="edad" min="18" max="99">
+
+- Atributo minlength y maxlength: Para campos numéricos, puedes utilizar los atributos min y max para establecer rangos válidos.
+
+<input type="password" name="pass" minlength="6" maxlength="99">
+
+- Atributo email: Puedes usar el atributo type="email" en un campo de entrada para asegurarte de que la entrada sea un formato de correo electrónico válido.
+
+<input type="email" name="correo">
+
+- Atributo url: Similar al atributo email, el atributo type="url" valida que la entrada sea una URL válida.
+
+<input type="url" name="sitio_web">
+
+- Elemento `<textarea>` con required: Al igual que con los campos de entrada, puedes usar el atributo required con el elemento `<textarea>` para asegurarte de que se ingrese texto.
+
+<textarea name="comentarios" required></textarea>
+
+- Elemento `<select>` con required: Puedes usar el atributo required con el elemento _select_ para asegurarte de que se seleccione una opción antes de enviar el formulario.
+
+<select name="pais" required>  
+ <option value="">Selecciona un país</option>  
+ <option value="mx">México</option>  
+ <option value="us">Estados Unidos</option>  
+</select>
+
+## **Definición de restricciones para nuestros formularios**
+
+Vamos a definir las validaciones para cada formulario y a continuación modificaremos el código para aplicarlas.
+
+### **Formulario de Registro**
+
+- El nombre es obligatorio
+- El apellido es opcional
+- Los campos email y contraseña son requeridos. Nombre y apellidos opcional
+- El email debe ser tipo un email correcto
+- La contraseña debe ser de 6 dígitos o más
+
+El código de este formulario sería algo así:
+
+formulario registro  
+_<!-- Formulario de registro -->_
+
+ <form action="" class="form border shadow-sm p-3">  
+    
+   *<!-- Nombre -->*  
+   <label for="nombre" class="form-label">Nombre:</label>  
+   <input required id="nombre" type="text" class="form-control" />  
+    
+   *<!-- Apellidos -->*  
+   <label for="apellidos" class="form-label">Apellidos:</label>  
+   <input id="apellidos" type="text" class="form-control" />  
+    
+   *<!-- Email -->*  
+   <label for="email" class="form-label">Email:</label>  
+   <input required id="email" type="email" class="form-control" />  
+    
+   *<!-- Contraseña -->*  
+   <label for="pass" class="form-label mt-3">Contraseña:</label>  
+   <input required id="pass" type="password" min="6" class="form-control" />  
+    
+   *<!-- Botón enviar -->*  
+   <input type="submit" class="btn btn-primary w-100 mt-3" value="Enviar" />  
+ </form>
+
+### **Formulario de inicio de sesión (Login)**
+
+- Los campos email y contraseña son requeridos.
+- El email debe ser tipo un email correcto
+- La contraseña debe ser de 6 dígitos o más
+
+Formulario de inicio de sesión  
+_<!-- Formulario de inicio de sesión (login) -->_
+
+ <form action="" class="form border shadow-sm p-3">  
+   *<!-- Email -->*  
+   <label for="email" class="form-label">Email:</label>  
+   <input required type="email" class="form-control" />
+
+_<!-- Contraseña -->_  
+ <label for="pass" class="form-label mt-3">Contraseña:</label>  
+ <input required id="pass" type="password" min="6" class="form-control" />
+
+_<!-- Recordar contraseña -->_
+
+   <div class="form-check mt-3">  
+     <input  
+       class="form-check-input"  
+       type="checkbox"  
+       value=""  
+       id="flexCheckChecked"  
+       checked  
+     />  
+     <label class="form-check-label" for="flexCheckChecked">  
+       Recordar sesión  
+     </label>  
+   </div>
+
+_<!-- Link a recordar contraseña -->_  
+ <a class="d-block text-end" href="#">¿Has olvidado tu contraseña?</a>
+
+_<!-- Botón Iniciar sesión -->_  
+ <input  
+     type="submit"  
+     class="btn btn-primary w-100 mt-3"  
+     value="Iniciar sesión"  
+   />
+
+ </form>
+
+### **Formulario para Editar perfil**
+
+- El nombre es obligatorio
+- El apellido es opcional
+- Los campos email y contraseña son requeridos.
+- El email debe ser tipo un email correcto
+- La contraseña debe ser de 6 dígitos o más
+- La url de la imagen debe ser de tipo url correcta, y es opcional
+
+Editar Perfil  
+_<!-- Formulario de edición de perfil -->_
+
+ <form action="">  
+   <div class="modal-dialog">  
+     <div class="modal-content">  
+       <div class="modal-header">  
+         <h1 class="modal-title fs-5" id="exampleModalLabel">  
+           Edición de perfil  
+         </h1>  
+         <button  
+           type="button"  
+           class="btn-close"  
+           data-bs-dismiss="modal"  
+           aria-label="Close"  
+         ></button>  
+       </div>  
+       <div class="modal-body">  
+         <div class="form border shadow-sm p-3">  
+           <div class="m-1" style="max-width: 400px">  
+             <div class="imgPerfil border shadow-sm p-3 mb-3">  
+               <div  
+                 class="imagen mx-auto mb-1 rounded-circle"  
+                 style="  
+                   background-image: url(.images/avatar.svg);  
+                   width: 200px;  
+                   height: 200px;  
+                   background-size: cover;  
+                   background-position: center;  
+                 "  
+               ></div>  
+                
+               *<!-- Imagen de perfil -->*  
+               <label for="imagen" class="form-label mt-3">URL imagen:</label>  
+               <input  
+                 id="imagen"  
+                 type="url"  
+                 class="form-control"  
+                 value="http://imagenavatar.png"  
+               />  
+             </div>
+
+             <div class="">
+
+               *<!-- Nombre -->*
+               <label for="nombre" class="form-label">Nombre:</label>
+               <input required id="nombre" type="text" class="form-control" />
+
+               *<!-- Apellidos -->*
+               <label for="apellidos" class="form-label">Apellidos:</label>
+               <input id="apellidos" type="text" class="form-control" />
+
+               *<!-- Email -->*
+               <label for="email" class="form-label">Email:</label>
+               <input required id="email" type="email" class="form-control" />
+
+               *<!-- Contraseña -->*
+               <label for="pass" class="form-label mt-3">Contraseña:</label>
+               <input required id="pass" type="password" min="6" class="form-control" />
+             </div>
+           </div>
+         </div>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+           Cancelar
+         </button>
+         <button type="button" class="btn btn-primary">Guardar cambios</button>
+       </div>
+     </div>
+
+   </div>  
+ </form>
+
+### **Formulario Nuevo proyecto / Editar proyecto**
+
+- El nombre y estado son obligatorios
+- La fecha debe ser de tipo fecha
+- El enlace debe ser url correcta
+- El repositorio debe ser url correcta
+- La imagen debe ser url correcta
+
+Formulario Nuevo proyecto  
+_<!-- Formulario nuevo proyecto -->_
+
+ <form action="" class="form">  
+    
+   *<!-- Nombre proyecto -->*  
+   <label class="form-label" for="nombre"><strong>Nombre: </strong></label>  
+   <input required id="nombre" type="text" value="Nombre Autor" class="form-control" />  
+    
+   *<!-- Descripción -->*  
+   <label class="form-label mt-2" for="descripcion"  
+     ><strong>Descripción: </strong></label  
+   >  
+   <textarea id="descripcion" class="form-control" rows="4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recusandae labore at voluptatem tempore incidunt distinctio eaque? Est aspernatur laudantium itaque ullam numquam autem dolor quia amet eum consectetur.</textarea>  
+    
+   *<!-- Estado -->*  
+   <label class="form-label mt-2" for="estado"><strong>Estado: </strong></label>  
+   <select required id="estado" class="form-control">  
+     <option value="estado">estado</option>  
+     <option value="otro estado">otro estado</option>  
+   </select>
+
+_<!-- Fecha -->_  
+ <label class="form-label mt-2" for="fecha"><strong>Fecha: </strong></label>  
+ <input id="fecha" type="date" class="form-control" value="12/12/2023"/>
+
+_<!-- Enlace al proyecto -->_  
+ <label class="form-label mt-2" for="enlace"><strong>Enlace: </strong></label>  
+ <input id="enlace" type="url" class="form-control" value="http://enlace.com" />
+
+_<!-- Repositorio -->_  
+ <label class="form-label mt-2" for="repositorio"  
+     ><strong>Repositorio: </strong></label
+
+>    <input id="repositorio" type="text" class="form-control" value="user.github.com/123456" />
+
+_<!-- Submit -->_  
+ <input type="submit" class="btn btn-success mt-3" value="Subir proyecto">
+
+ </form>  
+Formulario editar proyecto  
+<form action="" class="">  
+ <div class="row mt-2">  
+   <div class="col-12 col-md-4 pt-2 mb-3">  
+     <img src=".images/juego.jpg" alt="" class="img-fluid" />  
+     <label class="form-label mt-2" for="urlImagen"  
+       ><strong>URL imagen: </strong></label  
+     >  
+     <input  
+       id="urlImagen"  
+       type="text"  
+       class="form-control"  
+       value="http://enlaceImagen.com"  
+     />  
+   </div>  
+   <div class="col-12 col-md-8">  
+     *<!-- Formulario nuevo proyecto -->*
+
+     *<!-- Nombre proyecto -->*
+     <label class="form-label" for="nombre"><strong>Nombre: </strong></label>
+     <input
+       required
+       id="nombre"
+       type="text"
+       value="Nombre Autor"
+       class="form-control"
+     />
+
+     *<!-- Descripción -->*
+     <label class="form-label mt-2" for="descripcion"
+       ><strong>Descripción: </strong></label
+     >
+     <textarea id="descripcion" class="form-control" rows="4">
+       Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recusandae labore at voluptatem tempore incidunt distinctio eaque? Est aspernatur laudantium itaque ullam numquam autem dolor quia amet eum consectetur.</textarea
+     >
+
+     *<!-- Estado -->*
+     <label class="form-label mt-2" for="estado"
+       ><strong>Estado: </strong></label
+     >
+     <select required id="estado" class="form-control">
+       <option value="estado">estado</option>
+       <option value="otro estado">otro estado</option>
+     </select>
+
+     *<!-- Fecha -->*
+     <label class="form-label mt-2" for="fecha"
+       ><strong>Fecha: </strong></label
+     >
+     <input id="fecha" type="date" class="form-control" value="12/12/2023" />
+
+     *<!-- Enlace al proyecto -->*
+     <label class="form-label mt-2" for="enlace"
+       ><strong>Enlace: </strong></label
+     >
+     <input
+       id="enlace"
+       type="url"
+       class="form-control"
+       value="http://enlace.com"
+     />
+
+     *<!-- Repositorio -->*
+     <label class="form-label mt-2" for="repositorio"
+       ><strong>Repositorio: </strong></label
+     >
+     <input
+       id="repositorio"
+       type="text"
+       class="form-control"
+       value="user.github.com/123456"
+     />
+
+     *<!-- Submit -->*
+     <input
+       type="submit"
+       class="btn btn-success mt-3"
+       value="Subir proyecto"
+     />
+
+   </div>  
+ </div>  
+</form>
+
+### **Formulario Editar usuarios desde Admin**
+
+- El nombre es obligatorio
+- El apellido es opcional
+- Los campos email y contraseña son requeridos.
+- El email debe ser tipo un email correcto
+- La contraseña debe ser de 6 dígitos o más
+- La url de la imagen debe ser de tipo url correcta, y es opcional
+
+Formulario editar usuario desde admin
+
+<form action="">  
+ <td>  
+   <div class="containerImagen">  
+     <div  
+       class="rounded-circle d-flex align-items-end justify-content-end"  
+       style="  
+         background-image: url(.images/avatar.svg);  
+         width: 50px;  
+         height: 50px;  
+         background-size: cover;  
+         background-position: center;  
+       "  
+     >  
+       <i class="btn btn-success btn-sm rounded-circle bi bi-pencil"></i>  
+     </div>  
+   </div>  
+ </td>  
+ <td>  
+   *<!-- URL imagen -->*  
+   <input  
+     type="url"  
+     class="form-control form-control-sm"  
+     value="http://imagen.com"  
+   />  
+ </td>  
+ <td>  
+   *<!-- email -->*  
+   <input  
+     required  
+     type="email"  
+     class="form-control form-control-sm"  
+     value="email@email.com"  
+   />  
+ </td>  
+ <td>  
+   <input  
+     required  
+     type="text"  
+     class="form-control form-control-sm"  
+     value="Nombre usuario"  
+   />  
+ </td>  
+ <td>  
+   <input  
+     type="text"  
+     class="form-control form-control-sm"  
+     value="Apellidos usuario"  
+   />  
+ </td>
+
+ <td>  
+   <input  
+     type="date"  
+     class="form-control form-control-sm"  
+     value="12/12/2023 proyecto"  
+   />  
+ </td>  
+ <td>  
+   <select class="form-control form-control-sm" name="" id="">  
+     <option value="1">opción</option>  
+     <option value="2">opción2</option>  
+   </select>  
+ </td>  
+ <td>  
+   <select class="form-control form-control-sm" name="" id="">  
+     <option value="1">opción</option>  
+     <option value="2">opción2</option>  
+   </select>  
+ </td>  
+ <td>  
+   <button type="submit" class="btn btn-sm btn-success">  
+     Actualizar  
+   </button>  
+ </td>  
+ <td><i class="btn btn-sm btn-outline-danger bi bi-trash3"></i></td>  
+</form>
+
+Estas serían todas las validaciones utilizando las caracteristicas de html5.
+
+La respuesta del navegador cuando intentamos enviar un formulario con campos que no cumplen su condición establecida difiere dependiendo del navegador.
+
+_Ejemplo de visualización de un formulario que no valida utilizando Google Chrome_ ![Validación según Chrome](https://carrebola.github.io/vanillaPill/assets/images/validacionChrome-560f58a277517200d28ee3c5f3017f1c.png)
+
+Para evitar este problema podemos utilizar el sistema de validación que nos ofrece Bootstrap. Este sistema de validación implica utilizar algo de javascript, tal y como veremos en la siguiente tarea.
+
+# **Usando Bootstrap para la validación**
+
+En el apartado anterior hemos definido las reglas de validación de nuestros formularios y hemos aplicado las restricciones utilizando propiedades de html5 en los diferentes campos.
+
+Este sistema, aunque muy útil, presenta un problema: no todos los navegadores muestran los mensajes de validación de la misma manera, y esto a veces puede interferir en el funcionamiento de nuestra aplicación.
+
+Para evitar este inconveniente vamos a utilizar el sistema de validación de Bootstrap que, aunque no es perfecto (presenta algunos problemas de accesibilidad), mejorará el aspecto y control de los mensajes cuando el navegador nos informe de errores.
+
+## **¿Cómo funciona? Formulario de inicio de sesión**
+
+Para mostrar como funciona vamos a utilizar el formulario de inicio de sesión. Te muestro el código tal y como está ahora:
+
+Form Inicio Sesión:
+
+_<!-- Formulario de inicio de sesión (login) -->_
+
+<form action="" class="form border shadow-sm p-3">  
+ *<!-- Email -->*  
+ <label for="email" class="form-label">Email:</label>  
+ <input required type="email" class="form-control" />
+
+_<!-- Contraseña -->_  
+ <label for="pass" class="form-label mt-3">Contraseña:</label>  
+ <input required minlength="6" id="pass" type="password" class="form-control" />
+
+_<!-- Recordar contraseña -->_
+
+ <div class="form-check mt-3">  
+   <input  
+     class="form-check-input"  
+     type="checkbox"  
+     value=""  
+     id="flexCheckChecked"  
+     checked  
+   />  
+   <label class="form-check-label" for="flexCheckChecked">  
+     Recordar sesión  
+   </label>  
+ </div>
+
+_<!-- Link a recordar contraseña -->_  
+ <a class="d-block text-end" href="#">¿Has olvidado tu contraseña?</a>
+
+_<!-- Botón Iniciar sesión -->_  
+ <input  
+   type="submit"  
+   class="btn btn-primary w-100 mt-3"  
+   value="Iniciar sesión"  
+ />
+
+</form>
+
+1. En primer lugar necesitamos deshabilitar la validación de html5. Para ello añadiremos a la etiqueta `<form>` el atributo `novalidate`
+2. <form novalidate action="" class="form border shadow-sm p-3">
+3. Vamos ahora a añadir los mensajes de error que se mostrarán cuando un campo no valide correctamente. En este formulario el email debe tener un formato correcto y la contraseña debe tener un mínimo de 6 caracteres, y lógicamente, los campos no pueden estar vacíos.
+
+_<!-- Email -->_  
+ <label for="email" class="form-label">Email:</label>  
+ <input required type="email" class="form-control" />
+
+ <div class="invalid-feedback">  
+   El formato del email no es correcto  
+ </div>  
+ *<!-- Contraseña -->*  
+ <label for="pass" class="form-label mt-3">Contraseña:</label>  
+ <input required minlength="6" id="pass" type="password" class="form-control" />  
+ <div class="invalid-feedback">  
+     La contraseña debe tener como mínimo 6 caracteres  
+ </div>
+
+Ahora lo que haremos, mediante javascript, será:
+
+1. Capturar el formulario en una variable
+2. detectar cuando se intenta enviar el formulario (escuchando el evento submit)
+3. Comprobar si el formulario valida correctamente. Si no valida
+   1. Detenemos el evento submit para que no se intente enviar el formulario
+   2. Y añadimos la clase no validate al formulario. Esto hará que se muestren los mensajes de error.
+
+Este sería el código js resultante. Recuerda que debes incluirlo al final de la página, antes de de cerrar el body, mediante una etiqueta `<script>`
+
+login.html  
+_<!-- Script para la validación del formulario -->_
+
+<script>  
+ *//Capturamos el formulario en una variable*  
+ *const* formulario = document.querySelector("form")  
+ *//Detectamos su evento submit (enviar)*  
+ formulario.addEventListener("submit", (event) => {  
+   *//Comprobamos si el formulario no valida*  
+   *if* (!formulario.checkValidity()) {  
+     *//Detenemos el evento enviar (submit)*  
+     event.preventDefault()  
+     event.stopPropagation()  
+   }  
+   *//Y añadimos la clase 'was-validate' para que se muestren los mensajes*  
+   formulario.classList.add('was-validated')  
+ });  
+</script>
+
+Aquí puedes ver como se mostraría un error de validación usando este método:
+
+![Error de validación](https://carrebola.github.io/vanillaPill/assets/images/validacionChromeError-4ff5f28906b13b7a11c7260eaa3e4317.png)
+
+Ahora vamos a hacer el mismo procedimiento con el resto de páginas
+
+## **Registro**
+
+<!-- Formulario de registro -->
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/yeti/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
+    <link rel="stylesheet" href="styles.css" />
+    <title>Registro</title>
+
+  </head>
+  <body class="pt-5" style="overflow-x: hidden; padding-bottom: 100px">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="#"
+            ><img
+              src="https://carrebola.github.io/vanillaPill/img/logo.svg"
+              alt=""
+              width="30"
+              height="24"
+              class="d-inline-block align-text-top"
+            />
+            Vanilla Games</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#"
+                  >TOP5 Proyectos</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">A cerca de</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+              <li class="nav-item">
+                <button class="ms-2 btn btn-success">
+                  Iniciar sesión
+                  <i class="bi bi-box-arrow-in-right"></i>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <h1 class="mt-5 text-center">Registro</h1>
+        <div class="m-5 mx-auto" style="max-width: 400px">
+          <!-- Formulario de registro -->
+          <form novalidate action="" class="form border shadow-sm p-3">
+            <!-- Nombre -->
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input required id="nombre" type="text" class="form-control" />
+            <!-- Apellidos -->
+            <label for="apellidos" class="form-label">Apellidos:</label>
+            <input id="apellidos" type="text" class="form-control" />
+            <!-- Email -->
+            <label for="email" class="form-label">Email:</label>
+            <input required type="email" class="form-control" />
+            <div class="invalid-feedback">
+              El formato del email no es correcto
+            </div>
+            <!-- Contraseña -->
+            <label for="pass" class="form-label mt-3">Contraseña:</label>
+            <input
+              required
+              minlength="6"
+              id="pass"
+              type="password"
+              class="form-control"
+            />
+            <div class="invalid-feedback">
+              La contraseña debe tener como mínimo 6 caracteres
+            </div>
+            <!-- Botón enviar -->
+            <input
+              type="submit"
+              class="btn btn-primary w-100 mt-3"
+              value="Enviar"
+            />
+          </form>
+        </div>
+      </div>
+    </main>
+    <footer class="">
+      <nav class="navbar bg-secondary fixed-bottom small">
+        <div class="container">
+          <a class="navbar-brand" href="http://www.fpllefia.com">
+            <img
+              src="https://carrebola.github.io/vanillaPill/img/logo.svg"
+              alt="fpllefia"
+              width="30"
+              height="24"
+              class="d-inline-block align-text-top"
+            />
+            FPLlefià
+          </a>
+          <span class="navbar-text">@Texto de header</span>
+          <a href="#" class="nav-link">Vínculo header</a>
+        </div>
+      </nav>
+    </footer>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Script para la validación del formulario -->
+    <script>
+      //Capturamos el formulario en una variable
+      const formulario = document.querySelector("form");
+      //Detectamos su evento submit (enviar)
+      formulario.addEventListener("submit", (event) => {
+        //Comprobamos si el formulario no valida
+        if (!formulario.checkValidity()) {
+          //Detenemos el evento enviar (submit)
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        //Y añadimos la clase 'was-validate' para que se muestren los mensajes
+        formulario.classList.add("was-validated");
+      });
+    </script>
+  </body>
+</html>
+
+## **Editar Perfil**
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/yeti/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <title>Prototipos vanilla games</title>
+
+  </head>
+  <body class="pt-5" style="overflow-x: hidden; padding-bottom: 100px">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="#"
+            ><img
+              src="https://carrebola.github.io/vanillaPill/img/logo.svg"
+              alt=""
+              width="30"
+              height="24"
+              class="d-inline-block align-text-top"
+            />
+            Vanilla Games</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Menú general -->
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#"
+                  >TOP5 Proyectos</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">A cerca de</a>
+              </li>
+            </ul>
+            <!-- Menú ROL -->
+            <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#"
+                  >PROYECTOS</a
+                >
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="https://www.svgrepo.com/show/57853/avatar.svg"
+                    alt=""
+                    width="25"
+                  />
+                </a>
+                <!-- Menú usuario -->
+                <ul
+                  class="dropdown-menu me-0"
+                  style="left: -100px; width: 100px"
+                >
+                  <li class="text-light text-center p-2">
+                    <p>user@email.com</p>
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <button
+                      type="button"
+                      class="dropdown-item"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                    >
+                      Editar perfil
+                    </button>
+                  </li>
+                  <li><a class="dropdown-item" href="#">Otra acción</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- VEntana edición perfil -->
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <!-- Formulario de edición de perfil -->
+        <form novalidate action="">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  Edición de perfil
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="form border shadow-sm p-3">
+                  <div class="m-1" style="max-width: 400px">
+                    <div class="imgPerfil border shadow-sm p-3 mb-3">
+                      <div
+                        class="imagen mx-auto mb-1 rounded-circle"
+                        style="
+                          background-image: url(.images/avatar.svg);
+                          width: 200px;
+                          height: 200px;
+                          background-size: cover;
+                          background-position: center;
+                        "
+                      ></div>
+                      <!-- Imagen de perfil -->
+                      <label for="imagen" class="form-label mt-3"
+                        >URL imagen:</label
+                      >
+                      <input
+                        id="imagen"
+                        type="url"
+                        class="form-control"
+                        value="http://imagenavatar.png"
+                      />
+                      <div class="invalid-feedback">
+                        El formato url no es correcto
+                      </div>
+                    </div>
+                    <div class="">
+                      <!-- Nombre -->
+                      <label for="nombre" class="form-label">Nombre:</label>
+                      <input
+                        required
+                        id="nombre"
+                        type="text"
+                        class="form-control"
+                      />
+                      <!-- Apellidos -->
+                      <label for="apellidos" class="form-label"
+                        >Apellidos:</label
+                      >
+                      <input id="apellidos" type="text" class="form-control" />
+                      <!-- Email -->
+                      <label for="email" class="form-label">Email:</label>
+                      <input required type="email" class="form-control" />
+                      <div class="invalid-feedback">
+                        El formato del email no es correcto
+                      </div>
+                      <!-- Contraseña -->
+                      <label for="pass" class="form-label mt-3"
+                        >Contraseña:</label
+                      >
+                      <input
+                        required
+                        minlength="6"
+                        id="pass"
+                        type="password"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cancelar
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Guardar cambios
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <h1 class="mt-5">Modal para editar perfil en header</h1>
+        <!-- Button trigger modal -->
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          Launch demo modal
+        </button>
+      </div>
+    </main>
+    <footer class="">
+      <nav class="navbar bg-secondary fixed-bottom small">
+        <div class="container">
+          <a class="navbar-brand" href="http://www.fpllefia.com">
+            <img
+              src="https://carrebola.github.io/vanillaPill/img/logo.svg"
+              alt="fpllefia"
+              width="30"
+              height="24"
+              class="d-inline-block align-text-top"
+            />
+            FPLlefià
+          </a>
+          <span class="navbar-text">@Texto de header</span>
+          <a href="#" class="nav-link">Vínculo header</a>
+        </div>
+      </nav>
+    </footer>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Script para la validación del formulario -->
+    <script>
+      //Capturamos el formulario en una variable
+      const formulario = document.querySelector("form");
+      //Detectamos su evento submit (enviar)
+      formulario.addEventListener("submit", (event) => {
+        //Comprobamos si el formulario no valida
+        if (!formulario.checkValidity()) {
+          //Detenemos el evento enviar (submit)
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        //Y añadimos la clase 'was-validate' para que se muestren los mensajes
+        formulario.classList.add("was-validated");
+      });
+    </script>
+  </body>
+</html>
+
+## **Nuevo Proyecto**
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/yeti/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
+    <link rel="stylesheet" href="styles.css" />
+    <title>Prototipos vanilla games</title>
+
+    <style>
+      /* Modificamos aspecto de nav-tabs y nav-links */
+      .nav-tabs,
+      .nav-link.active {
+        border-bottom: 0;
+        /* background-color: red; */
+      }
+    </style>
+
+  </head>
+  <body class="pt-5" style="overflow-x: hidden; padding-bottom: 100px">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="#"
+            ><img
+              src="https://carrebola.github.io/vanillaPill/img/logo.svg"
+              alt=""
+              width="30"
+              height="24"
+              class="d-inline-block align-text-top"
+            />
+            Vanilla Games</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#"
+                  >TOP5 Proyectos</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">A cerca de</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#"
+                  >PROYECTOS</a
+                >
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="https://carrebola.github.io/vanillaPill/img/logo.svg"
+                    alt=""
+                    width="25"
+                  />
+                </a>
+                <ul
+                  class="dropdown-menu me-0"
+                  style="left: -100px; width: 100px"
+                >
+                  <li class="text-light text-center p-2">
+                    <p>user@email.com</p>
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#">Acciónn</a></li>
+                  <li><a class="dropdown-item" href="#">Otra acción</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <h1 class="mt-5">Nuevo proyecto</h1>
+        <div class="d-flex justify-content-end">
+          <bottom class="btn btn-outline-secondary mt-5">
+            <i class="bi bi-arrow-bar-left" style="font-size: 1em"></i>
+            Volver</bottom
+          >
+        </div>
+        <div class="row mt-2">
+          <div class="col-12 col-md-4 pt-2 mb-3">
+            <img
+              src="https://carrebola.github.io/vanillaPill/img/logo.svg"
+              alt=""
+              class="img-fluid"
+            />
+          </div>
+          <div class="col-12 col-md-8">
+            <!-- Formulario nuevo proyecto -->
+            <form novalidate action="" class="form">
+              <!-- Nombre proyecto -->
+              <label class="form-label" for="nombre"
+                ><strong>Nombre: </strong></label
+              >
+              <input
+                required
+                id="nombre"
+                type="text"
+                value="Nombre Autor"
+                class="form-control"
+              />
+              <!-- Descripción -->
+              <label class="form-label mt-2" for="descripcion"
+                ><strong>Descripción: </strong></label
+              >
+              <textarea id="descripcion" class="form-control" rows="4">
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recusandae labore at voluptatem tempore incidunt distinctio eaque? Est aspernatur laudantium itaque ullam numquam autem dolor quia amet eum consectetur.</textarea
+              >
+              <!-- Estado -->
+              <label class="form-label mt-2" for="estado"
+                ><strong>Estado: </strong></label
+              >
+              <select required id="estado" class="form-control">
+                <option value="estado">estado</option>
+                <option value="otro estado">otro estado</option>
+              </select>
+              <!-- Fecha -->
+              <label class="form-label mt-2" for="fecha"
+                ><strong>Fecha: </strong></label
+              >
+              <input
+                id="fecha"
+                type="date"
+                class="form-control"
+                value="12/12/2023"
+              />
+              <div class="invalid-feedback">
+                El formato de la fecha es incorrecto
+              </div>
+              <!-- Enlace al proyecto -->
+              <label class="form-label mt-2" for="enlace"
+                ><strong>Enlace: </strong></label
+              >
+              <input
+                id="enlace"
+                type="url"
+                class="form-control"
+                value="http://enlace.com"
+              />
+              <div class="invalid-feedback">
+                El enlace debe ser url correcta
+              </div>
+              <!-- Repositorio -->
+              <label class="form-label mt-2" for="repositorio"
+                ><strong>Repositorio: </strong></label
+              >
+              <input
+                id="repositorio"
+                type="url"
+                class="form-control"
+                value="user.github.com/123456"
+              />
+              <div class="invalid-feedback">
+                El repositorio debe ser url correcta
+              </div>
+              <!-- Submit -->
+              <input
+                type="submit"
+                class="btn btn-success mt-3"
+                value="Subir proyecto"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="">
+      <nav class="navbar bg-secondary fixed-bottom small">
+        <div class="container">
+          <a class="navbar-brand" href="http://www.fpllefia.com">
+            <img
+              src="https://carrebola.github.io/vanillaPill/img/logo.svg"
+              alt="fpllefia"
+              width="30"
+              height="24"
+              class="d-inline-block align-text-top"
+            />
+            FPLlefià
+          </a>
+          <span class="navbar-text">@Texto de header</span>
+          <a href="#" class="nav-link">Vínculo header</a>
+        </div>
+      </nav>
+    </footer>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      //Capturamos el formulario en una variable
+      const formulario = document.querySelector("form");
+      //Detectamos su evento submit (enviar)
+      formulario.addEventListener("submit", (event) => {
+        //Comprobamos si el formulario no valida
+        if (!formulario.checkValidity()) {
+          //Detenemos el evento enviar (submit)
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        //Y añadimos la clase 'was-validate' para que se muestren los mensajes
+        formulario.classList.add("was-validated");
+      });
+    </script>
+  </body>
+</html>
+
+## **Editar Proyecto**
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/yeti/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Prototipos vanilla games</title>
+    <style>
+      /* Modificamos aspecto de nav-tabs y nav-links */
+      .nav-tabs,
+      .nav-link.active {
+        border-bottom: 0;
+        /* background-color: red; */
+      }
+    </style>
+  </head>
+  <body class="pt-5" style="overflow-x: hidden; padding-bottom: 100px">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="#"
+            ><img
+              src="https://carrebola.github.io/vanillaPill/img/logo.svg"
+              alt=""
+              width="30"
+              height="24"
+              class="d-inline-block align-text-top"
+            />
+            Vanilla Games</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#"
+                  >TOP5 Proyectos</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">A cerca de</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#"
+                  >PROYECTOS</a
+                >
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="https://www.svgrepo.com/show/57853/avatar.svg"
+                    alt=""
+                    width="25"
+                  />
+                </a>
+                <ul
+                  class="dropdown-menu me-0"
+                  style="left: -100px; width: 100px"
+                >
+                  <li class="text-light text-center p-2">
+                    <p>user@email.com</p>
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#">Acciónn</a></li>
+                  <li><a class="dropdown-item" href="#">Otra acción</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <h1 class="mt-5">Edición de proyecto</h1>
+        <div class="d-flex justify-content-end">
+          <bottom class="btn btn-outline-secondary mt-5">
+            <i class="bi bi-arrow-bar-left" style="font-size: 1em"></i>
+            Volver</bottom
+          >
+        </div>
+        <form novalidate action="" class="">
+          <div class="row mt-2">
+            <div class="col-12 col-md-4 pt-2 mb-3">
+              <img
+                src="https://carrebola.github.io/vanillaPill/img/logo.svg"
+                alt=""
+                class="img-fluid"
+              />
+              <label class="form-label mt-2" for="urlImagen"
+                ><strong>URL imagen: </strong></label
+              >
+              <input
+                id="urlImagen"
+                type="url"
+                class="form-control"
+                value="http://enlaceImagen.com"
+              />
+              <div class="invalid-feedback">
+                El formato de la fecha es incorrecto
+              </div>
+            </div>
+            <div class="col-12 col-md-8">
+              <!-- Formulario nuevo proyecto -->
+              <!-- Nombre proyecto -->
+              <label class="form-label" for="nombre"
+                ><strong>Nombre: </strong></label
+              >
+              <input
+                required
+                id="nombre"
+                type="text"
+                value="Nombre Autor"
+                class="form-control"
+              />
+              <!-- Descripción -->
+              <label class="form-label mt-2" for="descripcion"
+                ><strong>Descripción: </strong></label
+              >
+              <textarea id="descripcion" class="form-control" rows="4">
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recusandae labore at voluptatem tempore incidunt distinctio eaque? Est aspernatur laudantium itaque ullam numquam autem dolor quia amet eum consectetur.</textarea
+              >
+              <!-- Estado -->
+              <label class="form-label mt-2" for="estado"
+                ><strong>Estado: </strong></label
+              >
+              <select required id="estado" class="form-control">
+                <option value="estado">estado</option>
+                <option value="otro estado">otro estado</option>
+              </select>
+              <!-- Fecha -->
+              <label class="form-label mt-2" for="fecha"
+                ><strong>Fecha: </strong></label
+              >
+              <input
+                id="fecha"
+                type="date"
+                class="form-control"
+                value="12/12/2023"
+              />
+              <div class="invalid-feedback">
+                El formato de la fecha es incorrecto
+              </div>
+              <!-- Enlace al proyecto -->
+              <label class="form-label mt-2" for="enlace"
+                ><strong>Enlace: </strong></label
+              >
+              <input
+                id="enlace"
+                type="url"
+                class="form-control"
+                value="http://enlace.com"
+              />
+              <div class="invalid-feedback">
+                El enlace debe ser url correcta
+              </div>
+              <!-- Repositorio -->
+              <label class="form-label mt-2" for="repositorio"
+                ><strong>Repositorio: </strong></label
+              >
+              <input
+                id="repositorio"
+                type="url"
+                class="form-control"
+                value="user.github.com/123456"
+              />
+              <div class="invalid-feedback">
+                El repositorio debe ser url correcta
+              </div>
+              <!-- Submit -->
+              <input
+                type="submit"
+                class="btn btn-success mt-3"
+                value="Subir proyecto"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+    <footer class="">
+      <nav class="navbar bg-secondary fixed-bottom small">
+        <div class="container">
+          <a class="navbar-brand" href="http://www.fpllefia.com">
+            <img
+              src="https://carrebola.github.io/vanillaPill/img/logo.svg"
+              alt="fpllefia"
+              width="30"
+              height="24"
+              class="d-inline-block align-text-top"
+            />
+            FPLlefià
+          </a>
+          <span class="navbar-text">@Texto de header</span>
+          <a href="#" class="nav-link">Vínculo header</a>
+        </div>
+      </nav>
+    </footer>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      //Capturamos el formulario en una variable
+      const formulario = document.querySelector("form");
+      //Detectamos su evento submit (enviar)
+      formulario.addEventListener("submit", (event) => {
+        //Comprobamos si el formulario no valida
+        if (!formulario.checkValidity()) {
+          //Detenemos el evento enviar (submit)
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        //Y añadimos la clase 'was-validate' para que se muestren los mensajes
+        formulario.classList.add("was-validated");
+      });
+    </script>
+  </body>
+</html>
+
+## **Editar Usuarios desde Admin**
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/yeti/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Prototipos vanilla games</title>
+    <style>
+      /* Modificamos aspecto de nav-tabs y nav-links */
+      .nav-tabs,
+      .nav-link.active {
+        border-bottom: 0;
+        /* background-color: red; */
+      }
+    </style>
+  </head>
+  <body class="pt-5" style="overflow-x: hidden; padding-bottom: 100px">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="#"
+            ><img
+              src="https://carrebola.github.io/vanillaPill/img/logo.svg"
+              alt=""
+              width="30"
+              height="24"
+              class="d-inline-block align-text-top"
+            />
+            Vanilla Games</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#"
+                  >TOP5 Proyectos</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">A cerca de</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#"
+                  >PROYECTOS</a
+                >
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="https://www.svgrepo.com/show/57853/avatar.svg"
+                    alt=""
+                    width="25"
+                  />
+                </a>
+                <ul
+                  class="dropdown-menu me-0"
+                  style="left: -100px; width: 100px"
+                >
+                  <li class="text-light text-center p-2">
+                    <p>user@email.com</p>
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#">Acciónn</a></li>
+                  <li><a class="dropdown-item" href="#">Otra acción</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container-fluid">
+        <h1 class="mt-5">Panel de administración</h1>
+        <!-- tabs -->
+        <div class="row mt-5">
+          <div class="col-12">
+            <ul class="nav nav-tabs">
+              <li class="nav-item w-50">
+                <a class="nav-link active" aria-current="page" href="#"
+                  >Usuarios</a
+                >
+              </li>
+              <li class="nav-item w-50">
+                <a class="nav-link" href="#">Proyectos</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- tabla proyectos -->
+        <div class="border border-top-0 p-3">
+          <!-- buscador -->
+          <div class="row">
+            <div class="d-flex col-12 col-md-6 mb-3">
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="addon-wrapping"
+                  ><i class="bi bi-search"></i
+                ></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Buscador"
+                  aria-label="Username"
+                  aria-describedby="addon-wrapping"
+                />
+                <span class="input-group-text" id="addon-wrapping"
+                  ><i class="bi bi-x"></i
+                ></span>
+              </div>
+            </div>
+          </div>
+          <!-- tabla usuarios-->
+          <div class="col-12" style="overflow-x: auto">
+            <form novalidate action="">
+              <table
+                class="table table-hover align-middle mt-3"
+                style="min-width: 1200px"
+              >
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>
+                      URL imagen <span><i class="bi bi-caret-down"></i></span>
+                    </th>
+                    <th>
+                      Email <span><i class="bi bi-caret-down"></i></span>
+                    </th>
+                    <th>
+                      Nombre <span><i class="bi bi-caret-up"></i></span>
+                    </th>
+                    <th>
+                      Apellidos <span><i class="bi bi-caret-up"></i></span>
+                    </th>
+                    <th>
+                      Fecha <span><i class="bi bi-caret-up"></i></span>
+                    </th>
+                    <th>
+                      Rol <span><i class="bi bi-caret-up"></i></span>
+                    </th>
+                    <th>
+                      Estado <span><i class="bi bi-caret-up"></i></span>
+                    </th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>
+                    <div class="containerImagen">
+                      <div
+                        class="rounded-circle d-flex align-items-end justify-content-end"
+                        style="
+                          background-image: url(https://www.svgrepo.com/show/57853/avatar.svg);
+                          width: 50px;
+                          height: 50px;
+                          background-size: cover;
+                          background-position: center;
+                        "
+                      >
+                        <i
+                          class="btn btn-success btn-sm rounded-circle bi bi-pencil"
+                        ></i>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <!-- URL imagen -->
+                    <input
+                      type="url"
+                      class="form-control form-control-sm"
+                      value="http://imagen.com"
+                    />
+                    <div class="invalid-feedback">
+                      La url de la imagen debe ser de tipo url correcta
+                    </div>
+                  </td>
+                  <td>
+                    <!-- email -->
+                    <input
+                      required
+                      type="email"
+                      class="form-control form-control-sm"
+                      value="email@email.com"
+                    />
+                    <div class="invalid-feedback">
+                      El email debe ser tipo un email correcto
+                    </div>
+                  </td>
+                  <td>
+                    <input
+                      required
+                      type="text"
+                      class="form-control form-control-sm"
+                      value="Nombre usuario"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      value="Apellidos usuario"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="date"
+                      class="form-control form-control-sm"
+                      value="2023-12-12"
+                    />
+                  </td>
+                  <td>
+                    <select class="form-control form-control-sm" name="" id="">
+                      <option value="1">opción</option>
+                      <option value="2">opción2</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-control form-control-sm" name="" id="">
+                      <option value="1">opción</option>
+                      <option value="2">opción2</option>
+                    </select>
+                  </td>
+                  <td>
+                    <button type="submit" class="btn btn-sm btn-success">
+                      Actualizar
+                    </button>
+                  </td>
+                  <td>
+                    <i class="btn btn-sm btn-outline-danger bi bi-trash3"></i>
+                  </td>
+                </tr>
+              </table>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="">
+      <nav class="navbar bg-secondary fixed-bottom small">
+        <div class="container">
+          <a class="navbar-brand" href="http://www.fpllefia.com">
+            <img
+              src="https://carrebola.github.io/vanillaPill/img/logo.svg"
+              alt="fpllefia"
+              width="30"
+              height="24"
+              class="d-inline-block align-text-top"
+            />
+            FPLlefià
+          </a>
+          <span class="navbar-text">@Texto de header</span>
+          <a href="#" class="nav-link">Vínculo header</a>
+        </div>
+      </nav>
+    </footer>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Script para la validación del formulario -->
+    <script>
+      //Capturamos el formulario en una variable
+      const formulario = document.querySelector("form");
+      //Detectamos su evento submit (enviar)
+      formulario.addEventListener("submit", (event) => {
+        //Comprobamos si el formulario no valida
+        if (!formulario.checkValidity()) {
+          //Detenemos el evento enviar (submit)
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        //Y añadimos la clase 'was-validate' para que se muestren los mensajes
+        formulario.classList.add("was-validated");
+      });
+    </script>
+  </body>
+</html>
