@@ -4477,13 +4477,14 @@ Ahora vamos a hacer el mismo procedimiento con el resto de páginas
 
 ## **Editar Perfil**
 
+`
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
@@ -4491,21 +4492,16 @@ Ahora vamos a hacer el mismo procedimiento con el resto de páginas
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
-
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/yeti/bootstrap.min.css"
     />
-
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
     />
-
     <link rel="stylesheet" href="styles.css" />
-
     <title>Prototipos vanilla games</title>
-
   </head>
   <body class="pt-5" style="overflow-x: hidden; padding-bottom: 100px">
     <header>
@@ -4756,8 +4752,11 @@ Ahora vamos a hacer el mismo procedimiento con el resto de páginas
     </script>
   </body>
 </html>
+`
 
 ## **Nuevo Proyecto**
+
+`
 
 <!DOCTYPE html>
 <html lang="en">
@@ -4765,7 +4764,6 @@ Ahora vamos a hacer el mismo procedimiento con el resto de páginas
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -4773,21 +4771,17 @@ Ahora vamos a hacer el mismo procedimiento con el resto de páginas
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/yeti/bootstrap.min.css"
     />
-
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
     />
     <link rel="stylesheet" href="styles.css" />
-
     <link rel="stylesheet" href="styles.css" />
     <title>Prototipos vanilla games</title>
-
     <style>
       /* Modificamos aspecto de nav-tabs y nav-links */
       .nav-tabs,
@@ -4796,7 +4790,6 @@ Ahora vamos a hacer el mismo procedimiento con el resto de páginas
         /* background-color: red; */
       }
     </style>
-
   </head>
   <body class="pt-5" style="overflow-x: hidden; padding-bottom: 100px">
     <header>
@@ -5014,7 +5007,11 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recu
   </body>
 </html>
 
+`
+
 ## **Editar Proyecto**
+
+`
 
 <!DOCTYPE html>
 <html lang="en">
@@ -5277,7 +5274,11 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recu
   </body>
 </html>
 
+`
+
 ## **Editar Usuarios desde Admin**
+
+`
 
 <!DOCTYPE html>
 <html lang="en">
@@ -5598,3 +5599,4 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recu
     </script>
   </body>
 </html>
+`
