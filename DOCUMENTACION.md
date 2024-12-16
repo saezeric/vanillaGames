@@ -5194,7 +5194,7 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recu
 
 ## **Editar Usuarios desde Admin**
 
-`
+```
 
   <body class="pt-5" style="overflow-x: hidden; padding-bottom: 100px">
     <header>
@@ -5481,4 +5481,4 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recu
       });
     </script>
   </body>
-`
+```
