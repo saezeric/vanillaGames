@@ -4117,6 +4117,8 @@ Formulario editar proyecto
 
 Formulario editar usuario desde admin
 
+`
+
 <form action="">  
  <td>  
    <div class="containerImagen">  
@@ -4193,6 +4195,7 @@ Formulario editar usuario desde admin
  </td>  
  <td><i class="btn btn-sm btn-outline-danger bi bi-trash3"></i></td>  
 </form>
+`
 
 Estas serían todas las validaciones utilizando las caracteristicas de html5.
 
@@ -4216,6 +4219,7 @@ Para mostrar como funciona vamos a utilizar el formulario de inicio de sesión. 
 
 Form Inicio Sesión:
 
+`
 _<!-- Formulario de inicio de sesión (login) -->_
 
 <form action="" class="form border shadow-sm p-3">  
@@ -4253,13 +4257,15 @@ _<!-- Botón Iniciar sesión -->_
  />
 
 </form>
+`
 
 1. En primer lugar necesitamos deshabilitar la validación de html5. Para ello añadiremos a la etiqueta `<form>` el atributo `novalidate`
-2. <form novalidate action="" class="form border shadow-sm p-3">
+2. `<form novalidate action="" class="form border shadow-sm p-3">`
 3. Vamos ahora a añadir los mensajes de error que se mostrarán cuando un campo no valide correctamente. En este formulario el email debe tener un formato correcto y la contraseña debe tener un mínimo de 6 caracteres, y lógicamente, los campos no pueden estar vacíos.
 
-_<!-- Email -->_  
- <label for="email" class="form-label">Email:</label>  
+`
+_<!-- Email -->_
+<label for="email" class="form-label">Email:</label>  
  <input required type="email" class="form-control" />
 
  <div class="invalid-feedback">  
@@ -4271,6 +4277,7 @@ _<!-- Email -->_
  <div class="invalid-feedback">  
      La contraseña debe tener como mínimo 6 caracteres  
  </div>
+`
 
 Ahora lo que haremos, mediante javascript, será:
 
@@ -4312,7 +4319,9 @@ Ahora vamos a hacer el mismo procedimiento con el resto de páginas
 <!-- Formulario de registro -->
 
 <!DOCTYPE html>
-<html lang="es">
+
+< lang="es">
+
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -4473,36 +4482,12 @@ Ahora vamos a hacer el mismo procedimiento con el resto de páginas
       });
     </script>
   </body>
-</html>
+`
 
 ## **Editar Perfil**
 
 `
 
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/yeti/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-    />
-    <link rel="stylesheet" href="styles.css" />
-    <title>Prototipos vanilla games</title>
-  </head>
   <body class="pt-5" style="overflow-x: hidden; padding-bottom: 100px">
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -4751,46 +4736,12 @@ Ahora vamos a hacer el mismo procedimiento con el resto de páginas
       });
     </script>
   </body>
-</html>
 `
 
 ## **Nuevo Proyecto**
 
 `
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/yeti/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-    />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>Prototipos vanilla games</title>
-    <style>
-      /* Modificamos aspecto de nav-tabs y nav-links */
-      .nav-tabs,
-      .nav-link.active {
-        border-bottom: 0;
-        /* background-color: red; */
-      }
-    </style>
-  </head>
   <body class="pt-5" style="overflow-x: hidden; padding-bottom: 100px">
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -5005,7 +4956,6 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recu
       });
     </script>
   </body>
-</html>
 
 `
 
@@ -5013,39 +4963,6 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recu
 
 `
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/yeti/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-    />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>Prototipos vanilla games</title>
-    <style>
-      /* Modificamos aspecto de nav-tabs y nav-links */
-      .nav-tabs,
-      .nav-link.active {
-        border-bottom: 0;
-        /* background-color: red; */
-      }
-    </style>
-  </head>
   <body class="pt-5" style="overflow-x: hidden; padding-bottom: 100px">
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -5272,7 +5189,6 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recu
       });
     </script>
   </body>
-</html>
 
 `
 
@@ -5280,39 +5196,6 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recu
 
 `
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/yeti/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-    />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>Prototipos vanilla games</title>
-    <style>
-      /* Modificamos aspecto de nav-tabs y nav-links */
-      .nav-tabs,
-      .nav-link.active {
-        border-bottom: 0;
-        /* background-color: red; */
-      }
-    </style>
-  </head>
   <body class="pt-5" style="overflow-x: hidden; padding-bottom: 100px">
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -5598,5 +5481,4 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recu
       });
     </script>
   </body>
-</html>
 `
