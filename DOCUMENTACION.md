@@ -5412,3 +5412,673 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recu
     </script>
   </body>
 ```
+
+# **Entorno de desarrollo para contruir una SPA**
+
+¡Comenzamos el SPRINT 3: SPA!
+
+![Proyecto Github][https://carrebola.github.io/vanillaPill/assets/images/image-1-35ece1840a66eaf784069ce1fafb7713.png]
+
+Ha llegado la hora de darla caña a javascript.
+
+Hasta ahora, en lo que a front-end se refiere:
+
+1. Hemos definido las especificaciones de nuestro proyecto
+2. Lo hemos seccionado en versiones funcionales
+3. Hemos definido los casos de uso y su diagrama de casos de uso
+4. Hemos diseñado la interficie a partir de bocetos que hemos testeado y revisado
+5. Hemos maquetado los prototipos en html y Bootstrap
+6. Hemos definido validaciones y las hemos implementado a traves de html5, javascript y Bootstrap.
+
+## **¿Qué es una Single Page Aplication (SPA)?**
+
+"SPA" es la abreviatura de "Single Page Application", que se traduce al español como "Aplicación de Página Única". Una SPA es un tipo de aplicación web que funciona en una sola página, donde la mayoría de la interacción y navegación ocurre sin necesidad de recargar la página completa.  
+Más información...
+
+En una SPA, el contenido se carga inicialmente junto con la aplicación, y a medida que el usuario interactúa con la aplicación, se actualizan dinámicamente solo las partes necesarias de la página, en lugar de recargar todo el contenido. Esto permite una experiencia de usuario más fluida y rápida, ya que se reducen los tiempos de carga y se minimiza la necesidad de comunicación constante con el servidor.
+
+Las SPAs suelen utilizar tecnologías como JavaScript, AJAX (Asynchronous JavaScript and XML) y frameworks como React, Angular o Vue.js para gestionar la actualización de contenido en tiempo real sin recargar la página.
+
+## **¿Y como funciona?**
+
+El concepto es el siguiente:
+
+En nuestro servidor tendremos una página html `index.html` con algunos divs, pero prácticamente vacía, que cargará un archivo javascript `main.js`. Cuando visitamos esta página el navegador la cargará y ejecutará su javascript, como siempre.
+
+En el main.js tendremos unas funciones (en realidad objetos) que conforme se van ejecutando irán 'inyectando' fragmentos de html (con su javascript correspondiente) en la página index.html. A estos fragmentos los llamaremos 'COMPONENTES'.
+
+Estos componentes, a su vez, ejecutan sus scripts cargando, si corresponde, nuevos componentes. De esta manera se irá construyendo la página: Primero se carga el index.html, que llama al main.js, el cual inyecta el menu.js, la vista home.js, el footer.js, etc.
+
+Por eso la llamamos SPA, porque solo tenemos la página index.html, que irá construyendose en el navegador conforme se ejecute el javascript que lleva dentro.
+
+## **Hablemos de NodeJS**
+
+**![npm][https://cdn.freebiesupply.com/logos/large/2x/nodejs-1-logo-png-transparent.png]**
+
+Node.js es una plataforma de programación que nos va a permitir crear aplicaciones y sitios web usando el lenguaje de programación JavaScript.
+
+A diferencia de JavaScript que normalmente se ejecuta en navegadores web, Node.js permite que JavaScript también se ejecute en servidores, lo que lo hace útil para crear aplicaciones web de alto rendimiento y aplicaciones de red.
+
+Osea, que si antiguamente usabamos javascript ejecutándolo en el navegador (para realizar tareas como validación, mejorar la interactividad, etc) y php ejecutándolo en el servidor (para hacer consultas a bases de datos, gestionar archivos, etc.) ahora... ¡tachan! ... Podemos utilizar javascript tanto en el lado del cliente como en el lado del servidor, sustituyendo a otros lenguajes como php, python, java, etc.
+
+Nosotros no lo usaremos en el lado del servidor (aunque molaría mucho) porque ya estamos usando un servicio como back-end. Nuestro amado Supabase.  
+Node.js
+
+Node.js fue creado por Ryan Dahl y su desarrollo comenzó en 2009. Dahl presentó Node.js como un entorno de tiempo de ejecución (runtime) en la conferencia JSConf en 2009.
+
+La plataforma se basa en el motor de JavaScript V8 de Google, que también se utiliza en el navegador Google Chrome.
+
+Node.js se ha convertido en una tecnología muy influyente en el mundo del desarrollo web y ha ganado popularidad debido a su capacidad para construir aplicaciones web en tiempo real y escalables utilizando JavaScript tanto en el lado del servidor como en el cliente.
+
+Te explico algunas de las ventajas de usar Node.js con más detalle:
+
+Nos va a facilitar mucho el desarrollo frontend al permitir la utilización de JavaScript en ambos lados, cliente y servidor. Además:
+
+- Nos va a facilitar el manejo de dependencias (por ejemplo con _npm_)
+- Nos va a brindar herramientas de automatización en la creación de proyectos (por ejemplo con vite)
+- Y proporcionar una integración fluida con frameworks y bibliotecas frontend populares (como podrían ser React, Vue, etc.).
+
+## **Hablemos de 'npm'**
+
+**![npm][https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/1200px-Npm-logo.svg.png]**
+
+Como te iba diciendo, necesitamos instalar en nuestro ordenador Node.js para poder empezar a crear aplicaciones web basadas en javascript.
+
+A la vez que instalamos Nodejs, se nos va a instalar npm, que es un gestor de paquetes que nos va a ir de perlas, ya lo verás.  
+¿Qué es npm?
+
+NPM (Node Package Manager) es una herramienta que se utiliza en el entorno de Node.js para gestionar las bibliotecas y paquetes de código reutilizable que los desarrolladores utilizan en sus proyectos. En términos más simples, podrías pensar en NPM como una especie de "tienda" en línea donde puedes encontrar y descargar piezas de código que hacen tareas específicas.
+
+## **Hablemos de Vite**
+
+**![Vite][https://vitejs.dev/logo-with-shadow.png]**
+
+Y finalmente instalaremos Vite.
+
+¡Vite es una pasada! Con el podremos montar un proyecto en muy pocos segundos: nos creará el scaffolding (las carpetas de nuestra app), traducirá nuestro scss a css normal y el javascript más moderno a una versión que todos los navegadores entiendan, y muchas cosas más. Es una herramienta fantástica.  
+¿Qué es Vite?
+
+Vite es un entorno de desarrollo para construir aplicaciones web rápidas.
+
+Se enfoca en acelerar el proceso de desarrollo al recargar rápidamente los cambios y al aprovechar el sistema de módulos nativos de JavaScript.
+
+También es amigable con diferentes lenguajes y formatos, lo que facilita la creación de aplicaciones web modernas y eficientes.
+
+Algunas características clave de Vite incluyen:
+
+## **Hablemos de GitHub Pages**
+
+**![Github Pages][https://carrebola.github.io/vanillaPill/assets/images/githubpages-9039b1d24c0bcad874425531cd0e3697.png]**
+
+Estuvimos instalando VSCode, configurándolo con plugins como Prettier, etc. Pero también instalamos Git y lo conectamos con GitHub, que como recordarás, es un repositorio en la nube.
+
+Pues bien, GitHub tiene tambien una funcionalidad que nos va a ir a las mil maravillas: GitHub Pages.
+
+Con GitHub Pages tendremos un servidor de pruebas para que podamos ir desplegando nuestra aplicación y ver como funciona tal y como lo haría una vez desplegada en producción.  
+info
+
+GitHub Pages es un servicio ofrecido por GitHub que permite a los usuarios alojar sitios web estáticos directamente desde sus repositorios de GitHub. En otras palabras, te permite convertir tu repositorio de GitHub en un sitio web público que cualquiera puede visitar en línea.
+
+Aquí hay algunas características clave de GitHub Pages:
+
+## **Y finalmente, hablemos de ESLint**
+
+**![Eslint][https://carrebola.github.io/vanillaPill/assets/images/eslint-cd25cb4d2c87995eba79800ff78be8eb.png]**
+
+Para el diseño de los prototipos html nos hemos ayudado de Prettier, un plugin de VSCode que nos ayuda a dar formato al codigo html y css, pero para javascript tenemos una herramienta mucho más potente llamada EsLint.
+
+A la hora de escribir nuestro código es importante mantener las formas, utilizando estructuras correctas y manteniendo ciertas pautas. Por ejemplo:
+
+- ¿Debo poner punto y coma al final de cada linea?
+- ¿Puedo declarar variables y luego no usarlas?
+- ¿Puedo dejar espacios entra lineas de código?
+- ¿Cuantos espacios debo poner al tabular?
+
+Una vez tengo claras todas estas reglas, puedo utilizar un Linter para que se encargue de vigilar que las estoy cumpliendo que nuestro código es consistente.
+
+Con esto vamos a evitar malas prácticas escribiendo el código y podremos detectar errores de sintaxis antes de ejecutar nuestros scripts.
+
+Existen algunos estandars a la hora de escribir código que tienen sus propias reglas. Por ejemplo:
+
+- Airbnb
+- StandardJS
+- Google
+- XO Nosotros nos basaremos en el estandard StandardJS.
+
+¿Qué es un linter?
+
+Un linter es una herramienta de programación que analiza el código fuente de un programa en busca de errores, inconsistencias y patrones de código que no siguen las convenciones y mejores prácticas de programación.
+
+Los linters modernos son herramientas que ayudan a los desarrolladores a escribir un código más limpio, legible y coherente.
+
+Algunos de los aspectos que un linter puede verificar incluyen:
+
+## **ESlint como linter predeterminado**
+
+En nuestro caso usaremos una libreria llamada ESLint como linter para que vigile el código de nuestros proyectos, que configuraremos para que se ajuste al StandardJS.
+
+Nosotros usaremos el linter que más exito ha tenido en la programación con javascript: ESLint.
+
+Es hora de actualizar nuestro entorno de trabajo. Después crearemos nuestro proyecto basado en NodeJs con la herramienta Vite e instalaremos las dependencias necesarias con npm, como puede ser ESLint, para mejorar nuestro flujo de trabajo en el desarrollo de nuestra SPA.
+
+# **Construyendo nuestra SPA**
+
+Como desarrollador quiero crear una infraestructura básica para la creación del proyecto basada en vite. Además quiero crear un repositorio y publicarlo en github y desplegar la app en github pages.
+
+## **Esto es lo que vamos a hacer:**
+
+1. Instalaremos Node.js que a su vez instalará npm
+2. Crearemos un proyecto html/javascript utilizando vite dentro de nuestra carpeta de proyecto
+3. Analizaremos el proyecto ejemplo para comprender la estructura de archivos que incluye una spa.
+4. Modificaremos el scaffolding (las carpetas y archivos) de nuestro proyecto con algunos 'componentes' básicos.
+5. Crearemos el archivo vite.config y verificamos que todo funciona de forma correcta
+6. Instalaremos Bootstrap y Bootswach
+7. Instalaremos ESLint
+8. Crearemos un sistema de despliegue continuo basado en GitHub Pages utilizando la dependencia gh-pages.
+
+### **1. Instalando Node.js**
+
+Este apartado no tiene misterio. Te vas a la [web de Node.js](https://nodejs.org/es) y descargas el paquete correspondiente a tu sistema operativo y lo instalas. (Ya sabes: continuar, continuar, continuar...)
+
+### **2. Construyendo una app con vite**
+
+- En primer lugar debemos asegurarnos de cambiar a la rama `main`. Veremos que en la raiz de nuestro proyecto solo tenemos el archivo _readme.md_
+- Abrimos un terminal en el propio VSCode (`ctrl+mayus+ñ`) para crear nuestro proyecto. Ejecuta la siguiente linea de código.
+
+```
+- npm create vite .
+```
+
+- Te preguntará si quieres borrar los archivos que hay en la carpeta. Dile que sí, porque lo único que tenemos es el readme.md que ya verás que nos va a respetar.
+- Indicaremos que queremos un proyecto basado en Vanilla javascript (es decir, javascript puro)
+- Indicaremos que usamos javascript (no queremos typescript)
+- En este momento nos habrá creado los archivos y las carpetas básicas para una app. Solo nos falta instalar las dependencias. Para ello usamos npm desde el terminal:
+
+```
+- npm install
+```
+
+Fíjate que ahora se ha creado una carpeta nueva llamada node_modules. Aquí están instaladas todas las librerias que vamos a necesitar. (De momento, esa carpeta mejor no tocarla 😅)
+
+- Para acabar vamos a levantar un servidor de pruebas. Si abrimos esta url en un navegador podremos ver como va quedando nuestro proyecto. De momento veremos la plantilla básica que nos ofrece vite.
+
+```
+- npm run dev
+```
+
+```
+- VITE v4.4.9 ready in 199 ms
+
+- ➜ Local: http://localhost:5173/
+- ➜ Network: use --host to expose
+- ➜ press h to show help
+
+```
+
+![Pagina con vite][https://carrebola.github.io/vanillaPill/assets/images/localhost-2697f8e70309dbd9dde0bcc98d4c1eaa.png]
+
+### **3. Analizando el proyecto de ejemplo**
+
+Veamos los archivos y carpetas que nos ha creado vite:
+
+![Scaffolding][data:image/png;base64,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]
+
+Los archivos más importante son el `index.html` y `main.js`
+
+index.html
+
+```
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
+```
+
+Lo que tenemos aquí es un index.html que se cargará en el navegador. Este tiene un div con id="app". En este div es donde se inyecta toda la aplicación. ¡Y no tenemos nada más! El resto de los componentes se irán contruyendo desde javascript.
+
+Este es el archivo main.js que cargamos desde index.html:
+
+main.js
+
+```
+import './style.css'
+import javascriptLogo from './javascript.svg'
+import { setupCounter } from './counter.js'
+
+document.querySelector('#app').innerHTML = `
+  <div>
+    <a href="https://vitejs.dev" target="_blank">
+      <img src="/vite.svg" class="logo" alt="Vite logo" />
+    </a>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
+      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
+    </a>
+    <h1>Hello Vite!</h1>
+    <div class="card">
+      <button id="counter" type="button"></button>
+    </div>
+    <p class="read-the-docs">
+      Click on the Vite logo to learn more
+    </p>
+  </div>
+`
+
+setupCounter(document.querySelector('#counter'))
+
+```
+
+En el main.js podemos ver como inicialmente cargamos tres archivos, el style.css, un archivo .svg (una imagen) y el archivo counter.js, el cual tiene el código correspondiente al contador que hemos visto en la página principal.
+
+A continuacion, haciendo uso de `innerHTML` inyectamos en el div 'app' un fragmento de código html (un div que incluye unos enlaces, un botón, una imagen, etc.).
+
+Es decir, estamos construyendo la página desde el archivo main.js
+
+Ahora que vemos de qué va esto, vamos a contruir nuestra propia estructura para el proyecto que estamos desarrollando.
+
+### **4. Modificando nuestro Scaffolding**
+
+Hemos visto que todo funciona bien. De momento... Porque ahora vamos a contruir la estructura de archivos con una vista principal y algunos objetos a modo de componentes.
+
+Hagamos lo siguiente:
+
+- Eliminamos los archivos counter.js, index.html, main.js y style.css y creamos una estructura de carpetas como esta:
+
+```
+          node_modules
+        src
+            componentes
+                header.js
+                footer.js
+            vistas
+                homeVista.js
+            index.html
+            main.js
+        .gitignore
+        package.json
+        package-lock.json
+```
+
+- Modificamos `index.html` para que solo tenga las etiquetas header, main y footer y enlazamos el archivo main.js
+
+index.html
+
+```
+         <!DOCTYPE html>
+        <html lang="es">
+          <head>
+            <meta charset="UTF-8" />
+            <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Vanilla Games</title>
+          </head>
+          <body>
+            <header></header>
+            <main></main>
+            <footer></footer>
+            <script type="module" src="/main.js"></script>
+          </body>
+        </html>
+```
+
+- Creamos la vista principal y los componentes header y footer con un 'template' básico
+
+home.js
+
+```
+        export default {
+            template: `<h1>home</h1>`
+        }
+```
+
+header.js
+
+```
+        export const header = {
+            template: `header`
+        }
+```
+
+- En `**main.js**` importamos los componentes header y footer y los inyectamos en sus etiquetas correspondients. También cargamos la vista `home.js` en la etiqueta main
+
+main.js
+
+```
+import { header } from './componentes/header'
+import { footer } from './componentes/footer'
+
+// Importamos la vista por defecto (que será home)
+async function cargarVista () {
+  const componente = await import('./vistas/homeVista')
+  const vista = componente.default
+  // Inyectamos la vista home
+  document.querySelector('main').innerHTML = vista.template
+}
+cargarVista()
+
+//Inyectamos el componente header
+document.querySelector('header').innerHTML = header.template
+
+//Inyectamos el componente footer
+document.querySelector('footer').innerHTML = footer.template
+```
+
+- Con estos cambios la app ha dejado de funcionar. Eso es porque no encuentra el index.html y main.js en la raiz del proyecto.  
+  Así que vamos a configurar vite para que sepa dónde buscar los archivos index.html y main.js
+
+## **5. Configurando vite con el archivo `Vite.config.js`**
+
+Creamos el archivo `vite.config.js` en la raiz del proyecto y copiamos el siguiente código (que puedes encontrar en el manual de vite). En los comentarios verás que función tiene cada línea aunque de momento no le des demasiada importancia.
+
+vite.config.js
+
+```
+import path from 'path' // Para gestionar directorios
+
+export default {
+  // Definimos la carpeta donde buscar cuando se carga la aplicación (donde estará el main.js)
+  root: path.resolve(__dirname, 'src'),
+
+  build: {
+    rollupOptions: {
+        /*
+            Opciones de configuración de Rollup externas, serán mergeadas con la configuracion
+            interna de Rollup de Vite.
+        */
+        input: {
+            main: path.resolve(__dirname, 'src/index.html'), // Indicamos las páginas que debe analizar
+        },
+        output: {
+            dir: path.resolve(__dirname, 'dist'), //Donde se va a crear el build de nuestra aplicacion
+            format: 'es', //Formato de ES modules
+        },
+    },
+    outDir: path.resolve(__dirname, 'dist'),
+    minify: false, //( Si no se quiere minificar el build) https://vitejs.dev/config/#build-minify (aplica solo a los JS no CSS)
+},
+  server: {
+    /*port: 8080, */ // Podemos definir el puerto de salida
+    hot: true
+  }
+}
+```
+
+Observa que los componentes header y footer los exportamos con un nombre fijo `export const header = {}`, y `export const footer = {}`. Pero en el caso de homeVista usamos `export default {}` Esto lo hacemos para poder gestionar el cambio de páginas de la aplicación. Mas adelante lo explicaremos con más detalle.
+
+¡Ahora sí que podemos ver nuestra aplicación funcionando!
+
+Está compuesta de tres componentes, el header.js que hemos inyectado en la etiqueta `<header>`, el footer.js que hemos inyectado en la etiqueta `<footer>` y el componente homeVista.js que hemos inyectado en la etiqueta `<main>`.
+
+A este último (homevista.js) le hemos añadido al final la palabra `vista`para indicar que representa una página web, en este caso la página Home.
+
+![home][data:image/png;base64,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]
+
+## **4. Instalando Bootstrap, Bootswatch y SASS**
+
+En la construcción de prototipos html hemos utilizado Bootstrap mediante el cdn. Es una manera sencilla y rápida, pero en los proyectos reales solemos descargar los archivos para no tener que depender de terceros.
+
+Como hemos visto anteriormente, Bootstrap funciona con SASS, por lo que necesitamos instalar y configurar nuestro proyecto para que convierte los archivos sass en css estandar.
+
+- Para instalar bootstrap y bootswatch abre un terminal y ejecuta la siguiente linea de comandos:
+
+```
+  npm i bootstrap bootswatch @popperjs/core
+```
+
+- Instala ahora sass
+
+```
+npm i sass -D
+```
+
+Si la instalación se ha completado con éxito podemos ver en el archivo package.json las dependencias instaladas:
+
+package.json
+
+```
+{
+  "name": "vanillagames10",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "sass": "^1.66.1",
+    "vite": "^4.1.0"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.1",
+    "bootswatch": "^5.3.1"
+  }
+}
+
+```
+
+- Vamos a crear ahora la carpeta `src/scss` y dentro creamos el archivo `styles.scss`
+- Modificamos el archivo `vite.config.js` para que se procese sass añadiendo la siguiente linea:
+
+```
+alias: {
+      '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
+      '~bootswatch': path.resolve(__dirname, 'node_modules/bootswatch')
+    }
+```
+
+El archivo vite.config.js quedaría así:
+
+vite.config.js
+
+```
+import path from 'path'
+
+export default {
+  root: path.resolve(__dirname, 'src'), // Carpeta donde alojamos el archivo main.js
+  resolve: {
+    alias: {
+      '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
+      '~bootswatch': path.resolve(__dirname, 'node_modules/bootswatch'),
+    }
+  },
+  build: {
+    rollupOptions: {
+        /*
+            Opciones de configuración de Rollup externas, serán mergeadas con la configuracion
+            interna de Rollup de Vite.
+        */
+        input: {
+            main: path.resolve(__dirname, 'src/index.html'), // Indicamos las páginas que debe analizar
+        },
+        output: {
+            dir: path.resolve(__dirname, 'dist'), //Donde se va a crear el build de nuestra aplicacion
+            format: 'es', //Formato de ES modules
+        },
+    },
+    outDir: path.resolve(__dirname, 'dist'),
+    minify: false, //( Si no se quiere minificar el build) https://vitejs.dev/config/#build-minify (aplica solo a los JS no CSS)
+},
+  server: {
+    /*port: 8080,*/  // Podemos definir el puerto de salida
+    hot: true
+  }
+}
+```
+
+- En el archivo `styles.scss` cargamos la libreria bootstrap
+
+styles.scss
+
+```
+// Import all of Bootstrap's CSS
+@import "~bootswatch/dist/yeti/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~bootswatch/dist/yeti/bootswatch";
+
+```
+
+- Finalmente importamos los estilos de scss
+
+main.js
+
+```
+// Import all of Bootstrap's JS
+import 'bootstrap'
+
+// Import our custom CSS
+import './scss/styles.scss'
+
+```
+
+- Ejecutamos nuestro proyecto para verificar que todo está ok mediante `npm run dev`. Deberíamos ver nuestra aplicación con las clases de bootstrap aplicandose y los estilos de Bootswatch yeti
+
+![yeti][data:image/png;base64,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]
+
+- Continuamos configurando el archivo vite.config.js para que al generar las los archivos para desplegar en producción (páginas minificadas en la carpeta dist), las urls comiencen con `./` de manera que evitemos problemas al visualizar nuestra web cuando la subamos a un servidor como GitHub Pages. Para ello añadimos el código:
+
+```
+base: './'
+```
+
+También necesitamos decirle a vite que, cada vez que hagamos un build, se reescriba la carpeta dist. Para ello añadimos la siguiente opción:
+
+```
+build: {
+    emptyOutDir: true, // Esto vaciará el directorio de salida antes de construir
+    ...
+}
+```
+
+Nuestro archivo vite.config.js quedaría así:
+
+vite.config.js
+
+```
+import path from 'path'
+
+export default {
+  root: path.resolve(__dirname, 'src'), // Carpeta donde alojamos el archivo main.js
+  base: './',
+  resolve: {
+    alias: {
+      '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
+      '~bootswatch': path.resolve(__dirname, 'node_modules/bootswatch'),
+    }
+  },
+  build: {
+    emptyOutDir: true, // Esto vaciará el directorio de salida antes de construir
+    rollupOptions: {
+        /*
+            Opciones de configuración de Rollup externas, serán mergeadas con la configuracion
+            interna de Rollup de Vite.
+        */
+        input: {
+            main: path.resolve(__dirname, 'src/index.html'), // Indicamos las páginas que debe analizar
+        },
+        output: {
+            dir: path.resolve(__dirname, 'dist'), //Donde se va a crear el build de nuestra aplicacion
+            format: 'es', //Formato de ES modules
+        },
+    },
+    outDir: path.resolve(__dirname, 'dist'),
+    minify: false, //( Si no se quiere minificar el build) https://vitejs.dev/config/#build-minify (aplica solo a los JS no CSS)
+},
+  server: {
+    /*port: 8080,*/
+    hot: true
+  }
+}
+```
+
+## **6. Creando versión de distribución**
+
+Vamos a crear la versión de distribución de nuestra app. Esto creará una carpeta dist con todos archivos html y css minificados.
+
+- Para ello, desde la terminal, ejecuta:
+
+  ```
+  npm run build
+  ```
+
+  Y efectivamente se ha creado una carpeta en la raiz del proyecto con los archivos necesarios. Esta es la carpeta que debemos subir a nuestro servidor de pruebas/producción.
+
+- Prueba a abrir con live server el archivo index.html de la carpeta dist. Debería verse la aplicación funcionando correctamente.
+
+## **7. Instalando ESLint**
+
+- Para utilizar en nuestro proyecto ESLint, en primer lugar instalaremos en VSCode el pluging ESLint de Microsoft.
+  ![Eslint plugin][https://carrebola.github.io/vanillaPill/assets/images/eslintplugin-bad9eecf393d7b2c00469bd267fee7f2.png]
+- Ahora instalamos Eslint con la configuración standard
+  Esto nos instalará ESLint con la configuración Standard. Puedes comprobar que se ha creado un archivo de configuración con nombre `.eslintrc.cjs`
+- Finalmente vamos a configurar VSCode para que al grabar (pulsando ctrl + s) ESLint haga su trabajo, reparando, si puede, algunos errores de sintaxis y avisando (con una línea subrayada roja) cuando puede haber un posible error en el código.
+- Para ello:
+
+  - Abre la paleta de comandos con `ctrl + shift + P` y escribe `settings json`
+  - Selecciona las preferencias de usuario: `Preferences: Open User Settings (JSON)`
+  - Asegurate de que tienes las siguiente linea en el archivo json
+
+  ```
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+  }
+  ```
+
+  Ahora, si abres un archivo y pulsas `ctrl + S` verás como actua ESLint.
+
+## **8. Desplegando la aplicación en un servidor de pruebas (GitHub Pages)**
+
+Vamos a montarnos un sistema para poder hacer despliegue continuo. Así cada vez que actualicemos nuesta app, subiremos los cambios al repositorio y la publicaremos en el servidor de GitHub Pages.
+
+- Creamos un repositorio de git para el proyecto y lo sincronizamos con github (para ello utilizamos las herramientas de vscode)
+- Instalamos gh-pages con `npm i gh-pages -D`
+- Ahora creamos, en el package.json, el script deploy necesario para poder ejecturar el deploy a gh pages.
+
+El archivo quedaría así:
+
+package.json
+
+```
+{
+  "name": "trabajos_alumnos",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --emptyOutDir",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
+  },
+  "devDependencies": {
+    "gh-pages": "^5.0.0",
+    "sass": "^1.58.3",
+    "vite": "^4.1.0"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.6",
+    "bootstrap": "^5.2.3"
+  }
+}
+```
+
+- Ahora ya podemos ejecutar `npm run build` para contruir nuestra carpeta dist y a continuación `npm run deploy` para que se cree la rama gh-pages y se publique. Pruébalo.
+- Finalmente, vamos a comprobar que se ha creado una rama con nombre gh-pages para el despliegue de nuestra app.
+  ![rama github pages][https://carrebola.github.io/vanillaPill/assets/images/ramagh-afd762157c05740348c0de2214a9a2df.png]
+- Ahora solo falta configurar la rama gh-pages para que sea una página publica y muestre nuestra aplicación desplegada. Para ello entra en `Settings` (menú superior) y `Pages` (menú lateral izquierdo). A continuación selecciona la rama gh-pages y haz click en `save`
+
+![gh][https://carrebola.github.io/vanillaPill/assets/images/ghpublic-c84bc2108fc01c442970ee8f2808841a.png]
+
+En breve aparecerá la url. (Ten paciencia que a veces tarda unos minutos. Ves haciendo F5 hasta que aparezca)
+
+![gh][https://carrebola.github.io/vanillaPill/assets/images/ghpublic2-d23c66b40178fd2189b7622985ac2d65.png]
