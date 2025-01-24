@@ -39,6 +39,197 @@
     fetch(link.href, fetchOpts);
   }
 })();
+const ls = {
+  // Captuar datos de localStorage
+  getUsuario: () => {
+    let usuario = {
+      email: "anónimo",
+      rol: "no logueado",
+      avatar: ""
+    };
+    const usuarioJSON = localStorage.getItem("usuarioVanilla");
+    if (usuarioJSON) {
+      usuario = JSON.parse(usuarioJSON);
+    }
+    return usuario;
+  },
+  setUsuario: (usuario) => {
+    const usuarioJSON = JSON.stringify(usuario);
+    localStorage.setItem("usuarioVanilla", usuarioJSON);
+  }
+};
+const menuRol = {
+  // html
+  templateAnonimo: `
+  <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+    <li class="nav-item">
+      <a class="ms-2 btn btn-success router-link" href="#/login" >
+        Iniciar sesión
+        <i class="bi bi-box-arrow-in-right"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="ms-2 btn btn-outline-light router-link" href="#/registro">
+        Regístrate
+        <i class="bi bi-box-arrow-in-right"></i>
+      </a>
+    </li>
+  </ul>
+  `,
+  // html
+  templateRegistrado: `
+  <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+    <li class="nav-item">
+      <a class="nav-link active router-link" aria-current="page" href="#/proyectos">PROYECTOS</a>
+    </li>
+    
+  </ul>
+  `,
+  // html
+  templateDesarrollador: ``,
+  // html
+  templateAdmin: ``
+};
+const menuUsuario = {
+  // html
+  templateRegistrado: `
+  <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+    <li class="nav-item dropdown">
+      <a
+        class="nav-link dropdown-toggle"
+        href="#"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <img src="images/avatar.svg" alt="" width="25" />
+      </a>
+      <ul class="dropdown-menu me-0" style="left: -100px; width: 100px">
+        <li class="text-light text-end p-2 small">
+          ${ls.getUsuario().email}
+        </li>
+        <li class="text-light text-end pe-2 small fst-italic">
+          ${ls.getUsuario().rol}
+        </li>
+        <li><hr class="dropdown-divider" /></li>
+        <li>
+          <a 
+            class="dropdown-item" 
+            href="#"
+            data-bs-toggle="modal"
+            data-bs-target="#modalEditarPerfil"
+            >
+            Mi perfil
+          </a>
+        </li>
+        <li><hr class="dropdown-divider" /></li>
+        <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+      </ul>
+    </li>
+  </ul>
+  `,
+  // html
+  templateDesarrollador: ``,
+  // html
+  templateAdmin: ``
+};
+const editarPerfil = {
+  // html
+  template: `
+    <!-- Ventana modal edición perfil -->
+    <div
+      class="modal fade"
+      id="modalEditarPerfil"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <!-- Formulario de edición de perfil -->
+      <form novalidate action="">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Edición de perfil
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="form border shadow-sm p-3">
+                <div class="m-1" style="max-width: 400px">
+                  <div class="imgPerfil border shadow-sm p-3 mb-3">
+                    <div
+                      class="imagen mx-auto mb-1 rounded-circle"
+                      style="
+                        background-image: url(.images/avatar.svg);
+                        width: 200px;
+                        height: 200px;
+                        background-size: cover;
+                        background-position: center;
+                      "
+                    ></div>
+  
+                    <!-- Imagen de perfil -->
+                    <label for="imagen" class="form-label mt-3">URL imagen:</label>
+                    <input
+                      id="imagen"
+                      type="url"
+                      class="form-control"
+                      value="http://imagenavatar.png"
+                    />
+                    <div class="invalid-feedback">La url no es correcta</div>
+                  </div>
+  
+                  <div class="">
+                    <!-- Nombre -->
+                    <label for="nombre" class="form-label">Nombre:</label>
+                    <input required id="nombre" type="text" class="form-control" />
+                    <div class="invalid-feedback">El nombre es requerido</div>
+                    <!-- Apellidos -->
+                    <label for="apellidos" class="form-label">Apellidos:</label>
+                    <input id="apellidos" type="text" class="form-control" />
+  
+                    <!-- Email -->
+                    <label for="email" class="form-label">Email:</label>
+                    <input required id="email" type="email" class="form-control" />
+                    <div class="invalid-feedback">El formato no es correcto</div>
+  
+                    <!-- Contraseña -->
+                    <label for="pass" class="form-label mt-3">Contraseña:</label>
+                    <input
+                      required
+                      minlength="6"
+                      id="pass"
+                      type="password"
+                      class="form-control"
+                    />
+                    <div class="invalid-feedback">
+                      La contraseña debe ser de 6 caracteres como mínimo
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Cancelar
+              </button>
+              <button type="button" class="btn btn-primary">Guardar cambios</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    `,
+  script: () => {
+    console.log("script de modal editar perfil cargado");
+  }
+};
 const header = {
   // html
   template: `
@@ -67,38 +258,54 @@ const header = {
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Menu común para todos los usuarios -->
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#/home">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#"
-            >TOP5 Proyectos</a
-          >
+          <a class="nav-link" aria-current="page" href="#">TOP5 Proyectos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="#">A cerca de</a>
         </li>
       </ul>
-      <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="ms-2 btn btn-success router-link" href="#/login">
-            Iniciar sesión
-            <i class="bi bi-box-arrow-in-right"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="ms-2 btn btn-outline-light router-link" href="#/registro">
-            Regístrate
-            <i class="bi bi-box-arrow-in-right"></i>
-          </a>
-        </li>
-      </ul>
+      <!-- Aquí va el Menu rol -->
+      <div id="menuRol"></div>
+      <!-- Aquí va el Menu usuario -->
+      <div id="menuUsuario"></div>
+      <div id="modal">
+        <!-- Aquí inyectamos el componente editarPerfil -->
+
+      </div>
     </div>
   </div>
 </nav>
 
-  `
+  `,
+  script: () => {
+    console.log("Header cargado");
+    document.querySelector("#modal").innerHTML = editarPerfil.template;
+    ls.setUsuario({ email: "chafardera@gmial.com", rol: "registrado" });
+    const rolUsuario = ls.getUsuario().rol;
+    switch (rolUsuario) {
+      case "registrado":
+        document.querySelector("#menuRol").innerHTML = menuRol.templateRegistrado;
+        document.querySelector("#menuUsuario").innerHTML = menuUsuario.templateRegistrado;
+        break;
+      case "desarrollador":
+        document.querySelector("#menuRol").innerHTML = menuRol.templateDesarrollador;
+        document.querySelector("#menuUsuario").innerHTML = menuUsuario.templateDesarrollador;
+        break;
+      case "admin":
+        document.querySelector("#menuRol").innerHTML = menuRol.templateAdmin;
+        document.querySelector("#menuUsuario").innerHTML = menuUsuario.templateAdmin;
+        break;
+      default:
+        document.querySelector("#menuRol").innerHTML = menuRol.templateAnonimo;
+        break;
+    }
+  }
 };
 const footer = {
   // html
@@ -5271,6 +5478,7 @@ const enrutador = {
   }
 };
 document.querySelector("header").innerHTML = header.template;
+header.script();
 document.querySelector("footer").innerHTML = footer.template;
 enrutador.observadorRutas();
 window.location = "#/home";
