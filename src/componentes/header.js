@@ -1,5 +1,5 @@
 // importamos la función ls del archivo funciones
-import { ls } from "./funciones";
+import { ls } from "../componentes/funciones";
 import { menuRol, menuUsuario } from "./menus";
 import { editarPerfil } from "./editarPerfil";
 
@@ -47,13 +47,10 @@ export const header = {
       <div id="menuRol"></div>
       <!-- Aquí va el Menu usuario -->
       <div id="menuUsuario"></div>
-      <div id="modal">
-        <!-- Aquí inyectamos el componente editarPerfil -->
-
-      </div>
     </div>
   </div>
 </nav>
+<div id="modal"></div>
 
   `,
 

@@ -1,3 +1,6 @@
+import { perfiles } from "../bd/datosPrueba";
+import { ls } from "../componentes/funciones";
+
 export default {
   // html
   template: `
@@ -5,7 +8,7 @@ export default {
   <h1 class="mt-5 text-center">Inicia sesión</h1>
   <div class="m-5 mx-auto" style="max-width: 400px">
     <!-- Formulario de inicio de sesión (login) -->
-    <form novalidate action="" class="form border shadow-sm p-3">
+    <form id="formulario" novalidate action="" class="form border shadow-sm p-3">
       <!-- Email -->
       <label for="email" class="form-label">Email:</label>
         <input id="email" name="email" value="ejemplo@email.com" required type="email" class="form-control" />
@@ -71,6 +74,7 @@ export default {
       // Detenemos el evento enviar (submit)
       event.preventDefault();
       event.stopPropagation();
+
       // Comprobamos si el formulario no valida
       if (!formulario.checkValidity()) {
         // Y añadimos la clase 'was-validate' para que se muestren los mensajes
@@ -83,12 +87,13 @@ export default {
     // Función para enviar datos a la bd
     function enviarDatos(formulario) {
       const email = formulario.email.value;
-      const pass = formulario.password.value;
+      const pass = formulario.pass.value;
 
       // buscamos el indice del email en el array perfiles
-      const indexUser = perfiles.findIndex((user) => user.email === email); // 1
+      const indexUser = perfiles.findIndex((user) => user.email === email);
+
       // Si encuentra un usuario
-      if (indexUser > 0) {
+      if (indexUser >= 0) {
         // Si la contraseña es correcta
         if (perfiles[indexUser].contraseña === pass) {
           console.log("¡login correcto!");
@@ -103,15 +108,13 @@ export default {
           // Guardamos datos de usaurio en localstorage
           ls.setUsuario(usuario);
           // Cargamos página home
-          window.location = "#/proyectos";
+          window.location.href = "#/proyectos";
           // Actualizamos el header para que se muestren los menús que corresponden al rol
           header.script();
         } else {
-          // console.log('La contraseña no corresponde')
           alert("El usuario no existe o la contraseña no es correcta");
         }
       } else {
-        // console.log('El usuario no existe')
         alert("El usuario no existe o la contraseña no es correcta");
       }
     }
