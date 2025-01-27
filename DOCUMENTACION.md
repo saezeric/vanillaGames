@@ -7914,5 +7914,4 @@ export const header = {
     })
   }
 }
-
 ```
