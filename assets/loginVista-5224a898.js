@@ -1,3 +1,5 @@
+import { a as perfiles } from "./datosPrueba-bddae042.js";
+import { l as ls } from "./main-bad96a15.js";
 const loginVista = {
   // html
   template: `
@@ -5,10 +7,10 @@ const loginVista = {
   <h1 class="mt-5 text-center">Inicia sesión</h1>
   <div class="m-5 mx-auto" style="max-width: 400px">
     <!-- Formulario de inicio de sesión (login) -->
-    <form novalidate action="" class="form border shadow-sm p-3">
+    <form id="formulario" novalidate action="" class="form border shadow-sm p-3">
       <!-- Email -->
       <label for="email" class="form-label">Email:</label>
-      <input required type="email" class="form-control" />
+        <input id="email" name="email" value="ejemplo@email.com" required type="email" class="form-control" />
       <div class="invalid-feedback">
         El formato del email no es correcto
       </div>
@@ -18,6 +20,7 @@ const loginVista = {
         required
         minlength="6"
         id="pass"
+        name="pass"
         type="password"
         class="form-control"
       />
@@ -32,6 +35,7 @@ const loginVista = {
           type="checkbox"
           value=""
           id="flexCheckChecked"
+          name="flexCheckChecked"
           checked
         />
         <label class="form-check-label" for="flexCheckChecked">
@@ -59,14 +63,43 @@ const loginVista = {
 </div>
     `,
   script: () => {
-    const formulario = document.querySelector("form");
+    console.log("vista login cargada");
+    const formulario = document.querySelector("#formulario");
     formulario.addEventListener("submit", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
       if (!formulario.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
+        formulario.classList.add("was-validated");
+        console.log("No valida");
+      } else {
+        enviarDatos(formulario);
       }
-      formulario.classList.add("was-validated");
     });
+    function enviarDatos(formulario2) {
+      const email = formulario2.email.value;
+      const pass = formulario2.pass.value;
+      const indexUser = perfiles.findIndex((user) => user.email === email);
+      if (indexUser >= 0) {
+        if (perfiles[indexUser].contraseña === pass) {
+          console.log("¡login correcto!");
+          const usuario = {
+            nombre: perfiles[indexUser].nombre,
+            apellidos: perfiles[indexUser].apellidos,
+            email: perfiles[indexUser].email,
+            rol: perfiles[indexUser].rol,
+            avatar: perfiles[indexUser].avatar,
+            user_id: perfiles[indexUser].user_id
+          };
+          ls.setUsuario(usuario);
+          window.location.href = "#/proyectos";
+          header.script();
+        } else {
+          alert("El usuario no existe o la contraseña no es correcta");
+        }
+      } else {
+        alert("El usuario no existe o la contraseña no es correcta");
+      }
+    }
   }
 };
 export {
