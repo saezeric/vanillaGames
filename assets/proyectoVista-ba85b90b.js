@@ -1,5 +1,5 @@
 import { p as proyectos } from "./datosPrueba-bddae042.js";
-import { l as ls } from "./main-bad96a15.js";
+import { l as ls } from "./main-30b4ad66.js";
 const proyectoVista = {
   // html
   template: `
@@ -170,7 +170,7 @@ const proyectoVista = {
       let tbodyProyectos = "";
       proyectosFiltrados.forEach((proyecto) => {
         tbodyProyectos += `
-      <tr data-id="${proyecto.id} class="verDetalle">
+      <tr data-id="${proyecto.id}" class="verDetalle">
         <td>
           <div class="containerImagen">
             <img 

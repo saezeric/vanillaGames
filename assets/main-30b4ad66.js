@@ -5557,11 +5557,11 @@ const enrutador = {
   rutas: {
     home: __vitePreload(() => import("./homeVista-a10e6e2c.js"), true ? [] : void 0, import.meta.url),
     // Usuarios
-    admin: __vitePreload(() => import("./adminVistas-4664a316.js"), true ? ["./adminVistas-4664a316.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
+    admin: __vitePreload(() => import("./adminVistas-0a64056f.js"), true ? ["./adminVistas-0a64056f.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
     registro: __vitePreload(() => import("./registroVista-ad680f8a.js"), true ? [] : void 0, import.meta.url),
-    login: __vitePreload(() => import("./loginVista-5224a898.js"), true ? ["./loginVista-5224a898.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
+    login: __vitePreload(() => import("./loginVista-5ca91bc1.js"), true ? ["./loginVista-5ca91bc1.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
     // Proyectos
-    proyectos: __vitePreload(() => import("./proyectoVista-5720ab31.js"), true ? ["./proyectoVista-5720ab31.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
+    proyectos: __vitePreload(() => import("./proyectoVista-ba85b90b.js"), true ? ["./proyectoVista-ba85b90b.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
     proyectoNuevo: __vitePreload(() => import("./proyectoNuevoVista-fbfe5c13.js"), true ? [] : void 0, import.meta.url),
     proyectoEditar: __vitePreload(() => import("./proyectoEditarVista-3415c2f8.js"), true ? ["./proyectoEditarVista-3415c2f8.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
     proyectoDetalle: __vitePreload(() => import("./proyectoDetalleVista-dd94cf47.js"), true ? ["./proyectoDetalleVista-dd94cf47.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
