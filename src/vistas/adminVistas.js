@@ -137,11 +137,13 @@ export default {
       proyectosFiltrados.forEach((proyecto) => {
         // sumamos un tr con los datos del proyecto
         tablaProyectos += `
-      <tr>
+      <tr data-id="${proyecto.id}" class="verDetalle">
         <td>
           <div class="containerImagen">
             <img 
               width="200px" 
+              class="verDetalle"
+              data-id="${proyecto.id}"
               src=${proyecto.imagen || "images/imagenVacia.png"} 
               alt="imagen proyecto"
               class="verDetalle"/>
@@ -160,13 +162,13 @@ export default {
         <td>${proyecto.estado}</td>
         <td>
           <a
-          data-user_id = ${proyecto.user_id}
+          data-id = ${proyecto.id}
           class="d-none d-sm-inline btn btn-sm btn-outline-primary bi bi-pencil botonAdmin botonEditar"
           ></a>
         </td>
         <td>
           <a
-            data-user_id = ${proyecto.user_id}
+            data-id = ${proyecto.id}
             class="d-none d-sm-inline btn btn-sm btn-outline-danger bi bi-trash3 botonAdmin botonBorrar"
           ></a>
         </td>

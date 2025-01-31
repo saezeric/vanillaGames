@@ -254,7 +254,7 @@ export default {
       proyectosFiltrados.forEach((proyecto) => {
         // sumamos un tr con los datos del proyecto
         tbodyProyectos += `
-      <tr data-id="${proyecto.id} class="verDetalle">
+      <tr data-id="${proyecto.id}" class="verDetalle">
         <td>
           <div class="containerImagen">
             <img 
