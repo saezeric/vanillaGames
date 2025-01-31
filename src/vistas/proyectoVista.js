@@ -215,7 +215,7 @@ export default {
     // Vista 'Todos los proyectos' / 'Mis proyectos'
     // ####################################################################
 
-    // Definimos que por defecto se muestran 'mis proyectos'
+    // Definimos que por defecto no se muestran 'mis proyectos'
     let misProyectos = false;
 
     // *** Detectamos si se cambia de proyectos a mis proyectos al hacer click en las pestañas ***

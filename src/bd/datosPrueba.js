@@ -56,7 +56,8 @@ export const perfiles = [
     user_id: "2419d5e3-46a6-45d6-98a2-b02c8ac5d3fe",
     nombre: "Javier",
     apellidos: "Bardem",
-    avatar: "",
+    avatar:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScT_kEjVxtwv-CWp6bvKgkcGqhhY2I37cPtg&s",
     estado: "Activo",
     rol: "admin",
     email: "javier@example.com",
