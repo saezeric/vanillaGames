@@ -254,10 +254,11 @@ export default {
       proyectosFiltrados.forEach((proyecto) => {
         // sumamos un tr con los datos del proyecto
         tbodyProyectos += `
-      <tr>
+      <tr data-id="${proyecto.id} class="verDetalle">
         <td>
           <div class="containerImagen">
             <img 
+              data-id="${proyecto.id}"
               width="200px" 
               src=${proyecto.imagen || "images/imagenVacia.png"} 
               alt="imagen proyecto"
@@ -276,17 +277,17 @@ export default {
         <td>${proyecto.created_at}</td>
         <td>${proyecto.estado}</td>
         <td>
-          <a
-          data-user_id = ${proyecto.user_id}
-          class="d-none d-sm-inline btn btn-sm btn-outline-primary bi bi-pencil botonAdmin botonEditar"
-          ></a>
-        </td>
-        <td>
-          <a
-            data-user_id = ${proyecto.user_id}
-            class="d-none d-sm-inline btn btn-sm btn-outline-danger bi bi-trash3 botonAdmin botonBorrar"
-          ></a>
-        </td>
+            <a
+            data-id = ${proyecto.id}
+            class="d-none d-sm-inline btn btn-sm btn-outline-primary bi bi-pencil botonAdmin botonEditar"
+            ></a>
+          </td>
+          <td>
+            <a
+              data-id = ${proyecto.id}
+              class="d-none d-sm-inline btn btn-sm btn-outline-danger bi bi-trash3 botonAdmin botonBorrar"
+            ></a>
+          </td>
       </tr>
             
       `;
@@ -322,6 +323,7 @@ export default {
         <div class="row g-0">
           <div
             class="col-4 verDetalle"
+            data-id="${proyecto.id}"
             style="
               background-image: url(${
                 proyecto.imagen || "images/imagenVacia.png"
@@ -351,11 +353,11 @@ export default {
               }"><i class="bi bi-folder-symlink"></i></a>
               <a class="btn btn-sm btn-success" href="#">${proyecto.estado}</a>
               <a
-                data-user_id = ${proyecto.user_id}
+                data-id = ${proyecto.id}
                 class="d-none d-sm-inline btn btn-sm btn-outline-primary bi bi-pencil botonAdmin botonEditar"
               ></a>
               <a
-                data-user_id = ${proyecto.user_id}
+                data-id = ${proyecto.id}
                 class="d-none d-sm-inline btn btn-sm btn-outline-danger bi bi-trash3 botonAdmin botonBorrar"
               ></a>
             </div>
