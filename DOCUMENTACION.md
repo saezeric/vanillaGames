@@ -6124,7 +6124,7 @@ Vamos a comenzar a crear los componentes header y footer con su template corresp
 
 Pero antes, vamos a crear una nueva rama de desarrollo. Podemos llamarla `vistasHtml` Cuando tengamos todo el trabajo hecho, volcaremos toda la programación de esta rama sobre la rama `main`.
 
-## **Template para header.js[​](https://carrebola.github.io/vanillaPill/docs/Version%201.0/SPRINT%203%20-%20SPA/Componentes%20y%20vistas#template-para-headerjs)**
+## **Template para header.js**
 
 Para construir los templates y vistas de nuestra spa vamos a usar los prototipos que construimos hace unos días.
 
@@ -6264,7 +6264,7 @@ export const header = {
 
 Si hechas un vistazo a tu aplicación verás que esto va cogiendo forma 😀
 
-## **Template para footer.js[​](https://carrebola.github.io/vanillaPill/docs/Version%201.0/SPRINT%203%20-%20SPA/Componentes%20y%20vistas#template-para-footerjs)**
+## **Template para footer.js**
 
 Vamos a hacer ahora lo mismo. Extraigo html del footer de los prototipos y lo pego en el template de mi componente:
 
@@ -6295,7 +6295,7 @@ export const footer = {
 
 ```
 
-## **Template para vista homeVista.js[​](https://carrebola.github.io/vanillaPill/docs/Version%201.0/SPRINT%203%20-%20SPA/Componentes%20y%20vistas#template-para-vista-homevistajs)**
+## **Template para vista homeVista.js**
 
 Vamos a hacer lo mismo para vista homeVista.js
 
@@ -6323,7 +6323,7 @@ De momento bastante bien, pero hay un par de cosillas que tenemos que retocar.
 1. Debemos modificar nuestro index.html para añadir los estilos del `<body></body>` de los prototipos.
 2. Debemos modificar los las url de las imagenes para que se muestren correctamente.
 
-## **Actualizando index.html[​](https://carrebola.github.io/vanillaPill/docs/Version%201.0/SPRINT%203%20-%20SPA/Componentes%20y%20vistas#actualizando-indexhtml)**
+## **Actualizando index.html**
 
 Vamos con el index.html
 
@@ -6397,7 +6397,7 @@ $bootstrap-icons-font-dir: "../node_modules/bootstrap-icons/font/fonts";
 @import "bootstrap-icons/font/bootstrap-icons";
 ```
 
-## **Programando la lógica de los componentes y vistas (script)[​](https://carrebola.github.io/vanillaPill/docs/Version%201.0/SPRINT%203%20-%20SPA/Componentes%20y%20vistas#programando-la-l%C3%B3gica-de-los-componentes-y-vistas-script)**
+## **Programando la lógica de los componentes y vistas (script)**
 
 Ahora ya tenemos las vistas con su código html básico en el `template`.
 
@@ -6407,7 +6407,7 @@ Lo haremos en la propiedad string de nuestro componente.
 
 Vemos un ejemplo con la vista `registro.js`
 
-### **Lógica para `registro.js`[​](https://carrebola.github.io/vanillaPill/docs/Version%201.0/SPRINT%203%20-%20SPA/Componentes%20y%20vistas#l%C3%B3gica-para-registrojs)**
+### **Lógica para `registro.js`**
 
 Añadimos el método script() y dentro copiamos el código javascript que hemos programado en el prototipo:
 
@@ -10260,3 +10260,211 @@ Si queremos un método capaz de obtener toda la información (resultado de una c
 Y como este método nos retorna información que no está contemplada en las propiedades de la clase _Proyectos_, nos vemos obligado a crear una clase nueva (que heredada de la clase _Proyectos_), con dos propiedades nuevas _nombre_autor_ y _apellidos_autor_ y varios métodos añadidos: _getDetalleAll()_, _getDetalleById(id: number)_ y _getDetallaByUserId(iser_id: UUID)_
 
 Y con estas clases ya podemos crear nuestra capa de abstracción entre la programación de la app y la lógica para acceder a los datos de base de datos.
+
+# **Supabase como servicio backend**
+
+Supabase es una plataforma de desarrollo de código abierto que se centra en la creación de aplicaciones web y móviles con una base de datos. Proporciona una variedad de herramientas y servicios que facilitan el proceso de desarrollo al ofrecer:
+
+- una base de datos PostgreSQL escalable
+- autenticación segura
+- almacenamiento de archivos
+- API REST y GraphQL entre otros componentes.
+
+Más información sobre SUPABASE
+
+Supabase se ha creado con el objetivo de simplificar el proceso de desarrollo de aplicaciones, proporcionando a los desarrolladores una infraestructura sólida para la gestión de bases de datos y autenticación, así como otras características esenciales para el desarrollo moderno de aplicaciones web y móviles.
+
+Características destacadas de Supabase
+
+Algunas de las características clave de Supabase incluyen:
+
+- Base de datos PostgreSQL: Supabase ofrece una base de datos PostgreSQL completamente gestionada y escalable en la nube. Esto permite a los desarrolladores almacenar, recuperar y administrar datos de manera eficiente.
+- Autenticación: Proporciona capacidades de autenticación y autorización, lo que facilita la implementación de sistemas de registro y acceso seguros para tus aplicaciones.
+- API REST y GraphQL: Ofrece una API REST y una API GraphQL para interactuar con los datos almacenados en la base de datos. Esto permite a los desarrolladores diseñar y crear endpoints personalizados para sus aplicaciones.
+- Almacenamiento de archivos: Supabase permite a los usuarios almacenar y administrar archivos en la nube, lo que es útil para aplicaciones que requieren cargar, almacenar y acceder a archivos multimedia.
+- Eventos en tiempo real: Ofrece notificaciones en tiempo real basadas en cambios en la base de datos. Esto es útil para crear aplicaciones en tiempo real, como chats y paneles de control en vivo.
+- Integraciones y extensibilidad: Supabase puede integrarse con otras herramientas y servicios, lo que permite una mayor flexibilidad en el desarrollo de aplicaciones.
+- Código abierto: Supabase es un proyecto de código abierto, lo que significa que su código fuente es accesible para la comunidad. Esto fomenta la colaboración y permite a los desarrolladores personalizar y contribuir al proyecto.
+- Interfaz de línea de comandos (CLI): Proporciona una CLI que facilita la configuración y administración de proyectos de Supabase.
+
+¿Cuánto cuesta Supabase ?
+
+Supabase cuenta con un plan gratuito para sitios web simples, con un límite de dos proyectos, perfecto para probar la plataforma. No obstante, también ofrece un plan PRO de U$25 por proyecto, ideal para la creación de aplicaciones productivas y escalables. [https://supabase.com/](https://supabase.com/)
+
+tip
+
+¡Pero ahora Supabase es mucho más! Durante los meses de julio y agosto de 2023 la IA ha dado un salto enorme y ha comenzado a incorporarse en las aplicaciones de desarrollo web. Puedes saber más en este artículo:
+
+👉[UNA NUEVA ERA EN LA GESTIÓN DE BASES DE DATOS: SUPABASE STUDIO 3.0 REDEFINE LA EDICIÓN SQL](https://wwwhatsnew.com/2023/08/11/una-nueva-era-en-la-gestion-de-bases-de-datos-supabase-studio-3-0-redefine-la-edicion-sql/)👈
+
+En nuestro proyecto vamos a utilizar muchas de estas características. Pero, como dijo Jack... 'vayamos por partes' De momento vamos a centrarnos en las bases de datos PostgreSQL que nos ofrece y su interfaz para hacer consultas sql.
+
+Pero antes debemos crear una cuenta. Puedes hacerlo desde su página web: [https://supabase.com/](https://supabase.com/)
+
+## **Nuevo proyecto**
+
+Una vez tenemos nuestra cuenta necesitaremos crear un proyecto. (Recuerda que puedes tener hasta dos proyectos en la cuenta gratuita).
+
+Vamos a crear un nuevo proyecto con nombre 'Vanilla Project'
+
+Aquí puedes ver mi cuenta con dos proyectos creados:
+
+![Supabase](https://carrebola.github.io/vanillaPill/assets/images/proyectos-40bf77cc0d7027a490c85fd7928655fe.png)
+
+Fíjate en que...
+
+El proyecto con nombre 'Vanilla Project' está pausado. Esto es debido a que solo podemos tener un proyecto activo
+
+## **Probando consultas SQL**
+
+Una vez has seleccionado tu proyecto de trabajo, podrás ver a la izquierda una barra de herramientas con diferentes opciones. La que ahora nos interesa a nosotros es la de `SQL Editor`.
+
+Esta opción nos abre una ventana en la que hacer consultas a nuestra base de datos.
+
+Prueba a escribir la siguiente consulta: `'select "Hola Vanilla"'`. Podrás comprobar como en el panel inferior se muestra la respuesta a la consulta. En este caso simplemente muestra el texto 'Hola Vanilla'.
+
+En la versión actual de Supabase, también podemos encontrar una IA que nos ayuda con la creación de consultas. Vamos a darle permisos a OpenAI para que pueda ver nuestros datos y así ayudarnos  
+Nota
+
+Hay que tener en cuenta que, por el momento, los datos que incorporarán nuestra base de datos no son sensibles, por lo que no supone ningún problema de violación de la privacidad. Por otro lado, esta herramienta puede ser muy útil en el desarrollo de nuestro entorno backend.
+
+Una vez tenemos activa la IA podemos pedirle que nos cree una consulta especifica. Por ejemplo, vamos a decirle que nos escriba el código necesario para crear una tabla de ejemplo:
+
+![Ejemplo IA](https://carrebola.github.io/vanillaPill/assets/images/ejemploia-cb88adc2752696c4485b561a702acc07.png)
+
+¡Funciona! Está claro que este va a ser un gran ayudante en la contrucción de nuestro proyecto.
+
+De todas formas, para la construcción de nuestras tablas será mejor que utilicemos la interfaz que nos ofrece Supabase...
+
+# **Construcción de tablas y usuarios**
+
+En la barra de herramientas tenemos la opción `Tabla Editor`. Este editor nos va a facilitar mucho la creación de las tablas de nuestro proyecto.
+
+Hagamos memoria. Según nuestro diagrama ER, necesitamos tres tablas: users, perfiles y proyectos. Tanto las tablas perfiles como la tabla proyectos son tablas `public` (públicas) y debemos crear nosotros. La tabla 'users' es una tabla que se crea de manera automática en Supabase cuando registras usuarios y pertenece al dominio `auth`.
+
+## **Creamos Tabla Perfiles**
+
+Vamos a crear la tabla perfiles mediante la interfaz de Supabase.
+
+![Create tabla](https://carrebola.github.io/vanillaPill/assets/images/creartabla-436a84206bb54b5e76a9685581b4518b.png)
+
+Asegúrate de eliminar las politicas de acceso a la tabla. Más adelante las definiremos para determinar quién puede hacer qué dependiendo del rol asociado al usuario que accede.  
+¿Qué son las politicas de acceso de supabase?
+
+Las políticas de acceso en Supabase son conjuntos de reglas que estableces para controlar quiénes pueden acceder a qué datos y realizar qué acciones dentro de tu aplicación o base de datos.
+
+Esto te permite gestionar quién puede ver, modificar o eliminar información específica, y también definir permisos especiales para ciertos usuarios si es necesario.
+
+Al crearse la tabla se crean automáticamente los campos id (que será un numero entero autoincremental y se convertirá en la clave única) y createat que guardará la fecha y hora de creación del registro (con tipo timestamptz).
+
+A continuación crearemos el resto de campos indicando el type para cada campo.
+
+![campos de tabla perfiles](https://carrebola.github.io/vanillaPill/assets/images/perfiles-9cd9b357e8b44109a9d085a3413c17b1.png)
+
+Y finalmente vamos a vincular el campo userid con el campo id de la tabla `auth.users` creando una clave foranea. Asegurate de marcar la opción Cascade de 'Action if referenced row is removed'. De esta manera, si borrarmos un registro de la tabla `auth.users` se borrará también el registro de la tabla '`perfiles`' asociado a ese usuario.
+
+## **Creamos Tabla proyectos**
+
+Para la tabla proyectos emplearemos el mismo procedimiento
+
+![campos de tabla perfiles](https://carrebola.github.io/vanillaPill/assets/images/tablaproyectos-43277143929fb8744bbe73cb2abd1ed7.png)
+
+No olvides crear la clave foranea de los campos userid e id de las tablas public.proyectos y auth.users
+
+Ahora que tenemos las tres tablas creadas podemos visualizarlas con el nuevo Schema Visualizer que incorpora Supabase
+
+![campos de tabla perfiles](https://carrebola.github.io/vanillaPill/assets/images/schemavisualizer-873bfd294fd4e9898c620513bd492739.png)
+
+En esta imagen puedes ver las tablas públicas. Si quieres ver los campos que incorpora la tabla auth.users puedes modificar el filtro superior por 'auth'
+
+![Visualizador de esquema de tablas](https://carrebola.github.io/vanillaPill/assets/images/schemavisualizerusers-7b933bde53487e4245c713b5e4056520.png)
+
+## **Registramos Usuarios**
+
+Vamos a añadir algunos usuarios a nuestra tabla users. Comenzamos por los usuarios.
+
+Hay muchas maneras de registrar usuarios, pero ahora la más fácil para nosotros es usando la opción `Add user`del menú `Authentication`
+
+![Nuevo usuario](https://carrebola.github.io/vanillaPill/assets/images/newuser-dedf654dda31e4f9b094b0d6081d95f8.png)
+
+Podemos crear algunos usuarios más para poder hacer pruebas. Estos son los que he creado yo. Tu puedes hacer lo mismo:
+
+Nota
+
+Te recomiendo que antes te crees algunas cuentas de correo para poder trabajar con ellas
+
+![Nuevos usuarios](https://carrebola.github.io/vanillaPill/assets/images/users-f7a90302ef8ac813acb77ac8389736c3.png)
+
+## **Añadimos datos a la tabla perfiles**
+
+Como ya tenemos los usuarios registrados (como se muestra en la tabla auth.users) podemos crear los registros de la tabla `perfiles` asociados a cada uno de estos usuarios.
+
+Podemos hacerlo con consultas sql o directamente accediendo a las tablas desde la opción `Table editor` y añadiendo registros. Vamos a hacerlo con este último método.
+
+Desde el editor de tablas, haz clic sobre el nombre de la tabla `perfiles` y utiliza el botón `Insert` para añadir registros (filas), tal y como se muestra en la figura:
+
+![Nuevos usuarios](https://carrebola.github.io/vanillaPill/assets/images/nuevoPerfil-505cb089c70f64e81e803851a549b907.png)
+
+En el campo avatar (que es de tipo texto), por el momento he añadido la url de una imagen externa. (He usado la cara de algunos músicos... que me perdonen por lo que respecta a los derechos de autor 😅)
+
+![Nuevos usuarios](https://carrebola.github.io/vanillaPill/assets/images/datosPerfiles-2f4ee92abd7e49681176c33215a0b64d.png)
+
+Fíjate bien
+
+Al completar los datos de cada perfil, en el campo userid he utilizado el id de la tabla `auth.users`
+
+## **Primera consulta a la tabla perfiles**
+
+Ahora que tenemos la tabla perfiles con datos, vamos a hacer una consulta sql desde el SQL Editor:
+
+```
+select * from perfiles
+```
+
+![Nuevos usuarios](https://carrebola.github.io/vanillaPill/assets/images/consultaPerfiles-9f17aa9b4d3bfefa034ded2dc543a7ad.png)
+tip
+
+Una opción interesante es que podemos guardar las consultas que hacemos.
+
+## **Insertando datos en la tabla proyectos**
+
+Para insertar datos en la tabla proyectos vamos a utilizar el editor de consultas. Nos ayudaremos de la IA para facilitarnos el trabajo:
+
+Pregunta a ChatGPT
+
+![Nuevos usuarios](https://carrebola.github.io/vanillaPill/assets/images/chatgpt-564c889568763d7becfb2714131e99a2.png)
+
+Respuesta de ChatGPT
+
+Consulta SQL
+
+```
+INSERT INTO proyectos (userid, nombre, descripcion, imagen, enlace, repositorio, estado)
+VALUES
+  ('2ab09b38-6629-414d-bcf5-ebb26e638973', 'Proyecto de Gestión de Inventario', 'Este proyecto permite gestionar el inventario de una empresa', 'https://imagen.com/gestion-inventario.jpg', 'https://enlace.com/gestion-inventario', 'https://github.com/proyecto-gestion-inventario', 'Activo'),
+  ('2ab09b38-6629-414d-bcf5-ebb26e638973', 'Proyecto de Gestión de Personal', 'Este proyecto permite gestionar el personal de una empresa', 'https://imagen.com/gestion-personal.jpg', 'https://enlace.com/gestion-personal', 'https://github.com/proyecto-gestion-personal', 'Inactivo'),
+  ('2ab09b38-6629-414d-bcf5-ebb26e638973', 'Proyecto de Análisis de Datos de Ventas', 'Este proyecto permite analizar los datos de ventas de una empresa', 'https://imagen.com/analisis-ventas.jpg', 'https://enlace.com/analisis-ventas', 'https://github.com/proyecto-analisis-ventas', 'Activo'),
+  ('1dd53fb9-fa27-4aa3-8c91-2b5de5edba76', 'Proyecto de Análisis de Redes Sociales', 'Este proyecto permite analizar las redes sociales de una empresa', 'https://imagen.com/analisis-redes-sociales.jpg', 'https://enlace.com/analisis-redes-sociales', 'https://github.com/proyecto-analisis-redes-sociales', 'Activo'),
+  ('1dd53fb9-fa27-4aa3-8c91-2b5de5edba76', 'Proyecto de Gestión de Proyectos', 'Este proyecto permite gestionar proyectos de una empresa', 'https://imagen.com/gestion-proyectos.jpg', 'https://enlace.com/gestion-proyectos', 'https://github.com/proyecto-gestion-proyectos', 'Inactivo'),
+  ('1dd53fb9-fa27-4aa3-8c91-2b5de5edba76', 'Proyecto de Visualización de Datos', 'Este proyecto permite visualizar datos de una empresa', 'https://imagen.com/visualizacion-datos.jpg', 'https://enlace.com/visualizacion-datos', 'https://github.com/proyecto-visualizacion-datos', 'Activo'),
+  ('1dd53fb9-fa27-4aa3-8c91-2b5de5edba76', 'Proyecto de Análisis de Datos de Marketing', 'Este proyecto permite analizar los datos de marketing de una empresa', 'https://imagen.com/analisis-marketing.jpg', 'https://enlace.com/analisis-marketing', 'https://github.com/proyecto-analisis-marketing', 'Inactivo');
+
+```
+
+Y si ahora hacemos una consulta a la tabla proyectos deberíamos ver los datos introducidos:
+
+```
+select * from proyectos
+```
+
+![Nuevos usuarios](https://carrebola.github.io/vanillaPill/assets/images/datosProyectos-4775eac8e58dbbb703792817a951ba76.png)
+
+Resumiendo:
+
+- Nos hemos registrado en Supabase con una cuenta gratuita (que nos permite tener dos proyectos)
+- Hemos creado las tablas necesarias para nuestro proyecto
+- Hemos registrado algunos usuarios de prueba
+- Hemos insertado datos de prueba en las tablas
+- Hemos probado algunas consultas.
+
+Es el momento de aprender a comunicar una aplicación de javascript con nuestro servicio de backend...
