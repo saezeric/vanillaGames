@@ -10072,3 +10072,191 @@ export default {
 }
 
 ```
+
+# **Diseño de la base de datos**
+
+## **Diagrama entidad - relación**
+
+Vamos a comenzar a trabajar en el backend. Tal y como comentamos en el apartado de _Arquitectura y tecnologías_, el backend lo implementaremos utilizando Supabase como servicio. Supabase trabaja con bases de datos relacionales por lo tanto crearemos modelos basados en tablas.
+
+En primer lugar, para diseñar nuestra estructura de bases de datos, haremos uso, una vez más, de los diagramas UML y crearemos un diagrama de entidad - relación.
+
+¿Qué es un diagrama entidad/relación?
+
+Un diagrama de entidad-relación (ER) es una herramienta de modelado de datos utilizada para describir la estructura de una base de datos en términos de entidades y las relaciones entre ellas. Estas entidades pueden ser personas, lugares, objetos, eventos o conceptos, y las relaciones entre ellas representan las conexiones lógicas entre los datos.
+
+Más información sobre diagramas E-R
+En un diagrama ER, las entidades se representan como rectángulos y las relaciones se representan como líneas que conectan los rectángulos. Cada entidad se describe mediante sus atributos, que son las características o propiedades que definen la entidad. Por ejemplo, una entidad "cliente" puede tener atributos como nombre, dirección, número de teléfono, correo electrónico, etc.
+
+Las relaciones entre las entidades se describen mediante la cardinalidad, que indica cuántas entidades están relacionadas y cómo están relacionadas. Las relaciones pueden ser uno-a-uno, uno-a-muchos o muchos-a-muchos, y se indican mediante símbolos especiales que se colocan junto a las líneas que conectan las entidades.
+
+Un diagrama ER es una herramienta útil en el diseño de bases de datos, ya que ayuda a identificar las entidades y las relaciones entre ellas, y a establecer la estructura de la base de datos en términos de tablas, campos y relaciones. Además, también puede ayudar a detectar problemas en el diseño de la base de datos, como redundancias o inconsistencias, y a optimizar la estructura de la base de datos para mejorar el rendimiento y la eficiencia.
+
+Este podría ser nuestro diagrama E-R para la versión 1.0 de nuestro proyecto:
+
+![Diagrama E-R](https://carrebola.github.io/vanillaPill/assets/images/diagramaer1-fff859ccf6762bd69f08d7e3a4420a21.png)
+
+Como podemos observar, este diagrama muestra 3 entidades que se relacionan entre sí.
+
+- La entidad (tabla) USER, que será la tabla que se crea de manera automática en supabase cada vez que se registra un usuario (que incluirá los campos id, created_At, email y otros campos genéricos)
+- La entidad PERFIL, que será una tabla asociado a USER con la clave foránea user_id, y que contendrá toda la información del perfil del usuario registrado.
+- La entidad PROYECTO que contendrá la información de los proyectos creados por los usuarios.
+
+La entidad PERFIL se relaciona con USER con user_id con una cardinalidad 1 - 1, es decir el perfil pertenece a un usuario y un usuario solo puede tener un perfil.
+
+La entidad USER puede CREAR PROYECTO. La cardinalidad es 1 - n, es decir, un usuario puede crear varios proyectos pero un proyecto solo puede ser creado por un usuario.
+
+Lógicamente, estas relaciones no generan tablas añadidas.
+
+Aquí podemos ver otra versión del mismo diagrama, con una nomenclatura diferente:
+
+![Diagrama de tablas](https://carrebola.github.io/vanillaPill/assets/images/diagramaer2-26db48c2bd6e7ae752a9356af78bce19.png)
+
+Para la versión 1 del proyecto no necesitamos más tablas. Es una estructura sencilla que se irá complicando conforme añadamos funcionalidades.
+
+# **A cerca del Diagrama de clases y el Mapping**
+
+Ya hemos decidido las entidades que necesitamos en la construcción de nuestra base de datos y como se relacionan.
+
+Para representar este diseño hemos empleado un diagrama UML llamado 'Diagrama entidad-relacion'.
+
+Pero tenemos otro diagrama UML mucho más potente, el Diagrama de clases. Éste se utiliza en programación cuando trabajamos con Programación Orientada a Objetos, como va a ser nuestro caso.
+
+## **¿Qué es un diagrama de clases?**
+
+Diagrama de Clases:
+
+El diagrama de clases es una representación visual de las clases, objetos y relaciones en un sistema. Se utiliza en la fase de diseño para ilustrar cómo se organizan las clases, sus atributos y métodos, así como las relaciones entre ellas. El diagrama de clases es un componente clave en la programación orientada a objetos, ya que ayuda a comprender la estructura del software antes de implementarlo.
+
+En un diagrama de clases, las clases representan objetos del mundo real o conceptos en el software, y las relaciones (como asociación, herencia, composición, etc.) describen cómo interactúan estos objetos entre sí.
+
+## **¿Qué es un ORM?**
+
+Por otro lado otro concepto que debemos conocer es el patrón de diseño ORM (Object-Relational Mapping)
+
+ORM (Object-Relational Mapping):
+
+El ORM es un patrón de diseño que permite mapear objetos y sus relaciones en una base de datos relacional. En lugar de escribir consultas SQL directamente, el ORM abstrae la interacción con la base de datos utilizando clases y objetos. Cada clase en el ORM se mapea a una tabla en la base de datos, y las propiedades de la clase se mapean a columnas en la tabla.
+
+En resumen, mientras que el diagrama de clases es una herramienta de diseño para visualizar la estructura y las relaciones de las clases en un sistema, el ORM es una técnica de implementación que permite que esas clases y relaciones se reflejen directamente en la base de datos, lo que facilita el almacenamiento y la recuperación de datos de manera orientada a objetos.
+
+## **¿Y para qué queremos esto?**
+
+Si has entendido los conceptos anteriores (y si no, ¡pregunta!, que para eso me pagan... 😋), la idea es diseñar las clases necesarias para abstraer (que significa _separar_, no te rayes) la programación de nuestra aplicación de la lógica necesaria para acceder a las bases de datos.
+
+Nosotros vamos a utilizar, para acceder al servicio backend de supabase, una API de javascript que nos facilita la propia plataforma de Supabase (ya lo veremos). Pero la idea es que, si creamos esta capa de abstración, en un futuro podríamos sustituir el servicio de Supabase por nuestra propia API Rest basada en otro lenguaje de servidor,como por ejemplo: python, php o el mismo javascript con nodejs.
+
+Es decir, aunque cambiásemos el lado del servidor, la programación del lado del cliente ¡seguiría intacta!. Esta podría suponer una gran ventaja si un día necesitamos escalar nuestro proyecto.
+
+¿Qué es una API Rest?
+
+Una API REST es una forma de hacer que diferentes programas en línea puedan hablar entre sí como si fueran amigos.
+
+Imagina que tienes una máquina expendedora: pones dinero (petición) y recibes una bebida (respuesta). Del mismo modo, cuando envías una petición a una API REST (dinero en la máquina expendedora), obtienes información o realizas una acción (bebida).
+En lugar de usar botones en la máquina, usas diferentes palabras como "consigue esto", "agrega eso", "cambia esto" o "borra eso" (verbos HTTP como GET, POST, PUT, DELETE). Y toda la información se organiza como si fuera una dirección (URL) que dice dónde obtener o poner cosas.
+
+Entonces, en resumen, una API REST es como una máquina expendedora para datos en la web: pides cosas, haces cosas y obtienes respuestas, todo a través de un conjunto de reglas y direcciones.
+
+# **Diseño del diagrama de clases**
+
+## **Clases para el ORM**
+
+En primer lugar vamos a construir las clases necesarias para crear nuestro ORM.
+
+Cada clase va a tener:
+
+- unas propiedades que se corresponderán con los campos de la tabla a la que está asociada
+- unos métodos que permitiran el acceso y manipulación de los datos de dicha tabla
+
+Por lo tanto, en esta versión, necesitamos tres clases. La clase users, la clase perfiles y la clase proyectos.
+
+Los métodos básico que suelen utilizarse en un ORM comprenden las funcionalidades propias de un CRUD (Create, Read, Update y Delete). Nosotros usaremos los siguientes:
+
+- getAll: Devolverá un objeto con todos los registros de la tabla.
+- getById: Devolverá un objeto con los datos del registro que coincida con el campo _id_.
+- getByUserId: Devolverá un objeto con los datos del registro que coincida con el campo _user_id_.
+- create: Creará una nueva fila con los campos que le pasemos.
+- update: Actualizará la fila correspondiente al registro cuyo campo id coincida con el que le pasemos, con los campos que le pasemos.
+
+El diagrama de clases para la clase perfiles quedaría de la siguiente manera:
+
+![Perfiles](https://carrebola.github.io/vanillaPill/assets/images/dcperfiles-1c6beaac99af079dc2f7a60836ad27b0.png)
+
+En este diagrama:
+
+La clase "Perfil" representa los perfiles de tu sistema, con atributos correspondientes a las columnas en la base de datos.
+
+Los métodos estáticos (como getAll, getById, create, update) se pueden llamar directamente en la clase sin crear una instancia previa.
+
+Los atributos (id, created_at, nombre, etc.) son publicos (indicados por el "+") y se inicializan en el constructor.
+
+El método constructor se utiliza para crear una instancia de la clase Perfil a partir de un objeto con datos.
+
+## **Diseño de todas las clases y sus relaciones**
+
+De momento está claro que, cómo mínimmo, necesitamos tantas clases como tablas queramos consultar. Pero eso no es todo, también necesitamos otras clases que nos permitan interactuar con la base de datos a otro nivel (por ejemplo a través de consultas multitabla).
+
+Para diseñar las clases debemos tener presente todas las funcionalidades que se esperan de nuestra app (que en principio deberían conincidir con los casos de uso).
+
+Y para definir todas las funcionalidades de nuestra app necesitarmos revisar todo el trabajo realizado en el momento en el que definimos las especificaciones del proyecto, casos de usos y prototipos.
+
+Hagámoslo, y llegaremos a la conclusión de que necesitamos las siguientes funcionalidades:
+
+Para los usuarios:
+
+- registrar usuario
+- iniciar sesión
+- cerrar sesión
+- borrar usuario
+- actualizar usuario
+- obtener datos de un usuario (email y contraseña)
+- obtener una lista de todos los usuarios registrados
+
+Para los perfiles asociados a estos usuarios:
+
+- obtener datos de un perfil asociado a un usuario (nombre, apellidos, etc)
+- obtener una lista de todos los perfiles
+- borrar un perfil
+- actualizar un perfil
+
+Para los proyectos:
+
+- obtener datos de un proyecto según su id (nombre, descripción, etc)
+- obtener datos de un proyecto según el id del usuario que lo ha creado
+- obtener una lista de todos los proyectos
+- borrar un proyecto
+- actualizar un proyecto
+
+Pero eso no es todo. Si nos fijamos en el prototipo que muestra la tabla con todos los proyectos veremos que los datos mostrados son el resultado de cruzar la tabla _proyectos_ con la tabla _perfiles_, es decir, de una consulta multitabla. De esta funcionalidad derivará una nueva clase llamada _proyectoDetalle_. Y ocurre algo parecido con la tabla perfil.
+
+Os lo vuelo a explicar después, con más detalle.
+
+Ahora toca diseñar el diagrama de clases tal y como nos lo explicaron en el módulo de 'Entornos de desarrollo'. El resultado final sería algo así:
+
+## **Diagrama de clases**
+
+**Diagrama de clases**
+
+![Diagrama de clases](https://carrebola.github.io/vanillaPill/assets/images/dc-1b2b47904518da02ba6c90fd8ef20e38.svg)
+
+_Diseñado con GitMind ([https://gitmind.com/app/docs/fgi5pva1](https://gitmind.com/app/docs/fgi5pva1))_
+
+Como puedes observar: La clase _Users_ representa la tabla _users_, la clase _Perfiles_ representa a la tabla _perfiles_ y la clase _Proyectos_ representa a la tabla _proyectos_.
+
+Cada una tiene las mismas propiedades que tienen los campos de las tablas.
+
+Por otro lado, tenemos las clases _Perfil_detalle_ y _Proyecto_detalle_. Éstas son clases heredadas de _Perfiles_ y _Proyectos_ respectivamente y tienen la peculiaridad de que incluyen algún atributo extra y tres nuevos métodos.
+
+Os explico el por qué de estas clases:
+
+Si revisamos el boceto donde se muestran todos los proyectos, podemos ver que en la tabla se muestra, en cada fila, la información del proyecto junto con el nombre del autor.
+
+![prototipo proyetos](https://carrebola.github.io/vanillaPill/assets/images/proyectos-ddb8f57183c3d3b48cea380630424609.png)
+
+Los métodos de la clase _Proyectos_ solo incluye los campos de la tabla _proyectos_. Pero en la tabla proyectos no aparece el nombre del autor sino su user_id.
+
+Si queremos un método capaz de obtener toda la información (resultado de una consulta que combina dos tablas), necesitamos un método nuevo: el método _getDetalleAll()_.
+
+Y como este método nos retorna información que no está contemplada en las propiedades de la clase _Proyectos_, nos vemos obligado a crear una clase nueva (que heredada de la clase _Proyectos_), con dos propiedades nuevas _nombre_autor_ y _apellidos_autor_ y varios métodos añadidos: _getDetalleAll()_, _getDetalleById(id: number)_ y _getDetallaByUserId(iser_id: UUID)_
+
+Y con estas clases ya podemos crear nuestra capa de abstracción entre la programación de la app y la lógica para acceder a los datos de base de datos.
