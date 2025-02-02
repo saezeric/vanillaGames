@@ -10940,3 +10940,738 @@ let { data, error } = await supabase
 if (error) console.error(error)
 else console.log(data)
 ```
+
+# **Definición del mapping de acceso a la bd. Clases**
+
+¡Comenzamos Sprint nuevo!
+
+![Alt text](https://carrebola.github.io/vanillaPill/assets/images/image-7-265d30d527a1fd6cd361374d5ae480af.png)
+
+# **Historia: Definición del mapping de acceso a la bd. Clases**
+
+El término "mapping" se refiere a la asignación de las propiedades de un objeto a las columnas de una tabla de una base de datos relacional. En este caso, la idea es que las propiedades de una clase JavaScript se correspondan con las columnas de una tabla en la base de datos Supabase.
+
+Para definir un mapping en una aplicación de JavaScript con Supabase, primero debes crear una clase JavaScript que represente un registro de la tabla en cuestión. Cada propiedad de la clase se corresponderá con una columna en la tabla. Luego, puedes definir métodos estáticos en la clase para interactuar con la tabla (por ejemplo, leer, crear, actualizar o eliminar registros).
+
+## **Conexión con la base de datos**
+
+Es el momento de comenzar a construir nuestro la lógica para la comunicación con la base de datos en nuestro proyecto.
+
+Como siempre, antes de comenzar a trabajar crearemos una rama nueva. Llamémosla... 'ORM'
+
+Ahora instalamos en nuestro proyecto la librería de supabase para poder comenzar a trabajar con ella:
+
+`npm install --save @supabase/supabase-js`
+
+Para conectarnos con la base de datos crearemos un objeto con la lógica de conexión que nos ofrece supabase. Para ello:
+
+- Creamos el archivo `supabase.js` en la carpeta bd `src/bd/supabase.js`
+- El archivo definimos la conexión usando los modelos de API Docs que ya testeamos en el apartado 'Probando Supabase', y la exportamos. El archivo quedaría así:
+
+supabase.js
+
+```
+import { createClient } from '@supabase/supabase-js'
+//Creando la conexión con supabase
+const supabaseUrl = 'xxxxxx'
+const supabaseKey = 'xxxxxx'
+
+//exportamos la conexión
+export const supabase = createClient(supabaseUrl, supabaseKey)
+
+```
+
+## **Clase Perfil**
+
+Vamos a definir la clase Perfil que utilizaremos para interactuar con una tabla de base de datos llamada perfiles.
+
+Utilizaremos métodos static los cuales pueden ser llamados desde la misma clase, sin necesidad de instanciar un objeto.
+
+La clase Perfil tienen las siguientes propiedades: id, nombre, apellidos, user_id, estado, rol y avatar y los siguientes métodos:
+
+- constructor: El constructor de la clase acepta los parámetros id, nombre, apellidos, user_id, estado, rol y avatar y los asigna a las propiedades correspondientes del objeto.
+- getAll: Este método es static y devuelve una lista de todos los registros en la tabla perfiles. Utiliza el método select de la librería supabase para seleccionar todos los registros de la tabla perfiles. Luego, utiliza el método map para convertir cada registro en un objeto de la clase Perfil.
+- getById: Este método es static y acepta un parámetro id. Devuelve un objeto de la clase Perfil que tiene el id especificado. Utiliza el método select de la librería supabase para seleccionar el registro con el id especificado y el método single para devolver un solo registro. Luego, devuelve un objeto de la clase Perfil con los datos del registro seleccionado.
+- getByUserId: Igual que el anterior pero más útil, ya que encuentra los datos de perfil a partir del id del user.
+- create: Este método es static y acepta un objeto perfilData que contiene los datos para un nuevo registro de la tabla perfiles. Utiliza el método insert de la librería supabase para insertar el nuevo registro en la tabla perfiles.
+- update: Este método actualiza el registro de la tabla perfiles que tiene el mismo id que el objeto Perfil actual. Utiliza el método update de la librería supabase para actualizar los campos nombre, apellidos y avatar del registro con los valores del objeto Perfil actual.
+- delete: Este método es static y acepta un parámetro id. Elimina el registro de la tabla perfiles que tiene el id especificado utilizando el método delete de la librería supabase. Devuelve true si la eliminación es exitosa.
+
+En primer lugar creamos el archivo perfil.js dentro de la carpeta `bd`.
+
+Ahora importamos la conexión de supabase `import { supabase } from "./supabase.js";` Y definimos la clase que vamos a exportar. El código quedaría así:
+
+perfil.js
+
+```
+
+// Importa el objeto 'supabase' desde un archivo 'supabase.js'
+import { supabase } from './supabase.js'
+
+// Definición de la clase Perfil
+export class Perfil {
+  // Constructor que inicializa las propiedades del perfil
+  constructor({
+    id = null, // ID único del perfil
+    created_at = null, // Fecha de creación del perfil
+    user_id = null, // ID del usuario asociado al perfil
+    nombre = null, // Nombre del usuario
+    apellidos = null, // Apellidos del usuario
+    avatar = 'default_avatar.png', // URL del avatar por defecto
+    estado = 'activo', // Estado del perfil (activo/inactivo, por ejemplo)
+    rol = 'registrado' // Rol del usuario (registrado, administrador, etc.)
+  }) {
+    // Asignación de valores a las propiedades del perfil
+    this.id = id
+    this.created_at = created_at
+    this.user_id = user_id
+    this.nombre = nombre
+    this.apellidos = apellidos
+    this.avatar = avatar
+    this.estado = estado
+    this.rol = rol
+  }
+
+  // Método estático para obtener todos los perfiles
+  static async getAll() {
+    // Realiza una consulta a la base de datos para obtener todos los perfiles
+    const { data: perfiles, error } = await supabase
+      .from('perfiles')
+      .select('*') // Selecciona todas las columnas
+      .order('created_at', { ascending: false }) // Ordena por fecha de creación descendente
+
+    // Manejo de errores: lanza una excepción si ocurre algún error
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    // Mapea los perfiles obtenidos a instancias de la clase Perfil y los devuelve
+    return perfiles.map((perfil) => new Perfil(perfil))
+  }
+
+  // Método estático para obtener un perfil por su ID
+  static async getById(id) {
+    // Realiza una consulta para obtener un perfil por su ID
+    const { data: perfil, error } = await supabase
+      .from('perfiles')
+      .select('*')
+      .eq('id', id) // Filtra por el ID especificado
+
+    // Manejo de errores
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    // Devuelve una instancia de Perfil con la información obtenida
+    return new Perfil(perfil[0])
+  }
+
+  // Método estático para obtener un perfil por el ID del usuario asociado
+  static async getByUserId(userId) {
+    // Realiza una consulta para obtener un perfil por el ID de usuario asociado
+    const { data: perfil, error } = await supabase
+      .from('perfiles')
+      .select('*')
+      .eq('user_id', userId) // Filtra por el ID de usuario especificado
+
+    // Manejo de errores
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    // Devuelve una instancia de Perfil con la información obtenida
+    return new Perfil(perfil[0])
+  }
+
+  // Método estático para crear un nuevo perfil
+  static async create(perfilData) {
+    // Inserta un nuevo perfil en la base de datos con los datos proporcionados
+    const { data, error } = await supabase
+      .from('perfiles')
+      .insert(perfilData) // Inserta los datos del nuevo perfil
+      .select() // Devuelve los datos insertados
+
+    // Manejo de errores
+    if (error) {
+      throw new Error(`Error creando perfil: ${error.message}`)
+    }
+
+    // Si se insertaron datos, devuelve una nueva instancia de Perfil con los datos insertados
+    return data ? new Perfil(data[0]) : null
+  }
+
+  // Método estático para actualizar un perfil existente por su ID
+  static async update(id, newData) {
+    // Actualiza un perfil existente en la base de datos con los nuevos datos
+    const { error } = await supabase
+      .from('perfiles')
+      .update(newData) // Actualiza con los nuevos datos proporcionados
+      .eq('id', id) // Filtra por el ID del perfil a actualizar
+
+    // Manejo de errores
+    if (error) {
+      throw new Error(`Error actualizando perfil: ${error.message}`)
+    }
+
+    // Si la actualización fue exitosa, devuelve true
+    return true
+  }
+}
+
+
+```
+
+## **Clase User**
+
+Esta clase será diferente a la clase Perfil.
+
+La clase User contiene tres métodos estáticos: create, login y logout, cada uno con una funcionalidad específica relacionada con la autenticación y el manejo de users.
+
+Primero importamos la conexión a la base de datos a través de la biblioteca supabase.js.
+
+Luego, en el constructor de la clase User definimos las propiedades de un usuario: id, email y password.
+
+- Método create: Lo utilizaremos para crear un nuevo usuario en la base de datos. Toma un objeto userData como argumento, que contiene las credenciales de usuario necesarias para crear un nuevo usuario en la base de datos. El método utiliza la función supabase.auth.signUp para crear un nuevo usuario en la base de datos y devuelve un objeto User que contiene las propiedades id y email del nuevo usuario.
+- Método login: Lo utilizamos para iniciar sesión en la aplicación. Toma un objeto userData que contiene las credenciales de inicio de sesión y utiliza la función supabase.auth.signInWithPassword para iniciar sesión en la base de datos. Devuelve un objeto User que contiene las propiedades id y email del usuario que ha iniciado sesión.
+- Método logout: Lo utilizamos para cerrar sesión en la aplicación. Utiliza la función supabase.auth.signOut para cerrar sesión y devuelve true si se ha cerrado con éxito.
+- Método getUser: Lo utilizamos para capturar los datos del usuario logueado. Utiliza la función supabase.auth.getUser para acceder a la sesión y devuelve un objeto con el id y el email del usuario.
+
+user.js
+
+```
+// Importamos la conexión a la base de datos desde './supabase.js'
+import { supabase } from './supabase.js'
+
+// Definición de la clase User
+export class User {
+  // Constructor que asigna propiedades básicas de un usuario
+  constructor(id = null, email = null, password = null) {
+    this.id = id
+    this.email = email
+    this.password = password
+  }
+
+  // Método estático para crear un nuevo usuario (registro)
+  static async create(userData) {
+    // Registra un nuevo usuario con Supabase
+    const { data, error } = await supabase.auth.signUp(userData)
+
+    // Manejo de errores
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    // Si el usuario se crea correctamente, devuelve una instancia de User con el ID y el email
+    console.log('usuario creado correctamente ', data)
+    return new User(data.user.id, data.user.email)
+  }
+
+  // Método estático para iniciar sesión (recibe un objeto con email y password)
+  static async login(userData) {
+    // Inicia sesión con Supabase
+    const { data, error } = await supabase.auth.signInWithPassword(userData)
+
+    // Manejo de errores
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    // Devuelve una instancia de User con el ID y el email del usuario logueado
+    return new User(data.user.id, data.user.email)
+  }
+
+  // Método estático para cerrar sesión
+  static async logout() {
+    // Cierra sesión con Supabase
+    const { error } = await supabase.auth.signOut()
+
+    // Manejo de errores
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    // Retorna true si el cierre de sesión fue exitoso
+    return true
+  }
+
+  // Método estático para obtener el usuario actualmente logueado
+  static async getUser() {
+    // Obtiene la información del usuario actualmente logueado con Supabase
+    const { data: { user } } = await supabase.auth.getUser()
+
+    // Si hay un usuario logueado, devuelve una instancia de User con su ID y email
+    if (user) return new User(user.id, user.email)
+  }
+
+  // Método para actualizar datos del usuario (no está claro cómo se utiliza actualmente)
+  async update(nuevosDatos) {
+    const { data, error } = await supabase.auth.updateUser({
+      email: this.email,
+      password: this.password
+    })
+
+    if (error) {
+      throw new Error(error.message)
+    }
+  }
+}
+
+```
+
+## **Clase Proyecto**
+
+La clase proyecto es muy parecida a la clase perfil, por lo que partiremos del mismo archivo y lo modificaremos para adaptarlo a los campos de la tabla proyecto.
+
+# **Testing de las clases con Mocha y Chai**
+
+Es el momento de verificar que nuestras clases están haciendo su trabajo.
+
+Vamos a hacer una primera prueba simple para ver si podemos mostrar por la consola todos los perfiles que tenemos en la tabla `perfiles`.
+
+Lo vamos a hacer 'a saco', y después, cuando ya estemos más tranquilos, usaremos una de herramienta muy utilizada en las empresas: El Testing.
+
+Pero por ahora hagamoslo a lo cutre.
+
+## **Probando la clase perfiles**
+
+Vamos a abrir la vista `homeVista.js` y vamos a colocar nuestro código en el método script que luego llamaremos.
+
+vistaHome.js
+
+```
+// Importamos la clase
+import { Perfil } from '../bd/perfil'
+
+export default {
+  template: // html
+  `
+    ...
+  `,
+  script: async () => {
+    console.log('Vista home cargada')
+
+    // Probando la clase Pefil
+    const resultado = await Perfil.getAll()
+    console.log(resultado)
+  }
+}
+
+```
+
+Fíjate
+
+Hay un par de cosas que debes tener en cuenta:
+
+- Nuestro script() debe llevar delante la palabra `async` y delante de la clase _Perfil_ debemos poner `await`. Esto es porque estamos trabajando con AJAX... pero de eso ya hablaremos en otro momento
+- No olvides importar la clase con `import` en la parte superior del archivo
+
+Si todo ha ido bien, deberias ver en la consola de la página principal algo así:
+
+![Perfil.getAll()](https://carrebola.github.io/vanillaPill/assets/images/image-a912ed829a7c2807242cecdfc7cc05a4.png)
+
+¡¡¡Genial!!! Todo va según lo previsto. Ahora mejor borramos el código de la vista Home no se nos vaya a olvidar...
+
+## **Testing con Mocha y Chai[​](https://carrebola.github.io/vanillaPill/docs/Version%201.0/SPRINT%204%20-%20BACKEND/ORM%20para%20el%20mapping%20en%20javascript/Testing#testing-con-mocha-y-chai)**
+
+Tal y como hemos comentado antes, una buena idea es testear todas las clases para poder asegurarnos de que la conexión con la base de datos se realiza de forma correcta y todo funciona según lo esperado
+
+Para hacer los tests unitarios hemos utilizado mocha y chai.
+
+Qué son Mocha y Chai
+
+"Mocha" y "Chai" en el contexto del testing con JavaScript son frameworks populares para escribir y ejecutar pruebas (tests) automatizadas en aplicaciones web.
+
+Mocha: Es un framework de pruebas que te permite escribir pruebas de manera sencilla y flexible en JavaScript. Proporciona una estructura clara para organizar tus pruebas y es compatible tanto con el navegador como con Node.js.
+
+Chai: Por otro lado, Chai es una librería de aserciones (assertions) que se utiliza junto con Mocha u otros frameworks de pruebas. Con Chai, puedes escribir declaraciones de expectativas de una manera muy legible y expresiva. Viene con diferentes estilos para las aserciones, como el estilo "should", "expect" y "assert".
+
+Un ejemplo de uso
+
+Un ejemplo sencillo sería escribir pruebas para una función matemática que sume dos números utilizando Mocha y Chai:
+
+Supongamos que tienes una función llamada sumar en un archivo matematicas.js:
+
+```
+Copy code
+// matematicas.js
+function sumar(a, b) {
+  return a + b;
+}
+module.exports = sumar;
+```
+
+Y quieres escribir pruebas para esta función usando Mocha y Chai en un archivo test.js:
+
+```
+Copy code
+// test.js
+const chai = require('chai');
+const expect = chai.expect;
+const sumar = require('./matematicas');
+
+describe('Función sumar', function() {
+  it('debería sumar dos números correctamente', function() {
+    expect(sumar(2, 3)).to.equal(5);
+  });
+
+  it('debería devolver un resultado incorrecto si se pasan strings', function() {
+    expect(sumar('2', '3')).to.be.a('string');
+    expect(sumar('2', '3')).to.not.equal(5);
+  });
+});
+```
+
+En este ejemplo, estamos utilizando Mocha para estructurar nuestras pruebas con describe y it, y Chai para realizar las aserciones con expect, verificando el comportamiento esperado de la función sumar.
+
+Estos frameworks son muy útiles para escribir pruebas de calidad y garantizar que tu código funcione como se espera en diferentes situaciones.
+
+## **Creando las pruebas con Mocha i Chai**
+
+- Primero instalamos las librerias mediante el gestor de paquetes: `npm install mocha chai -D`
+- En el archivo `package.json` añadimos el script para pasar los tests:
+
+package.json
+
+```
+"scripts": {
+    "dev": "vite",
+    "build": "vite build --emptyOutDir",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist",
+    "test": "mocha"
+  },
+```
+
+- Ahora ya podemos crear una carpeta en la raiz del proyecto con nombre `test` y dentro colocar nuestros archivos con el código que queremos testear. En este caso comenzamos con `perfil.test.js`
+
+Primero vamos a hacer una prueba muy sencilla. Vamos a consultar los datos del primer proyecto que tenemos en la tabla 'proyectos'. ¿Recuerdas qué método debemos utilizar?... Efectivamente, `Proyecto.getById()`
+
+Pero antes vamos a Supabase para consultar nuestra tabla `proyectos`.
+
+![Tabla proyectos de supabase](https://carrebola.github.io/vanillaPill/assets/images/image-1-ccca5e8fea945e7daf7618e91ee77ed7.png)
+
+Vamos a testear el método `Proyecto.getById(1)`, consultando el nombre del proyecto. Si todo es correcto debería devolvernos el texto: _Proyecto de Gestión de Inventario_
+
+Esto es lo que queremos hacer:
+
+- Importación de Librerías:
+  - Importamos la función expect de la librería Chai, que se utiliza para realizar aserciones en las pruebas.
+  - Importamos el objeto supabase desde un archivo llamado supabase.js, para acceder a una base de datos usando Supabase.
+  - Importamos la clase Proyecto desde un archivo proyecto.js.
+- Estructura de Pruebas:
+  - Usa `describe` para agrupar pruebas relacionadas. En este caso, se está describiendo la función getById().
+  - `it` describe una prueba específica que verifica una funcionalidad en particular. En este caso, se está probando que al obtener un proyecto por su ID, se devuelve el nombre correcto.
+- Prueba:
+  - Se ejecuta una prueba asincrónica (indicada por async function), donde se espera obtener un proyecto utilizando Proyecto.getById(1) (ya que queremos los datos del proyecto con ID=1).
+  - Utiliza `expect` de Chai para verificar si el nombre del proyecto obtenido (proyecto.nombre) es igual a 'Proyecto de Gestión de Inventario'.
+
+Y este sería el código correspondiente:
+
+Este sería el código del script para hacer el test:
+
+proyecto.test.js
+
+```
+// Cargamos libreria de testing
+import { expect } from 'chai'
+
+// cargamos libreria de supabase
+import { supabase } from '../src/bd/supabase.js'
+
+// Cargamos la clase Proyecto
+import { Proyecto } from '../src/bd/proyecto.js'
+
+describe('getById()', function () {
+  it('debería devolver el nombre del proyecto con el ID correspondiente', async function () {
+    // Obtener el proyecto por ID
+    const proyecto = await Proyecto.getById(1)
+    // Esperamos que el nombre coincida
+    expect(proyecto.nombre).equal('Proyecto de Gestión de Inventario')
+  })
+})
+```
+
+Para ejecutar el test solo tenemos que escribir en la consola: `npm run test`. Esto ejecutará todos los archivos test que encuentre en la carpeta.
+
+# **Testeando la clase User**
+
+Ahora ya va en serio, vamos a empezar testeando la clase User.
+
+Esto es lo que vamos a hacer:
+
+1. Creación de Usuario: Utilizando el método create() de la clase User, se crea un nuevo usuario con un email y contraseña. Se verifica que el usuario creado sea una instancia válida de User y que su email coincida con el proporcionado.
+2. Inicio de Sesión: Se intenta iniciar sesión con el usuario creado utilizando el método login(). Se verifica que el usuario creado siga siendo una instancia válida de User y que el usuario logueado tenga el mismo email que se usó para crearlo.
+3. Obtención del Usuario Logueado: Se verifica que el método getUser() de la clase User devuelva el usuario logueado. Se comprueba que se haya obtenido un usuario, que sea una instancia válida de User y que el email del usuario logueado coincida con el que se utilizó previamente.
+4. Cierre de Sesión: Se intenta cerrar la sesión del usuario actual con el método logout(). Se verifica que el proceso de cierre de sesión se realice con éxito y devuelva true."
+5. Leer usuario tras cerrar sesión: Se intenta leer los datos del usuario logueado actual con el método getUser(). Se verifica que el proceso de cierre de sesión ha realizado bien por lo que devuelve _undefined_.
+
+Pero antes, debemos eliminar la opción de supabase que nos obliga a confirmar la creación de un usuario nuevo mediante la respuesta al email que nos envía el sistema.
+
+Para ello nos vamos a supabase, autenticación y Providers, y modificamos, del proveedor de Email, la opción 'Confirm email'
+
+![Alt text](https://carrebola.github.io/vanillaPill/assets/images/image-5-87792411b63ce5e56b0211063866f023.png)
+
+Ahora sí, ya podemos escribir el código del test y ejecutarlo:  
+"user.test.js
+
+```
+import { expect } from 'chai'
+
+import { User } from '../src/bd/user.js'
+
+// cargamos libreria de supabase
+import { supabase } from '../src/bd/supabase.js'
+
+describe('Pruebas para la Clase User', function () {
+  let usuarioCreado // Variable para almacenar el usuario creado durante las pruebas
+
+  describe('create()', function () {
+    it('debería crear un nuevo usuario', async function () {
+      const datosUsuario = { email: 'test@example.com', password: 'testPassword' }
+
+      usuarioCreado = await User.create(datosUsuario)
+
+      expect(usuarioCreado).to.be.an.instanceOf(User)
+      expect(usuarioCreado.email).to.equal('test@example.com')
+    })
+  })
+
+  describe('login()', function () {
+    it('debería iniciar sesión de un usuario existente', async function () {
+      expect(usuarioCreado).to.be.an.instanceOf(User)
+
+      const datosLogin = { email: 'test@example.com', password: 'testPassword' }
+
+      const usuarioLogueado = await User.login(datosLogin)
+
+      expect(usuarioLogueado).to.be.an.instanceOf(User)
+      expect(usuarioLogueado.email).to.equal('test@example.com')
+    })
+  })
+
+  describe('getUser()', function () {
+    it('debería devolver el usuario logueado', async function () {
+      // Supongamos que 'usuarioLogueado' es el usuario que se espera obtener al estar logueado
+      const usuarioLogueado = await User.getUser()
+
+      // Verificamos que se haya obtenido el usuario esperado
+      expect(usuarioLogueado).to.exist // Aseguramos que haya un usuario logueado
+      expect(usuarioLogueado).to.be.an.instanceOf(User) // Verificamos que sea una instancia de User
+
+      // Verificamos la propiedad 'email' del usuario logueado
+      expect(usuarioLogueado.email).to.equal('test@example.com') // Reemplaza 'correo@example.com' con el email esperado del usuario logueado
+    })
+  })
+
+
+
+  describe('logout()', function () {
+    it('debería cerrar sesión del usuario actual', async function () {
+      const sesionCerrada = await User.logout()
+
+      expect(sesionCerrada).to.equal(true)
+    })
+  })
+
+  describe('getUser()', function () {
+    it('debería devolver undefined si no hay usuario logueado', async function () {
+      // Supongamos que 'usuarioLogueado' es el usuario que se espera obtener al estar logueado
+      const usuarioLogueado = await User.getUser()
+
+      // Verificamos que el usuario logueado sea undefined, indicando que no hay sesión activa
+      expect(usuarioLogueado).to.equal(undefined)
+      // También podríamos usar:
+      // expect(usuarioLogueado).to.be.undefined;
+      // o
+      // expect(usuarioLogueado).to.not.exist;
+    })
+  })
+})
+
+```
+
+Al ejecutar el test con `npm run test` obtenemos estos resultados:
+
+![Alt text](https://carrebola.github.io/vanillaPill/assets/images/image-3-18643620baa9a51779a572a4661652fa.png)
+
+![Alt text](https://carrebola.github.io/vanillaPill/assets/images/image-4-5c5c7105fe8beb1f53f2a72527ce7231.png)
+
+# **Testeando la clase Perfil**
+
+A continuación vemos el archivo con los todos los test. La explicación de lo que hace cada línea la puedes encontrar en los comentarios que hay insertados.
+
+perfil.test.js
+
+```
+//Cargamos libreria de testing
+import  { expect } from 'chai'
+
+//cargamos libreria de supabase
+import { supabase } from '../src/bd/supabase.js';
+//Cargamos la clase Perfil
+import { Perfil } from '../src/bd/perfil.js';
+
+// Datos para el nuevo perfil
+const ArrayPerfiles = [
+  {
+    nombre: 'carrebola',
+    apellidos: 'Yo mismo',
+    rol: 'admin'
+  },
+  {
+    nombre: 'Pepe',
+    apellidos: 'Gotera',
+    rol: 'registrado'
+  },
+  {
+    nombre: 'Juan',
+    apellidos: 'Eustaquio',
+    rol: 'alumno'
+  },
+  {
+    nombre: 'Iban',
+    apellidos: 'A borrarme',
+    rol: 'alumno'
+  }
+]
+
+//Testeando la clase perfil
+//Inicialmente no tenemos usuarios registrados así que Borramos toda la tabla perfil
+
+try {
+  const { data, error } = await supabase
+  .from('perfiles')
+  .delete()
+  .is('user_id', null)
+} catch (error) {
+  console.error(error)
+}
+
+describe('************** Perfil: Crearemos 4 usuarios con diferentes rols. El último lo leerermos, modificaremos y borraremos', async function() {
+
+  describe('getAll()', async function() {
+    it('debería devolver un array de perfiles vacío', async function() {
+      //Probamos el método getAll
+      const perfiles = await Perfil.getAll()
+      //Esperamos que devuelva un array
+      expect(perfiles).to.be.an('array')
+      //Esperamos que el array esté vacío
+      expect(perfiles.length).to.equal(0)
+    })
+  })
+
+
+  describe('create()', async function() {
+    it('debería crear un nuevo perfil en la tabla "perfiles"', async function() {
+
+      //Objeto que debería devolver tras crear el usuario
+      const perfilDevuelto = {
+        nombre: 'Iban',
+        apellidos: 'A borrarme',
+        user_id: null,
+        estado: 'pendiente',
+        rol: 'alumno',
+        avatar: null
+      }
+
+      // Crear el nuevo perfil
+      await Perfil.create(ArrayPerfiles[0])
+      await Perfil.create(ArrayPerfiles[1])
+      await Perfil.create(ArrayPerfiles[2])
+      await Perfil.create(ArrayPerfiles[3])
+
+
+      // Verificar que se ha creado el perfil correctamente. (Solo el último perfil)
+      //Leemos todos los perfiles
+      const perfiles = await Perfil.getAll()
+      //Comprobamos que devuelve un array
+      expect(perfiles).to.be.an('array')
+      //Comprobamos que el array tiene 4 registros
+      expect(perfiles.length).to.equal(4)
+      //Comprobamos que el último registro tiene los datos del modelo esperado
+      expect(perfiles[3]).to.include(perfilDevuelto)
+    })
+  })
+
+  describe('getById()', function() {
+    it('debería devolver el perfil con el ID correspondiente', async function() {
+      // Capturamos todos los perfiles
+      const perfiles = await Perfil.getAll()
+      //Buscamos la posición del último registro
+      const ultimoPerfil = perfiles.length - 1
+      //capturamos su id
+      const perfilId = perfiles[ultimoPerfil].id
+
+      // Obtener el perfil por ID
+      const perfil = await Perfil.getById(perfilId)
+      //Esperamos que devuelva un instanicia de objeto
+      expect(perfil).to.be.an.instanceof(Perfil)
+      //Esperamos que el email coincida
+      expect(perfil.email).equal(ArrayPerfiles[3].email)
+    })
+  })
+
+
+
+  describe('actualizarPerfil', () => {
+    it('debería actualizar el nombre y apellido del perfil', async () => {
+      // Capturamos todos los perfiles
+      const perfiles = await Perfil.getAll()
+      //Buscamos la posición del último registro
+      const ultimoPerfil = perfiles.length - 1
+      //capturamos su id
+      const perfilId = perfiles[ultimoPerfil].id
+
+      // Obtener el perfil por ID
+      const perfil = await Perfil.getById(perfilId)
+
+      //Actualizamos los datos
+      perfil.nombre = 'Jose'
+      perfil.apellidos = 'GoteraNueva'
+
+      //Llamamos al método actualizar
+      await perfil.update()
+      //Volvemos a leer el perfil modificado
+      const perfilActualizado = await Perfil.getById(perfilId)
+
+      //Esperamos que el nombre haya cambiado
+      expect(perfilActualizado.nombre).to.equal('Jose')
+      //Esperamos que el apellido haya cambiado
+      expect(perfilActualizado.apellidos).to.equal('GoteraNueva')
+    });
+
+  });
+
+  //Borrar perfil
+  describe('borraPerfil', () => {
+      it('debería borrar el último perfil creado', async () => {
+        // Capturamos todos los perfiles
+        let perfiles = await Perfil.getAll()
+        //Buscamos la posición del último registro
+        let ultimoPerfil = perfiles.length - 1
+        //capturamos su id
+        let perfilId = perfiles[ultimoPerfil].id
+
+        // Obtener el perfil por ID
+        let perfil = await Perfil.getById(perfilId)
+
+        //Borramos el perfil
+        const borrado = await Perfil.delete(perfilId)
+        //Esperamos que el método devuelva true
+        expect(borrado).to.equal(true)
+        //verificamos que efectivamente hay un registro menos
+        perfiles = await Perfil.getAll()
+        expect(perfiles.length).to.equal(3)
+
+      })
+
+   })
+})
+
+//exportamos los datos de perfiles
+
+```
+
+# **Testeando la clase Proyectos**
+
+![Alt text](https://carrebola.github.io/vanillaPill/assets/images/image-6-409b773c99abfbd8eac22ebe8c973975.png)
