@@ -10468,3 +10468,475 @@ Resumiendo:
 - Hemos probado algunas consultas.
 
 Es el momento de aprender a comunicar una aplicación de javascript con nuestro servicio de backend...
+
+# **La API de Javascript de Supabase**
+
+Una de las grandes ventajas que nos ofrece Supabase es que, no solo nos ofrece un servidor de base de datos basado en postgreeSQL, sino que además nos facilita enormemente el acceso a la bd, ya sea a través de una API Rest, o directamente con una API de javascript.  
+API REST vs API de Javascript
+
+La diferencia fundamental entre la API REST de Supabase y su API de JavaScript radica en cómo interactúan los desarrolladores con la plataforma:
+
+API REST de Supabase: La API REST es una interfaz que sigue los principios de la arquitectura REST (Representational State Transfer). Permite a los desarrolladores realizar operaciones CRUD (Create, Read, Update, Delete) en la base de datos de Supabase utilizando los métodos HTTP estándar (GET, POST, PUT, DELETE, etc.). Para interactuar con la API REST, puedes hacer solicitudes HTTP directas utilizando bibliotecas como Axios, Fetch, o incluso a través de herramientas como cURL.
+
+API de JavaScript de Supabase: La API de JavaScript de Supabase es una biblioteca que proporciona una capa de abstracción sobre la API REST subyacente. Esta biblioteca simplifica la interacción con la API REST al proporcionar métodos y funciones específicos en JavaScript para realizar operaciones comunes en la base de datos de Supabase. En lugar de realizar directamente solicitudes HTTP, los desarrolladores pueden utilizar estas funciones para realizar tareas como la autenticación de usuarios, la consulta de datos, la manipulación de datos, etc.
+
+En resumen, la API REST de Supabase es la interfaz subyacente que permite la comunicación con la plataforma utilizando solicitudes HTTP estándar, mientras que la API de JavaScript de Supabase es una biblioteca que facilita la interacción con la API REST utilizando métodos y funciones específicos en JavaScript.
+
+Para nuestro proyecto nosotros vamos a utilizar la API de Javascript ya que nos permite la comunicación de manera muy sencilla ya además, ¡nos lo dan todo hecho\! 😉
+
+## **Acceso a la documentación de la API de Javascript**
+
+Para acceder a la documentación de javascript tenemos que hacer click en el item del menú de la barra de la izquierda llamado API Docs. (Antes debes estar en tu proyecto)
+
+![API Docs](https://carrebola.github.io/vanillaPill/assets/images/api-d702a070f87f2d9b66a634fa6923a0d2.png)
+
+- En el apartado Getting Started encontramos varias opciones:
+  - En la opción Introductio nos muestra el código para realizar la conexión con la base de datos (luego lo probaremos).
+  - En la opción de Authentication nos muestra información relacionada con la autenticación de la base de datos.
+  - En la opción User Management ya encontramos el código javascript que debemos utilizar en nuestra app para hacer tareas como el registro, login (con diferentes sistemas), _logout_, y acceder a la información del usuario con la sesión activa, entre otros.
+- Tenemos otra sección llamada Tables and Views: Aquí aparecerán todas las tablas de nuestro proyecto. Si hacemos click en uno de los nombres de las tablas, por ejemplo, en la tabla _pefiles_, veremos en la columna de la derecha el código javascript asociado a las diferentes consultas.
+  - Podemos acceder a un perfil a partir de su id, fecha, nombre, etc.
+  - Leer todas los perfiles (incluyendo filtros),
+  - insertar perfiles,
+  - actualizar perfiles y
+  - borrarlos. Es decir, el CRUD que hemos contemplado en nuestro ORM.
+
+Parece fácil, ¿verdad? ... Pues lo es. En breve lo probaremos.
+
+Pero hay algo que hemos pasado por alto. Si revisamos el diagrama de clases podemos ver que hay métodos (como getDetalleById de la clase Perfil_detalle) que realizan consultas multitabla. Si analizamos el código js que acabamos de ver en la documentación, solo contempla consultas a la mísma tabla... ¿Cómo podemos solucionar este problema?
+
+![Diagrama de clases](https://carrebola.github.io/vanillaPill/assets/images/dc-1b2b47904518da02ba6c90fd8ef20e38.svg)
+
+La respuesta a esta pregunta es: utilizando funciones postgreSQL conocidas como Stored Procedures.
+
+Efectivamente, en supabase podemos crear funciones que más tarde podremos llamar desde javascript.
+
+### **Ejemplos de código javascript que nos ofrece Supabase:**
+
+Vamos a mostrar aquí, a modo de ejemplo, el código para:
+
+- Iniciar sesión
+- acceder a todas las filas de la tabla pefiles
+- acceder a una función predefinida llamada perfiles_detalle (esta en concreto permitiría ver el detalle de todas las filas de la tabla perfiles cruzada con la tabla usuarios)
+
+Estos fragmentos de código los puedes encontrar en API Docs de supabase
+
+Iniciar sesión
+
+```
+// USER LOGIN
+let { data, error } = await supabase.auth.signInWithPassword({
+ email: 'someone@email.com',
+ password: 'TGeycKCsmEIyrHPhWiYF'
+})
+```
+
+Leer todas las filas de la tabla perfiles
+
+```
+// READ ALL ROWS
+let { data: perfiles, error } = await supabase
+ .from('perfiles')
+ .select('*')
+```
+
+Stored Procedures: perfil_detalle
+
+```
+// INVOKE FUNCTION
+let { data, error } = await supabase
+.rpc('perfil_detalle', {
+  userid
+})
+
+if (error) console.error(error)
+else console.log(data)
+```
+
+Tanto el código para leer las filas de la tabla perfiles, como el de inicio de sesión, podríamos utilizarlos ya en nuestra aplicación, pero en el caso de la función perfil_detalle, primero necesitamos programarla desde Supabase. ¡Hagámoslo!
+
+# **Funciones en Supabase. Las Stored Procedures**
+
+Vamos a crear funciones de PostgreSQL en supabase.
+
+## **Función 'proyecto_detalle_todos'**
+
+La función proyecto*detalle es una función que debe devolvernos todos los campos de la tabla \_proyectos* y además el nombre y los apellidos del usuario que ha creado el proyecto.
+
+Primero vamos a crear la consulta SQL y vamos a probarla.
+
+Nos vamos al panel de consultas SQL de Supabase y escribimos:
+
+```
+SELECT proyectos.*, perfiles.nombre as nombre_usuario, perfiles.apellidos as apellidos_usuario
+FROM proyectos
+INNER JOIN perfiles
+ON proyectos.user_id = perfiles.user_id
+```
+
+Fíjate que lo que hacemos es cruzar las tablas _perfiles_ y _usuarios_ donde los user_id coinciden.
+
+Como ya tenemos datos de prueba en las tablas deberíamos obtener el siguiente resultado:
+
+![consulta proyecto_detalle](https://carrebola.github.io/vanillaPill/assets/images/consulta1-dae62a9e7878b3c50bd9995fa58277df.png)
+
+Ahora que ya sabemos que la consulta es correcta, vamos a crear la función que nos devuelva estos datos.
+
+El código sql para crear esta función es el siguiente:
+
+### **Función proyecto_detalle_todos**
+
+```
+CREATE FUNCTION proyecto_detalle_todos()
+RETURNS TABLE (
+  id integer,
+  user_id UUID,
+  nombre TEXT,
+  descripcion TEXT,
+  imagen TEXT,
+  enlace TEXT,
+  repositorio TEXT,
+  estado TEXT,
+  nombre_usuario TEXT,
+  apellidos_usuario TEXT
+) AS $$
+  SELECT proyectos.id, proyectos.user_id, proyectos.nombre, proyectos.descripcion, proyectos.imagen, proyectos.enlace, proyectos.repositorio, proyectos.estado, perfiles.nombre AS nombre_usuario, perfiles.apellidos AS apellidos_usuario
+  FROM proyectos
+  INNER JOIN perfiles
+  ON proyectos.user_id = perfiles.user_id
+$$ LANGUAGE sql;
+```
+
+Si la ejecutamos la respuesta sería del tipo:
+
+```
+Success. No rows returned
+```
+
+Esto significa que la función se ha creado correctamente y que no ha devuelto filas. Es normal, ya que esta consulta lo que hace es crear la función.
+
+Si queremos comprobar si se ha creado correctamente podemos ir la opción database del menú vertical izquierdo y hacer click en la opción Functions.
+
+Aquí verás las funciones que tienes creadas
+
+![funciones](https://carrebola.github.io/vanillaPill/assets/images/functions-0404f9a114de73d98e1a1919975adfab.png)
+
+Note
+
+En esta captura puedes ver todas mis funciones. En tu proyecto solo deberías ver la que acabas de crear, es decir, proyecto_detalle_todos
+
+Ahora solo nos falta probar desde el panel de consultas nuestra función. Puedes hacerlo con la consulta:
+
+`select proyecto_detalle_todos()`
+
+El resultado debería ser este:
+
+```
+"proyecto_detalle_todos"
+"(7,1dd53fb9-fa27-4aa3-8c91-2b5de5edba76,""Proyecto de Análisis de Datos de Marketing"",""Este proyecto permite analizar los datos de marketing de una empresa"",https://imagen.com/analisis-marketing.jpg,https://enlace.com/analisis-marketing,https://github.com/proyecto-analisis-marketing,Inactivo,Gary,Alumno2)"
+"(6,1dd53fb9-fa27-4aa3-8c91-2b5de5edba76,""Proyecto de Visualización de Datos"",""Este proyecto permite visualizar datos de una empresa"",https://imagen.com/visualizacion-datos.jpg,https://enlace.com/visualizacion-datos,https://github.com/proyecto-visualizacion-datos,Activo,Gary,Alumno2)"
+"(5,1dd53fb9-fa27-4aa3-8c91-2b5de5edba76,""Proyecto de Gestión de Proyectos"",""Este proyecto permite gestionar proyectos de una empresa"",https://imagen.com/gestion-proyectos.jpg,https://enlace.com/gestion-proyectos,https://github.com/proyecto-gestion-proyectos,Inactivo,Gary,Alumno2)"
+"(4,1dd53fb9-fa27-4aa3-8c91-2b5de5edba76,""Proyecto de Análisis de Redes Sociales"",""Este proyecto permite analizar las redes sociales de una empresa"",https://imagen.com/analisis-redes-sociales.jpg,https://enlace.com/analisis-redes-sociales,https://github.com/proyecto-analisis-redes-sociales,Activo,Gary,Alumno2)"
+```
+
+Note
+
+Como podemos observar, los datos se muestran en un formato diferente a una tabla. Cuando usemos la función desde javascript el formato será json, como para el resto de las funciones de la API
+
+Vamos a hacer lo mismo para el resto de funciones. Aquí tienes el código:
+
+## **Función proyecto_detalle**
+
+función proyecto_detalle
+
+```
+CREATE FUNCTION proyecto_detalle(proyecto_id integer)
+RETURNS TABLE (
+  id integer,
+  user_id UUID,
+  nombre TEXT,
+  descripcion TEXT,
+  imagen TEXT,
+  enlace TEXT,
+  repositorio TEXT,
+  estado TEXT,
+  nombre_usuario TEXT,
+  apellidos_usuario TEXT
+) AS $$
+  SELECT proyectos.id, proyectos.user_id, proyectos.nombre, proyectos.descripcion, proyectos.imagen, proyectos.enlace, proyectos.repositorio, proyectos.estado, perfiles.nombre AS nombre_usuario, perfiles.apellidos AS apellidos_usuario
+  FROM proyectos
+  INNER JOIN perfiles
+  ON proyectos.user_id = perfiles.user_id
+  WHERE proyectos.id = proyecto_id;
+$$ LANGUAGE sql;
+
+```
+
+## **Función perfil_detalle**
+
+Función perfil_detalle
+
+```
+CREATE FUNCTION perfil_detalle(userid UUID)
+RETURNS TABLE (
+  id integer,
+  created_at timestamp,
+  user_id UUID,
+  nombre TEXT,
+  apellidos TEXT,
+  avatar TEXT,
+  estado TEXT,
+  rol TEXT,
+  email TEXT
+) AS $$
+SELECT perfiles.id, perfiles.created_at, perfiles.user_id, perfiles.nombre, perfiles.apellidos, perfiles.avatar, perfiles.estado, perfiles.rol, auth.users.email
+FROM perfiles
+INNER JOIN auth.users
+ON perfiles.user_id = auth.users.id
+WHERE auth.users.id = userid
+$$ LANGUAGE sql;
+```
+
+## **Función perfil_detalle_todos**
+
+función perfil_detalle_todos
+
+```
+CREATE FUNCTION proyecto_detalle(proyecto_id integer)
+RETURNS TABLE (
+  id integer,
+  user_id UUID,
+  nombre TEXT,
+  descripcion TEXT,
+  imagen TEXT,
+  enlace TEXT,
+  repositorio TEXT,
+  estado TEXT,
+  nombre_usuario TEXT,
+  apellidos_usuario TEXT
+) AS $$
+  SELECT proyectos.id, proyectos.user_id, proyectos.nombre, proyectos.descripcion, proyectos.imagen, proyectos.enlace, proyectos.repositorio, proyectos.estado, perfiles.nombre AS nombre_usuario, perfiles.apellidos AS apellidos_usuario
+  FROM proyectos
+  INNER JOIN perfiles
+  ON proyectos.user_id = perfiles.user_id
+  WHERE proyectos.id = proyecto_id;
+$$ LANGUAGE sql;
+```
+
+# **Resumen del código JS necesario para la comunicación con la BD**
+
+Este es el código que, a priori, necesitamos para conectar y comunicar nuestra app con la BD. Lo he copiado de la API Docs de Supabase para tenerlo como referencia para utilizarlo más adelante, cuando empecemos a programar la lógica para comunicar nuestro frontEnd con la base de datos:
+
+## **APIS extraidas de API Docs de Supabase para gestion de usuarios**
+
+USER SIGNUP
+
+```
+let { data, error } = await supabase.auth.signUp({
+ email: 'someone@email.com',
+ password: 'TGeycKCsmEIyrHPhWiYF'
+})
+```
+
+USER LOGIN
+
+```
+let { data, error } = await supabase.auth.signInWithPassword({
+ email: 'someone@email.com',
+ password: 'TGeycKCsmEIyrHPhWiYF'
+})
+```
+
+GET USER
+
+```
+const { data: { user } } = await supabase.auth.getUser()
+```
+
+PASSWORD RECOVERY
+
+```
+let { data, error } = await supabase.auth.resetPasswordForEmail(email)
+```
+
+UPDATE USER
+
+```
+const { data, error } = await supabase.auth.updateUser({
+ email: "new@email.com",
+ password: "new-password",
+ data: { hello: 'world' }
+})
+```
+
+USER LOGOUT
+
+```
+let { error } = await supabase.auth.signOut()
+```
+
+INVITE USER
+
+```
+let { data, error } = await supabase.auth.api.inviteUserByEmail('someone@email.com')
+```
+
+## **APIS para tablas**
+
+### **Tabla perfiles**
+
+READ ALL ROWS
+
+```
+let { data: perfiles, error } = await supabase
+ .from('perfiles')
+ .select('*')
+```
+
+READ SPECIFIC COLUMNS
+
+```
+let { data: perfiles, error } = await supabase
+ .from('perfiles')
+ .select('some_column,other_column')
+```
+
+WITH PAGINATION
+
+```
+let { data: perfiles, error } = await supabase
+ .from('perfiles')
+ .select('*')
+ .range(0, 9)
+```
+
+WITH FILTERING
+
+```
+let { data: perfiles, error } = await supabase
+ .from('perfiles')
+ .select("*")
+ // Filters
+ .eq('column', 'Equal to')
+ .gt('column', 'Greater than')
+ .lt('column', 'Less than')
+ .gte('column', 'Greater than or equal to')
+ .lte('column', 'Less than or equal to')
+ .like('column', '%CaseSensitive%')
+ .ilike('column', '%CaseInsensitive%')
+ .is('column', null)
+ .in('column', ['Array', 'Values'])
+ .neq('column', 'Not equal to')
+
+ // Arrays
+ .cs('array_column', ['array', 'contains'])
+ .cd('array_column', ['contained', 'by'])
+```
+
+### **Tabla proyectos**
+
+READ ALL ROWS
+
+```
+let { data: proyectos, error } = await supabase
+ .from('proyectos')
+ .select('*')
+```
+
+READ SPECIFIC COLUMNS
+
+```
+let { data: proyectos, error } = await supabase
+ .from('proyectos')
+ .select('some_column,other_column')
+```
+
+READ FOREIGN TABLES
+
+```
+let { data: proyectos, error } = await supabase
+ .from('proyectos')
+ .select(`
+   some_column,
+   other_table (
+     foreign_key
+   )
+ `)
+```
+
+WITH PAGINATION
+
+```
+let { data: proyectos, error } = await supabase
+ .from('proyectos')
+ .select('*')
+ .range(0, 9)
+```
+
+WITH FILTERING
+
+```
+let { data: proyectos, error } = await supabase
+ .from('proyectos')
+ .select("*")
+ // Filters
+ .eq('column', 'Equal to')
+ .gt('column', 'Greater than')
+ .lt('column', 'Less than')
+ .gte('column', 'Greater than or equal to')
+ .lte('column', 'Less than or equal to')
+ .like('column', '%CaseSensitive%')
+ .ilike('column', '%CaseInsensitive%')
+ .is('column', null)
+ .in('column', ['Array', 'Values'])
+ .neq('column', 'Not equal to')
+ // Arrays
+ .cs('array_column', ['array', 'contains'])
+ .cd('array_column', ['contained', 'by'])
+```
+
+## **Funciones**
+
+INVOKE FUNCTION perfil_detalle
+
+```
+let { data, error } = await supabase
+ .rpc('perfil_detalle', {
+   userid
+ })
+
+if (error) console.error(error)
+else console.log(data)
+```
+
+"INVOKE
+
+```
+let { data, error } = await supabase
+ .rpc('perfil_detalle_todos')
+
+if (error) console.error(error)
+else console.log(data)
+```
+
+"INVOKE
+
+```
+let { data, error } = await supabase
+ .rpc('proyecto_detalle', {
+   proyecto_id
+ })
+
+if (error) console.error(error)
+else console.log(data)
+```
+
+"INVOKE
+
+```
+let { data, error } = await supabase
+ .rpc('proyecto_detalle_todos')
+
+if (error) console.error(error)
+else console.log(data)
+```
