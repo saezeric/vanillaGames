@@ -11678,7 +11678,7 @@ describe('************** Perfil: Crearemos 4 usuarios con diferentes rols. El ú
 
 # **Uniendo ambos mundos**
 
-![Alt text][https://carrebola.github.io/vanillaPill/assets/images/image-8319b12366afc9059038a6f1715e6077.png]
+![Alt text](https://carrebola.github.io/vanillaPill/assets/images/image-8319b12366afc9059038a6f1715e6077.png)
 
 Cuando iniciamos el proyecto nos vestimos de 'FrontEnd developer' para crear, desde los bocetos a los prototipos interactivos en html, pasando por la contrucción de la spa con vanillaJS y la programación de la lógica para su funcionamiento, emulando los datos mediante arrays de objetos.
 
@@ -11795,7 +11795,7 @@ loginVista
 
 Vamos a ver si todo va según lo previsto. Prueba a introducir un usuario no registrado, una contraseña incorrecta y finalmente uno correcto. Deberíamos ver algo así:
 
-![Alt text][https://carrebola.github.io/vanillaPill/assets/images/image-2-e73433efa4a34d17b5da66a64ab02584.png]
+![Alt text](https://carrebola.github.io/vanillaPill/assets/images/image-2-e73433efa4a34d17b5da66a64ab02584.png)
 
 ## **Logout**
 
@@ -11846,7 +11846,7 @@ header.js
 
 Prueba para ver si todo va como esperamos...
 
-![Alt text][https://carrebola.github.io/vanillaPill/assets/images/image-3-4d31f11e0f63a3f801b2fe2d60cf2cd8.png]
+![Alt text](https://carrebola.github.io/vanillaPill/assets/images/image-3-4d31f11e0f63a3f801b2fe2d60cf2cd8.png)
 
 ## **Registro**
 
@@ -11928,10 +11928,10 @@ registroVista.js
 
 Si todo ha ido bien podrás ver como en la base de datos se han creado los registros correspondientes y en nuestra web se muestra el header con los datos correspondientes.
 
-![Alt text][https://carrebola.github.io/vanillaPill/assets/images/image-5-0f3436281e6775cb52ee20c25d8a2c1b.png]
+![Alt text](https://carrebola.github.io/vanillaPill/assets/images/image-5-0f3436281e6775cb52ee20c25d8a2c1b.png)
 
-![Alt text][https://carrebola.github.io/vanillaPill/assets/images/image-6-97cd6db3ff99bc6f7f0517ee48591617.png]
+![Alt text](https://carrebola.github.io/vanillaPill/assets/images/image-6-97cd6db3ff99bc6f7f0517ee48591617.png)
 
-![Alt text][https://carrebola.github.io/vanillaPill/assets/images/image-7-94e5659ebb0a7198ef3703bab308ea0c.png]
+![Alt text](https://carrebola.github.io/vanillaPill/assets/images/image-7-94e5659ebb0a7198ef3703bab308ea0c.png)
 
-![Alt text][https://carrebola.github.io/vanillaPill/assets/images/image-8-e3aa7282c70876699854ab0ffef8afc5.png]
+![Alt text](https://carrebola.github.io/vanillaPill/assets/images/image-8-e3aa7282c70876699854ab0ffef8afc5.png)
