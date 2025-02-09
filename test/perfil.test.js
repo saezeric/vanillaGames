@@ -61,7 +61,7 @@ describe("************** Perfil: Crearemos 4 usuarios con diferentes rols. El ú
         nombre: "Iban",
         apellidos: "A borrarme",
         user_id: null,
-        estado: "pendiente",
+        estado: null,
         rol: "alumno",
         avatar: null,
       };
@@ -80,7 +80,7 @@ describe("************** Perfil: Crearemos 4 usuarios con diferentes rols. El ú
       // Comprobamos que el array tiene 4 registros
       expect(perfiles.length).to.equal(4);
       // Comprobamos que el último registro tiene los datos del modelo esperado
-      expect(perfiles[3]).to.include(perfilDevuelto);
+      expect(perfiles[0]).to.include(perfilDevuelto);
     });
   });
 

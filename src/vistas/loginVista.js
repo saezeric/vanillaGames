@@ -1,5 +1,8 @@
 import { perfiles } from "../bd/datosPrueba";
 import { ls } from "../componentes/funciones";
+import { User } from "../bd/user";
+import { Perfil } from "../bd/perfil";
+import { header } from "../componentes/header";
 
 export default {
   // html
@@ -16,12 +19,12 @@ export default {
         El formato del email no es correcto
       </div>
       <!-- Contraseña -->
-      <label for="pass" class="form-label mt-3">Contraseña:</label>
+      <label for="password" class="form-label mt-3">Contraseña:</label>
       <input
         required
         minlength="6"
-        id="pass"
-        name="pass"
+        id="password"
+        name="password"
         type="password"
         class="form-control"
       />
@@ -85,37 +88,39 @@ export default {
       }
     });
     // Función para enviar datos a la bd
-    function enviarDatos(formulario) {
-      const email = formulario.email.value;
-      const pass = formulario.pass.value;
+    // Función para enviar datos a la bd
+    async function enviarDatos(formulario) {
+      try {
+        // login
+        const user = {
+          email: formulario.email.value,
+          password: formulario.password.value,
+        };
+        User.logout();
+        const usuarioLogueado = await User.login(user);
+        console.log("¡login correcto!", usuarioLogueado);
+        // Ahora vamos a capturar los datos del perfil del usuario logueado
+        console.log("usuarioLogueado", usuarioLogueado);
+        const userId = usuarioLogueado.id;
+        console.log("userId", userId);
 
-      // buscamos el indice del email en el array perfiles
-      const indexUser = perfiles.findIndex((user) => user.email === email);
-
-      // Si encuentra un usuario
-      if (indexUser >= 0) {
-        // Si la contraseña es correcta
-        if (perfiles[indexUser].contraseña === pass) {
-          console.log("¡login correcto!");
-          const usuario = {
-            nombre: perfiles[indexUser].nombre,
-            apellidos: perfiles[indexUser].apellidos,
-            email: perfiles[indexUser].email,
-            rol: perfiles[indexUser].rol,
-            avatar: perfiles[indexUser].avatar,
-            user_id: perfiles[indexUser].user_id,
-          };
-          // Guardamos datos de usaurio en localstorage
-          ls.setUsuario(usuario);
-          // Cargamos página home
-          window.location.href = "#/proyectos";
-          // Actualizamos el header para que se muestren los menús que corresponden al rol
-          header.script();
-        } else {
-          alert("El usuario no existe o la contraseña no es correcta");
-        }
-      } else {
-        alert("El usuario no existe o la contraseña no es correcta");
+        const perfilLogueado = await Perfil.getByUserId(userId);
+        console.log("Perfil logueado", perfilLogueado);
+        const usuario = {
+          email: usuarioLogueado.email,
+          rol: perfilLogueado.rol,
+          avatar: perfilLogueado.avatar,
+        };
+        console.log("perfil localstorage", usuario);
+        // Guardamos datos de usaurio en localstorage
+        ls.setUsuario(usuario);
+        // Cargamos página home
+        window.location = "#/proyectos";
+        // Actualizamos el header para que se muestren los menús que corresponden al rol
+        header.script();
+      } catch (error) {
+        console.log("Error al iniciar sesión", error);
+        alert("El usuario no existe o la contraseña no es correcta", error);
       }
     }
   },
