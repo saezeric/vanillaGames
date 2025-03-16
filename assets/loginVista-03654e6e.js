@@ -1,5 +1,5 @@
-import { a as perfiles } from "./datosPrueba-bddae042.js";
-import { l as ls } from "./main-8b657759.js";
+import { U as User, l as ls, h as header } from "./main-f9569f17.js";
+import { P as Perfil } from "./perfil-48e88229.js";
 const loginVista = {
   // html
   template: `
@@ -15,12 +15,12 @@ const loginVista = {
         El formato del email no es correcto
       </div>
       <!-- Contraseña -->
-      <label for="pass" class="form-label mt-3">Contraseña:</label>
+      <label for="password" class="form-label mt-3">Contraseña:</label>
       <input
         required
         minlength="6"
-        id="pass"
-        name="pass"
+        id="password"
+        name="password"
         type="password"
         class="form-control"
       />
@@ -75,29 +75,32 @@ const loginVista = {
         enviarDatos(formulario);
       }
     });
-    function enviarDatos(formulario2) {
-      const email = formulario2.email.value;
-      const pass = formulario2.pass.value;
-      const indexUser = perfiles.findIndex((user) => user.email === email);
-      if (indexUser >= 0) {
-        if (perfiles[indexUser].contraseña === pass) {
-          console.log("¡login correcto!");
-          const usuario = {
-            nombre: perfiles[indexUser].nombre,
-            apellidos: perfiles[indexUser].apellidos,
-            email: perfiles[indexUser].email,
-            rol: perfiles[indexUser].rol,
-            avatar: perfiles[indexUser].avatar,
-            user_id: perfiles[indexUser].user_id
-          };
-          ls.setUsuario(usuario);
-          window.location.href = "#/proyectos";
-          header.script();
-        } else {
-          alert("El usuario no existe o la contraseña no es correcta");
-        }
-      } else {
-        alert("El usuario no existe o la contraseña no es correcta");
+    async function enviarDatos(formulario2) {
+      try {
+        const user = {
+          email: formulario2.email.value,
+          password: formulario2.password.value
+        };
+        User.logout();
+        const usuarioLogueado = await User.login(user);
+        console.log("¡login correcto!", usuarioLogueado);
+        console.log("usuarioLogueado", usuarioLogueado);
+        const userId = usuarioLogueado.id;
+        console.log("userId", userId);
+        const perfilLogueado = await Perfil.getByUserId(userId);
+        console.log("Perfil logueado", perfilLogueado);
+        const usuario = {
+          email: usuarioLogueado.email,
+          rol: perfilLogueado.rol,
+          avatar: perfilLogueado.avatar
+        };
+        console.log("perfil localstorage", usuario);
+        ls.setUsuario(usuario);
+        window.location = "#/proyectos";
+        header.script();
+      } catch (error) {
+        console.log("Error al iniciar sesión", error);
+        alert("El usuario no existe o la contraseña no es correcta", error);
       }
     }
   }

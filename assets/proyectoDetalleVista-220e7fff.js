@@ -1,4 +1,5 @@
-import { p as proyectos } from "./datosPrueba-bddae042.js";
+import { P as Proyecto } from "./proyecto-d220fec3.js";
+import "./main-f9569f17.js";
 const proyectoDetalleVista = {
   // html
   template: `
@@ -40,28 +41,33 @@ const proyectoDetalleVista = {
   
 </div>
   `,
-  script: (id) => {
-    console.log("Vista proyectoDetalle cargada");
-    console.log(proyectos, id);
-    const proyectoArray = proyectos.filter((p) => p.id == id);
-    const proyecto = proyectoArray[0];
-    const fecha = proyecto.created_at;
-    const fechaCorta = fecha.split("T")[0];
-    document.querySelector("#imagenJuego").setAttribute("src", proyecto.imagen);
-    document.querySelector("#nombreJuego").innerHTML = proyecto.nombre;
-    document.querySelector("#descripcion").innerHTML = proyecto.descripcion;
-    document.querySelector("#estado").innerHTML = proyecto.estado;
-    document.querySelector("#fecha").innerHTML = fechaCorta;
-    document.querySelector("#enlace").innerHTML = proyecto.enlace;
-    document.querySelector("#repositorio").innerHTML = proyecto.repositorio;
-    document.querySelector("#botonEditarDetalle").setAttribute("data-id", proyecto.id);
-    document.querySelector("#botonVolver").addEventListener("click", () => {
-      window.history.back();
-    });
-    document.querySelector("#botonEditarDetalle").addEventListener("click", (e) => {
-      const id2 = e.target.dataset.id;
-      window.location = `#/proyectoEditar/${id2}`;
-    });
+  script: async (id) => {
+    console.log("Vista proyectoDetalle cargada, ID:", id);
+    try {
+      const proyecto = await Proyecto.getById(id);
+      if (!proyecto) {
+        console.error("No se encontró el proyecto con id:", id);
+        return;
+      }
+      const fechaCorta = proyecto.created_at.split("T")[0];
+      document.querySelector("#imagenJuego").setAttribute("src", proyecto.imagen);
+      document.querySelector("#nombreJuego").innerHTML = proyecto.nombre;
+      document.querySelector("#descripcion").innerHTML = proyecto.descripcion;
+      document.querySelector("#estado").innerHTML = proyecto.estado;
+      document.querySelector("#fecha").innerHTML = fechaCorta;
+      document.querySelector("#enlace").innerHTML = proyecto.enlace;
+      document.querySelector("#repositorio").innerHTML = proyecto.repositorio;
+      document.querySelector("#botonEditarDetalle").setAttribute("data-id", proyecto.id);
+      document.querySelector("#botonVolver").addEventListener("click", () => {
+        window.history.back();
+      });
+      document.querySelector("#botonEditarDetalle").addEventListener("click", (e) => {
+        const id2 = e.target.dataset.id;
+        window.location = `#/proyectoEditar/${id2}`;
+      });
+    } catch (error) {
+      console.error("Error al obtener el proyecto:", error);
+    }
   }
 };
 export {
