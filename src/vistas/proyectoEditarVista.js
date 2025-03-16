@@ -134,6 +134,7 @@ export default {
       formulario.addEventListener("submit", async (event) => {
         event.preventDefault();
         event.stopPropagation();
+        event.stopImmediatePropagation();
 
         if (!formulario.checkValidity()) {
           formulario.classList.add("was-validated");

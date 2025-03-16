@@ -408,11 +408,13 @@ export default {
 
     // Dentro del event listener de "main"
     document.querySelector("main").addEventListener("click", async (event) => {
-      // Determinamos si se ha hecho click en algún botón de acción
-      if (event.target.classList.contains("botonAdmin")) {
+      // Si el clic se origina en un botón de acción, detenemos la propagación inmediata
+      const boton = event.target.closest(".botonAdmin");
+      if (boton) {
         event.preventDefault();
         event.stopPropagation();
-        const boton = event.target;
+        event.stopImmediatePropagation();
+
         const id = boton.dataset.id;
 
         if (boton.classList.contains("botonEditar")) {
@@ -421,13 +423,23 @@ export default {
           window.location = `#/proyectoEditar/${id}`;
         } else if (boton.classList.contains("botonBorrar")) {
           // Acción de borrar
-          // Mostramos confirmación
           if (confirm("¿Estás seguro de que deseas eliminar este proyecto?")) {
             try {
-              // Llama al método para borrar el proyecto
-              await Proyecto.delete(id); // Asegúrate de tener implementado Proyecto.delete en bd/proyecto.js
+              await Proyecto.delete(id);
               alert(`Proyecto ${id} eliminado exitosamente.`);
-              // Aquí debes actualizar la vista, por ejemplo recargando la lista de proyectos
+              // Re-obtenemos los proyectos actualizados de la base de datos
+              const datosBd = await Proyecto.getAll();
+              // Transformamos la fecha y obtenemos el nuevo array de datos
+              const nuevosDatos = datosBd.map((dato) => {
+                const nuevaFecha = dato.created_at.split("T")[0];
+                const fechaFormateada = `${nuevaFecha.split("-")[2]}/${
+                  nuevaFecha.split("-")[1]
+                }/${nuevaFecha.split("-")[0]}`;
+                return { ...dato, created_at: fechaFormateada };
+              });
+              // Vuelve a pintar la tabla y las tarjetas con los datos actualizados
+              pintaTabla(nuevosDatos);
+              pintaTarjetas(nuevosDatos);
             } catch (error) {
               alert("Error al eliminar el proyecto: " + error.message);
             }
@@ -435,13 +447,18 @@ export default {
         }
       }
 
-      // También se manejan otros clics, por ejemplo sobre las filas o imágenes para visualizar el detalle:
+      // Si se hizo clic en una celda o en una imagen para ver el detalle
       if (event.target.tagName === "TD") {
-        console.log("clic en td");
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
         const id = event.target.parentNode.dataset.id;
         window.location = `#/proyectoDetalle/${id}`;
       }
       if (event.target.classList.contains("verDetalle")) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
         const id = event.target.dataset.id;
         window.location = `#/proyectoDetalle/${id}`;
       }
