@@ -5555,13 +5555,13 @@ const __vitePreload = function preload(baseModule, deps, importerUrl) {
 const enrutador = {
   // Objeto (diccionario) con todas las rutas y su vista asociada
   rutas: {
-    home: __vitePreload(() => import("./homeVista-a10e6e2c.js"), true ? [] : void 0, import.meta.url),
+    home: __vitePreload(() => import("./homeVista-21676d5f.js").then((n) => n.h), true ? [] : void 0, import.meta.url),
     // Usuarios
-    admin: __vitePreload(() => import("./adminVistas-0a64056f.js"), true ? ["./adminVistas-0a64056f.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
+    admin: __vitePreload(() => import("./adminVistas-b5f07a20.js"), true ? ["./adminVistas-b5f07a20.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
     registro: __vitePreload(() => import("./registroVista-ad680f8a.js"), true ? [] : void 0, import.meta.url),
-    login: __vitePreload(() => import("./loginVista-5ca91bc1.js"), true ? ["./loginVista-5ca91bc1.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
+    login: __vitePreload(() => import("./loginVista-895520e0.js"), true ? ["./loginVista-895520e0.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
     // Proyectos
-    proyectos: __vitePreload(() => import("./proyectoVista-ba85b90b.js"), true ? ["./proyectoVista-ba85b90b.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
+    proyectos: __vitePreload(() => import("./proyectoVista-c6e210da.js"), true ? ["./proyectoVista-c6e210da.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
     proyectoNuevo: __vitePreload(() => import("./proyectoNuevoVista-fbfe5c13.js"), true ? [] : void 0, import.meta.url),
     proyectoEditar: __vitePreload(() => import("./proyectoEditarVista-3415c2f8.js"), true ? ["./proyectoEditarVista-3415c2f8.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
     proyectoDetalle: __vitePreload(() => import("./proyectoDetalleVista-dd94cf47.js"), true ? ["./proyectoDetalleVista-dd94cf47.js","./datosPrueba-bddae042.js"] : void 0, import.meta.url),
@@ -5605,5 +5605,6 @@ document.querySelector("footer").innerHTML = footer.template;
 enrutador.observadorRutas();
 window.location = "#/home";
 export {
+  __vitePreload as _,
   ls as l
 };
