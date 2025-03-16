@@ -3,11 +3,48 @@ import { supabase } from "./supabase.js";
 
 // Definición de la clase User
 export class User {
-  // Constructor que asigna propiedades básicas de un usuario
-  constructor(id = null, email = null, password = null) {
+  constructor(
+    id = null,
+    email = null,
+    password = null,
+    avatar = "",
+    nombre = "",
+    apellidos = "",
+    created_at = "",
+    rol = "",
+    estado = ""
+  ) {
     this.id = id;
     this.email = email;
     this.password = password;
+    this.avatar = avatar;
+    this.nombre = nombre;
+    this.apellidos = apellidos;
+    this.created_at = created_at;
+    this.rol = rol;
+    this.estado = estado;
+  }
+
+  // Método para obtener todos los usuarios desde la BD
+  static async getAll() {
+    const { data, error } = await supabase.from("perfiles").select("*");
+    if (error) {
+      throw new Error(error.message);
+    }
+    return data.map(
+      (u) =>
+        new User(
+          u.id,
+          u.email,
+          null,
+          u.avatar || "",
+          u.nombre || "",
+          u.apellidos || "",
+          u.created_at || "",
+          u.rol || "",
+          u.estado || ""
+        )
+    );
   }
 
   // Método estático para crear un nuevo usuario (registro)

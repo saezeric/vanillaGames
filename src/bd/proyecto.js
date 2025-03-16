@@ -9,20 +9,22 @@ export class Proyecto {
     created_at = null, // Fecha de creación del proyecto
     user_id = null, // ID del usuario asociado al proyecto
     nombre = null, // Nombre del usuario
-    apellidos = null, // Apellidos del usuario
-    avatar = "default_avatar.png", // URL del avatar por defecto
+    descripcion = null, // descripcion del proyecto
+    imagen = "default_imagen.png", // URL del imagen por defecto
+    enlace = null, // URL del enlace del proyecto
+    repositorio = null, // URL del repositorio del proyecto
     estado = "activo", // Estado del proyecto (activo/inactivo, por ejemplo)
-    rol = "registrado", // Rol del usuario (registrado, administrador, etc.)
   }) {
     // Asignación de valores a las propiedades del proyecto
     this.id = id;
     this.created_at = created_at;
     this.user_id = user_id;
     this.nombre = nombre;
-    this.apellidos = apellidos;
-    this.avatar = avatar;
+    this.descripcion = descripcion;
+    this.imagen = imagen;
+    this.enlace = enlace;
+    this.repositorio = repositorio;
     this.estado = estado;
-    this.rol = rol;
   }
 
   // Método estático para obtener todos los proyectos
@@ -107,6 +109,18 @@ export class Proyecto {
     }
 
     // Si la actualización fue exitosa, devuelve true
+    return true;
+  }
+
+  // Agrega este método a la clase Proyecto
+  static async delete(id) {
+    // Elimina el proyecto de la base de datos filtrando por su ID
+    const { error } = await supabase.from("proyectos").delete().eq("id", id);
+
+    if (error) {
+      throw new Error(`Error eliminando proyecto: ${error.message}`);
+    }
+
     return true;
   }
 }

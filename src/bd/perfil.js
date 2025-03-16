@@ -78,6 +78,12 @@ export class Perfil {
 
   // Método estático para crear un nuevo perfil
   static async create(perfilData) {
+    // Verifica que perfilData contenga todos los campos necesarios
+    if (!perfilData.user_id || !perfilData.nombre) {
+      throw new Error(
+        "Faltan campos obligatorios: user_id y nombre son requeridos."
+      );
+    }
     // Inserta un nuevo perfil en la base de datos con los datos proporcionados
     const { data, error } = await supabase
       .from("perfiles")
