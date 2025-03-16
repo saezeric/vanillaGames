@@ -1,5 +1,5 @@
-import { P as Proyecto } from "./proyecto-d220fec3.js";
-import { U as User } from "./main-f9569f17.js";
+import { P as Proyecto } from "./proyecto-f453d239.js";
+import { U as User } from "./main-85e29c0e.js";
 const proyectoNuevoVista = {
   template: `
   <div class="container">

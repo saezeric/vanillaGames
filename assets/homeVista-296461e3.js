@@ -1,5 +1,5 @@
-import { P as Perfil } from "./perfil-48e88229.js";
-import "./main-f9569f17.js";
+import { P as Perfil } from "./perfil-a08d71da.js";
+import "./main-85e29c0e.js";
 const homeVista = {
   // html
   template: `

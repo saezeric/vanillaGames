@@ -2604,7 +2604,7 @@ class RealtimeClient {
         this.conn = null;
       }
     });
-    __vitePreload(() => import("./browser-3fb5ae47.js").then((n) => n.b), true ? [] : void 0, import.meta.url).then(({ default: WS }) => {
+    __vitePreload(() => import("./browser-6bdc4285.js").then((n) => n.b), true ? [] : void 0, import.meta.url).then(({ default: WS }) => {
       this.conn = new WS(this.endpointURL(), void 0, {
         headers: this.headers
       });
@@ -12423,16 +12423,16 @@ const styles = "";
 const enrutador = {
   // Objeto (diccionario) con todas las rutas y su vista asociada
   rutas: {
-    home: __vitePreload(() => import("./homeVista-7b5222dc.js"), true ? ["./homeVista-7b5222dc.js","./perfil-48e88229.js"] : void 0, import.meta.url),
+    home: __vitePreload(() => import("./homeVista-296461e3.js"), true ? ["./homeVista-296461e3.js","./perfil-a08d71da.js"] : void 0, import.meta.url),
     // Usuarios
-    admin: __vitePreload(() => import("./adminVistas-49a12105.js"), true ? ["./adminVistas-49a12105.js","./proyecto-d220fec3.js"] : void 0, import.meta.url),
-    registro: __vitePreload(() => import("./registroVista-e67071a5.js"), true ? ["./registroVista-e67071a5.js","./perfil-48e88229.js"] : void 0, import.meta.url),
-    login: __vitePreload(() => import("./loginVista-03654e6e.js"), true ? ["./loginVista-03654e6e.js","./perfil-48e88229.js"] : void 0, import.meta.url),
+    admin: __vitePreload(() => import("./adminVistas-06e7fd82.js"), true ? ["./adminVistas-06e7fd82.js","./proyecto-f453d239.js"] : void 0, import.meta.url),
+    registro: __vitePreload(() => import("./registroVista-cd17f056.js"), true ? ["./registroVista-cd17f056.js","./perfil-a08d71da.js"] : void 0, import.meta.url),
+    login: __vitePreload(() => import("./loginVista-f8ae4283.js"), true ? ["./loginVista-f8ae4283.js","./perfil-a08d71da.js"] : void 0, import.meta.url),
     // Proyectos
-    proyectos: __vitePreload(() => import("./proyectoVista-5e661c1c.js"), true ? ["./proyectoVista-5e661c1c.js","./proyecto-d220fec3.js"] : void 0, import.meta.url),
-    proyectoNuevo: __vitePreload(() => import("./proyectoNuevoVista-1a9f4424.js"), true ? ["./proyectoNuevoVista-1a9f4424.js","./proyecto-d220fec3.js"] : void 0, import.meta.url),
-    proyectoEditar: __vitePreload(() => import("./proyectoEditarVista-cefef043.js"), true ? ["./proyectoEditarVista-cefef043.js","./proyecto-d220fec3.js"] : void 0, import.meta.url),
-    proyectoDetalle: __vitePreload(() => import("./proyectoDetalleVista-220e7fff.js"), true ? ["./proyectoDetalleVista-220e7fff.js","./proyecto-d220fec3.js"] : void 0, import.meta.url),
+    proyectos: __vitePreload(() => import("./proyectoVista-068fab78.js"), true ? ["./proyectoVista-068fab78.js","./proyecto-f453d239.js"] : void 0, import.meta.url),
+    proyectoNuevo: __vitePreload(() => import("./proyectoNuevoVista-33369c6f.js"), true ? ["./proyectoNuevoVista-33369c6f.js","./proyecto-f453d239.js"] : void 0, import.meta.url),
+    proyectoEditar: __vitePreload(() => import("./proyectoEditarVista-4f6a351e.js"), true ? ["./proyectoEditarVista-4f6a351e.js","./proyecto-f453d239.js"] : void 0, import.meta.url),
+    proyectoDetalle: __vitePreload(() => import("./proyectoDetalleVista-63710bf8.js"), true ? ["./proyectoDetalleVista-63710bf8.js","./proyecto-f453d239.js"] : void 0, import.meta.url),
     404: __vitePreload(() => import("./404-e4faae9d.js"), true ? [] : void 0, import.meta.url)
   },
   // Método que obtiene la ruta del navegador

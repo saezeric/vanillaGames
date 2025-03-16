@@ -1,5 +1,5 @@
-import { P as Perfil } from "./perfil-48e88229.js";
-import { U as User } from "./main-f9569f17.js";
+import { P as Perfil } from "./perfil-a08d71da.js";
+import { U as User } from "./main-85e29c0e.js";
 const registroVista = {
   template: `<div class="container">
   <h1 class="mt-5 text-center">Registro</h1>
