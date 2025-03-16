@@ -406,36 +406,43 @@ export default {
     // BOTONES DE EDICIÓN, BORRADO y VISUALIZACIÓN DE DETALLE DE PROYECTOS
     // ####################################################################
 
-    // Detectamos clic sobre main (Usamos delegación de eventos porque la tabla y tarjetas se actualizan constantemente en el DOM)
-    document.querySelector("main").addEventListener("click", (event) => {
-      let id = "";
-      // Si hemos pulsado sobre uno de los botones DE EDICIÓN O BORRADO
+    // Dentro del event listener de "main"
+    document.querySelector("main").addEventListener("click", async (event) => {
+      // Determinamos si se ha hecho click en algún botón de acción
       if (event.target.classList.contains("botonAdmin")) {
+        event.preventDefault();
+        event.stopPropagation();
         const boton = event.target;
-        // Capturamos el id de su dataset
         const id = boton.dataset.id;
-        if (boton.classList.contains("botonEditar")) {
-          // Si se trata de editar
-          console.log("Editar proyecto " + id);
 
-          // Cargamos la vista para editar proyecto pasandole como parámetro el id
+        if (boton.classList.contains("botonEditar")) {
+          // Acción de editar
+          console.log("Editar proyecto " + id);
           window.location = `#/proyectoEditar/${id}`;
         } else if (boton.classList.contains("botonBorrar")) {
-          // Si se trata de borrar
-          alert("Borrar proyecto " + id);
-
-          // *** AQUÍ VA LA FUNCIÓN QUE BORRA DE LA BASE DE DATOS EL PROYECTO CORRESPONDIENTE AL ID ***
+          // Acción de borrar
+          // Mostramos confirmación
+          if (confirm("¿Estás seguro de que deseas eliminar este proyecto?")) {
+            try {
+              // Llama al método para borrar el proyecto
+              await Proyecto.delete(id); // Asegúrate de tener implementado Proyecto.delete en bd/proyecto.js
+              alert(`Proyecto ${id} eliminado exitosamente.`);
+              // Aquí debes actualizar la vista, por ejemplo recargando la lista de proyectos
+            } catch (error) {
+              alert("Error al eliminar el proyecto: " + error.message);
+            }
+          }
         }
       }
-      // Visualizar detalle del proyecto si click sobre tr de vista tabla
+
+      // También se manejan otros clics, por ejemplo sobre las filas o imágenes para visualizar el detalle:
       if (event.target.tagName === "TD") {
         console.log("clic en td");
-        id = event.target.parentNode.dataset.id;
+        const id = event.target.parentNode.dataset.id;
         window.location = `#/proyectoDetalle/${id}`;
       }
-      // Si hacemos clic sobre la imagen de tabla o de vista tarjetas
       if (event.target.classList.contains("verDetalle")) {
-        id = event.target.dataset.id;
+        const id = event.target.dataset.id;
         window.location = `#/proyectoDetalle/${id}`;
       }
     });
