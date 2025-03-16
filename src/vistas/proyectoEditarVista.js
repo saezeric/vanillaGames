@@ -1,4 +1,3 @@
-import { proyectos } from "../bd/datosPrueba";
 import { Proyecto } from "../bd/proyecto";
 import { User } from "../bd/user";
 
