@@ -1,3 +1,7 @@
+import { proyectos } from "../bd/datosPrueba";
+import { Proyecto } from "../bd/proyecto";
+import { User } from "../bd/user";
+
 export default {
   // html
   template: `
@@ -10,7 +14,7 @@ export default {
 
   <div class="row mt-2">
     <div class="col-12 col-md-4 pt-2 mb-3">
-      <img src="images/imagenVacia.png" alt="" class="img-fluid" />
+      <img src="#" alt="" class="img-fluid" />
       <label class="form-label mt-2" for="urlImagen"
           ><strong>URL imagen: </strong></label
         >
